@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:usb_serial/transaction.dart';
 import 'package:usb_serial/usb_serial.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(PortApp());
 
-class MyApp extends StatefulWidget {
+class PortApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _MyAppState extends State<PortApp> {
   UsbPort? _port;
   String _status = "Idle";
   List<Widget> _ports = [];
