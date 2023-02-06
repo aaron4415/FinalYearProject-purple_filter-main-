@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+
 import 'dart:async';
-import 'dart:io';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'authMain.dart';
 // void main() {
@@ -23,67 +23,34 @@ import 'authMain.dart';
 //   }
 // }
 
-class ConfigStorage {
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/config.txt');
-  }
-
-  Future<String> readConfig() async {
-    try {
-      final file = await _localFile;
-
-      // Read the file
-      final contents = await file.readAsString();
-
-      return contents;
-    } catch (e) {
-      // If encountering an error, return 0
-      return "english";
-    }
-  }
-
-  Future<File> writeConfig(String contents) async {
-    final file = await _localFile;
-
-    // Write the file
-    return file.writeAsString(contents);
-  }
-}
-
 class selectLanguagePage extends StatefulWidget {
-  const selectLanguagePage({super.key, required this.storage});
-
-  final ConfigStorage storage;
+  const selectLanguagePage({Key? key}) : super(key: key);
 
   @override
   State<selectLanguagePage> createState() => _selectLanguagePageState();
 }
 
 class _selectLanguagePageState extends State<selectLanguagePage> {
-  String _config = "english";
+  String _language = "english";
   bool _firstTimeToUse = true;
   @override
   void initState() {
     super.initState();
     _loadFirstTimeToUse();
-    widget.storage.readConfig().then((value) {
-      setState(() {
-        _config = value;
-      });
-    });
+    _loadLanguagePage();
   }
 
   _loadFirstTimeToUse() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _firstTimeToUse = prefs.getBool("firstTime") ?? true;
+    });
+  }
+
+  _loadLanguagePage() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _language = prefs.getString("language") ?? "english";
     });
   }
 
@@ -98,8 +65,21 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
     await prefs.setBool('firstTime', false);
   }
 
+  _saveLanguage(String newLanguage) async {
+    //實體化
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _language = newLanguage;
+    });
+    //獲取 counter 為 null 則預設值設定為 0
+    //_firstTimeToUse = (prefs.getBool('firstTime') ?? true);
+
+    //寫入
+    await prefs.setString('language', newLanguage);
+  }
+
   String showSelect() {
-    switch (_config) {
+    switch (_language) {
       case "english":
         {
           return "Select Language";
@@ -132,13 +112,43 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
     }
   }
 
-  Future<File> _changeLanguage(String newLanguage) {
-    setState(() {
-      _config = newLanguage;
-    });
-    print(_config);
-    // Write the variable as a string to the file.
-    return widget.storage.writeConfig(_config);
+  Widget showReturnButton() {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    if (_firstTimeToUse == false) {
+      return Padding(
+          padding: EdgeInsets.only(top: height / 300),
+          child: InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            }, // Handle your callback
+            child: Ink(
+                height: height / 20,
+                width: width / 3,
+                color: Colors.white,
+                child: Padding(
+                  //左边添加8像素补白
+                  padding: EdgeInsets.only(left: width / 45, top: height / 100),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Icon(
+                      Icons.chevron_left,
+                    ),
+                  ),
+                )),
+          ));
+    } else {
+      return Padding(
+          padding: EdgeInsets.only(top: height / 300),
+          child: InkWell(
+            onTap: () {}, // Handle your callback
+            child: Ink(
+              height: height / 20,
+              width: width / 3,
+              color: Colors.white,
+            ),
+          ));
+    }
   }
 
   Future<void> changedMessage(String language) async {
@@ -178,93 +188,138 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: Colors.blue,
-        appBar: AppBar(
-          title: const Text('select Language Page'),
-        ),
-        body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          padding: const EdgeInsets.all(20),
-          child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: Container(
+        margin: EdgeInsets.only(top: height * 0.04),
+        child: Column(
+          children: <Widget>[
+            Stack(
               children: <Widget>[
-                Text(
-                  showSelect(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 30),
-                ),
-                ElevatedButton(
-                  child: Text("ENGLISH"),
-                  onPressed: () {
+                showReturnButton(),
+                Padding(
+                  padding: EdgeInsets.only(top: height / 50),
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        showSelect(),
+                        textAlign: TextAlign.center,
+                      )),
+                )
+              ],
+            ),
+            Padding(
+              //左边添加8像素补白
+              padding: EdgeInsets.only(top: height / 45),
+              child: Align(
+                child: Container(
+                    width: width,
+                    height: height * 0.05,
+                    child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.all(Radius.circular(0))),
+                        child: Padding(
+                          //左边添加8像素补白
+                          padding: EdgeInsets.only(
+                              left: width / 45, top: height / 100),
+                          child: new Text(
+                            "請選擇用於App中的語言",
+                            style: TextStyle(
+                                fontSize: height / 55, color: Colors.black),
+                            textAlign: TextAlign.left,
+                          ),
+                        ))),
+              ),
+            ),
+            Padding(
+                padding: EdgeInsets.only(top: height / 250),
+                child: InkWell(
+                  onTap: () {
                     changedMessage("ENGLISH");
-                    _changeLanguage("english");
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.blue,
-                    backgroundColor: Colors.white, // foreground
-                  ),
-                ),
-                ElevatedButton(
-                  child: Text("简体中文"),
-                  onPressed: () {
+                    _saveLanguage("english");
+                  }, // Handle your callback
+                  child: Ink(
+                      height: height / 20,
+                      width: width,
+                      color: Colors.white,
+                      child: Padding(
+                        //左边添加8像素补白
+                        padding: EdgeInsets.only(top: height / 100),
+                        child: new Text(
+                          "ENGLISH",
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
+                )),
+            Divider(color: Colors.black),
+            Padding(
+                padding: EdgeInsets.only(top: height / 300),
+                child: InkWell(
+                  onTap: () {
                     changedMessage("简体中文");
-                    _changeLanguage("simplifiedChinese");
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.blue,
-                    backgroundColor: Colors.white, // foreground
-                  ),
-                ),
-                ElevatedButton(
-                  child: Text("繁體中文"),
-                  onPressed: () {
+                    _saveLanguage("simplifiedChinese");
+                  }, // Handle your callback
+                  child: Ink(
+                      height: height / 20,
+                      width: width,
+                      color: Colors.white,
+                      child: Padding(
+                        //左边添加8像素补白
+                        padding: EdgeInsets.only(top: height / 100),
+                        child: new Text(
+                          "简体中文",
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
+                )),
+            Divider(color: Colors.black),
+            Padding(
+                padding: EdgeInsets.only(top: height / 300),
+                child: InkWell(
+                  onTap: () {
                     changedMessage("繁體中文");
-                    _changeLanguage("traditionalChinese");
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.blue,
-                    backgroundColor: Colors.white, // foreground
-                  ),
-                ),
-                ElevatedButton(
-                  child: Text("日本語"),
-                  onPressed: () {
+                    _saveLanguage("traditionalChinese");
+                  }, // Handle your callback
+                  child: Ink(
+                      height: height / 20,
+                      width: width,
+                      color: Colors.white,
+                      child: Padding(
+                        //左边添加8像素补白
+                        padding: EdgeInsets.only(top: height / 100),
+                        child: new Text(
+                          "繁體中文",
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
+                )),
+            Divider(color: Colors.black),
+            Padding(
+                padding: EdgeInsets.only(top: height / 300),
+                child: InkWell(
+                  onTap: () {
                     changedMessage("日本語");
-                    _changeLanguage("japanese");
-                  },
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.blue,
-                    backgroundColor: Colors.white, // foreground
-                  ),
-                ),
-                ElevatedButton(
-                  child: Text(""),
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.blue,
-                    backgroundColor: Colors.white, // foreground
-                  ),
-                ),
-                ElevatedButton(
-                  child: Text(""),
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.blue,
-                    backgroundColor: Colors.white, // foreground
-                  ),
-                ),
-                ElevatedButton(
-                  child: Text(""),
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.blue,
-                    backgroundColor: Colors.white, // foreground
-                  ),
-                ),
-              ]),
-        ));
+                    _saveLanguage("japanese");
+                  }, // Handle your callback
+                  child: Ink(
+                      height: height / 20,
+                      width: width,
+                      color: Colors.white,
+                      child: Padding(
+                        //左边添加8像素补白
+                        padding: EdgeInsets.only(top: height / 100),
+                        child: new Text(
+                          "日本語",
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
+                )),
+            Divider(color: Colors.black),
+          ],
+        ),
+      ),
+    );
   }
 }

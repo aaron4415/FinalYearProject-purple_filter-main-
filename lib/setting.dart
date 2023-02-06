@@ -1,23 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Hello World Flutter Application',
-      theme: ThemeData(
-        // This is the theme of your application.
-        primarySwatch: Colors.blue,
-      ),
-      home: SettingPage(),
-    );
-  }
-}
+import 'selectLanguagePage.dart';
+import 'selectUIPage.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -32,32 +16,6 @@ class SettingPageState extends State<SettingPage> {
   @override
   void initState() {
     super.initState();
-    _loadBookmark();
-  }
-
-  _loadBookmark() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      allItem = prefs.getStringList("contentOfBookmark") ?? [];
-    });
-  }
-
-  _addBookmark() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    setState(() {
-      const data = {
-        "content1": "123",
-        "content2": "123",
-        "content3": "123",
-        "content4": "123"
-      };
-      var newItem = json.encode(data);
-      allItem.add(newItem);
-
-      prefs.setStringList('contentOfBookmark', allItem);
-      print(allItem);
-    });
   }
 
   Widget build(BuildContext context) {
@@ -84,23 +42,44 @@ class SettingPageState extends State<SettingPage> {
                     width: width,
                     height: height * 0.05,
                     child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.all(Radius.circular(0))),
-                      child: new Text(
-                        "個人資料",
-                        style: TextStyle(
-                            fontSize: height / 45, color: Colors.black),
-                        textAlign: TextAlign.left,
-                      ),
-                    )),
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.all(Radius.circular(0))),
+                        child: Padding(
+                          //左边添加8像素补白
+                          padding: EdgeInsets.only(left: width / 45),
+                          child: new Text(
+                            "個人資料",
+                            style: TextStyle(
+                                fontSize: height / 45, color: Colors.black),
+                            textAlign: TextAlign.left,
+                          ),
+                        ))),
               ),
             ),
             Padding(
-              //左边添加8像素补白
-              padding: EdgeInsets.only(top: height / 45),
-              child: Text('個人資料', textAlign: TextAlign.left),
-            ),
+                padding: EdgeInsets.only(top: height / 45),
+                child: InkWell(
+                  onTap: () {}, // Handle your callback
+                  child: Ink(
+                      height: height / 20,
+                      width: width,
+                      color: Colors.white,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Row(children: <Widget>[
+                              Icon(
+                                Icons.perm_identity,
+                              ),
+                              Text(
+                                '個人資料',
+                                textAlign: TextAlign.center,
+                              ),
+                            ]),
+                          ])),
+                  //Text('更改介面'),
+                )),
             Padding(
               //左边添加8像素补白
               padding: EdgeInsets.only(top: height / 45),
@@ -109,29 +88,96 @@ class SettingPageState extends State<SettingPage> {
                     width: width,
                     height: height * 0.05,
                     child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.grey,
-                          borderRadius: BorderRadius.all(Radius.circular(0))),
-                      child: new Text(
-                        "App設定",
-                        style: TextStyle(
-                            fontSize: height / 45, color: Colors.black),
-                        textAlign: TextAlign.left,
-                      ),
-                    )),
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.all(Radius.circular(0))),
+                        child: Padding(
+                          //左边添加8像素补白
+                          padding: EdgeInsets.only(left: width / 45),
+                          child: new Text(
+                            "App設定",
+                            style: TextStyle(
+                                fontSize: height / 45, color: Colors.black),
+                            textAlign: TextAlign.left,
+                          ),
+                        ))),
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(top: height / 45),
+                padding: EdgeInsets.only(top: height / 300),
                 child: InkWell(
-                  onTap: () {}, // Handle your callback
-                  child: Text('更改介面'),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SelectUIPage()),
+                    );
+                  }, // Handle your callback
+                  child: Ink(
+                      height: height / 20,
+                      width: width,
+                      color: Colors.white,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.app_shortcut,
+                            ),
+                            Text(
+                              '更改介面',
+                              textAlign: TextAlign.center,
+                            ),
+                          ])),
                 )),
             Divider(color: Colors.black),
             Padding(
-              padding: EdgeInsets.only(top: height / 45),
-              child: Text('更改模式'),
-            ),
+                padding: EdgeInsets.only(top: height / 100),
+                child: InkWell(
+                  onTap: () {}, // Handle your callback
+                  child: Ink(
+                      height: height / 20,
+                      width: width,
+                      color: Colors.white,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.settings_applications,
+                            ),
+                            Text(
+                              '更改模式',
+                              textAlign: TextAlign.center,
+                            ),
+                          ])),
+                  //Text('更改介面'),
+                )),
+            Divider(color: Colors.black),
+            Padding(
+                padding: EdgeInsets.only(top: height / 100),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => selectLanguagePage()),
+                    );
+                  }, // Handle your callback
+                  child: Ink(
+                      height: height / 20,
+                      width: width,
+                      color: Colors.white,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.language,
+                            ),
+                            Text(
+                              '更改語言',
+                              textAlign: TextAlign.center,
+                            ),
+                          ])),
+                  //Text('更改介面'),
+                )),
             Divider(color: Colors.black),
           ],
         ),

@@ -5,82 +5,22 @@ import 'dart:io';
 import 'dart:async';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'scanner_widget.dart';
-// void main() {
-//   runApp(const MaterialApp(home: MyHome()));
-// }
-
-// class MyHome extends StatelessWidget {
-//   const MyHome({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Flutter Demo Home Page')),
-//       body: Center(
-//         child: ElevatedButton(
-//           onPressed: () {
-//             Navigator.of(context).push(MaterialPageRoute(
-//               builder: (context) => QRViewPage(storage: KeyStorage()),
-//             ));
-//           },
-//           child: const Text('start activate process'),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-class KeyStorage {
-  Future<String> get _localPath async {
-    final directory = await getApplicationDocumentsDirectory();
-
-    return directory.path;
-  }
-
-  Future<File> get _localFile async {
-    final path = await _localPath;
-    return File('$path/key.txt');
-  }
-
-  Future<String> readConfig() async {
-    try {
-      final file = await _localFile;
-
-      // Read the file
-      final contents = await file.readAsString();
-
-      return contents;
-    } catch (e) {
-      // If encountering an error, return 0
-      return "false";
-    }
-  }
-
-  Future<File> writeConfig(String contents) async {
-    final file = await _localFile;
-
-    // Write the file
-    return file.writeAsString(contents);
-  }
-}
 
 class QRViewPage extends StatefulWidget {
-  const QRViewPage({super.key, required this.storage});
-  final KeyStorage storage;
+  const QRViewPage({Key? key}) : super(key: key);
   @override
   State<StatefulWidget> createState() => _QRViewExampleState();
 }
 
 class _QRViewExampleState extends State<QRViewPage>
     with SingleTickerProviderStateMixin {
-  String _keyStore = "false";
   late AnimationController _animationController;
 
   @override
@@ -99,11 +39,28 @@ class _QRViewExampleState extends State<QRViewPage>
     super.initState();
     controller?.resumeCamera();
     initPlatformState();
-    widget.storage.readConfig().then((value) {
-      setState(() {
-        _keyStore = value;
-      });
-    });
+  }
+
+  _saveMode(String modeFromDB) async {
+    //實體化
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    //獲取 counter 為 null 則預設值設定為 0
+    //_firstTimeToUse = (prefs.getBool('firstTime') ?? true);
+
+    //寫入
+    await prefs.setString('mode', modeFromDB);
+  }
+
+  _saveKeyStore() async {
+    //實體化
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    //獲取 counter 為 null 則預設值設定為 0
+    //_firstTimeToUse = (prefs.getBool('firstTime') ?? true);
+
+    //寫入
+    await prefs.setBool('keyStore', true);
   }
 
   Future<Timer> simulateInitialDataLoading() async {
@@ -112,9 +69,7 @@ class _QRViewExampleState extends State<QRViewPage>
       () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => MyStatefulWidget(
-            storage: KeyStorage(),
-          ),
+          builder: (context) => MyStatefulWidget(),
         ),
       ),
     );
@@ -156,15 +111,6 @@ class _QRViewExampleState extends State<QRViewPage>
       controller!.pauseCamera();
     }
     controller!.resumeCamera();
-  }
-
-  Future<File> _changeKeyState() {
-    setState(() {
-      _keyStore = "true";
-    });
-
-    // Write the variable as a string to the file.
-    return widget.storage.writeConfig(_keyStore);
   }
 
 /*
@@ -554,7 +500,8 @@ class _QRViewExampleState extends State<QRViewPage>
 
               if (tempCheckState['data']["deviceId"] == _deviceId &&
                   tempCheckState['data']["used"] == "true") {
-                _changeKeyState();
+                _saveKeyStore();
+                _saveMode(tempCheckState['data']["mode"]);
                 showDialog<void>(
                   context: context,
                   barrierDismissible: false, // user must tap button!
@@ -583,7 +530,8 @@ class _QRViewExampleState extends State<QRViewPage>
                 );
               } else if (tempCheckState['data']["used"] == false) {
                 //state change
-                _changeKeyState();
+                _saveKeyStore();
+                _saveMode(tempCheckState['data']["mode"]);
                 final putResponse = await http.put(Uri.parse(putUrl),
                     body: {'used': 'true', 'deviceId': _deviceId});
                 //print('Response status: ${putResponse.statusCode}');

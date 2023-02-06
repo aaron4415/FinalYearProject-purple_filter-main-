@@ -31,33 +31,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
-      home: MyStatefulWidget(
-        storage: KeyStorage(),
-      ),
+      home: MyStatefulWidget(),
     );
   }
 }
 
 class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key, required this.storage});
-  final KeyStorage storage;
+  const MyStatefulWidget({Key? key}) : super(key: key);
+
   @override
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  String _keyStore = "false";
+  bool _keyStore = false;
   bool _firstTimeToUse = true;
   @override
   void initState() {
     super.initState();
     _loadFirstTimeToUse();
-    widget.storage.readConfig().then((value) {
-      setState(() {
-        _keyStore = value;
-      });
-    });
+    _loadsaveKeyStore();
   }
 
   _loadFirstTimeToUse() async {
@@ -67,11 +61,18 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     });
   }
 
+  _loadsaveKeyStore() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _keyStore = prefs.getBool("keyStore") ?? false;
+    });
+  }
+
   List<Widget> returnPage() {
-    if (_keyStore == "false") {
+    if (_keyStore == false) {
       return <Widget>[
-        QRViewPage(storage: KeyStorage()),
-        selectLanguagePage(storage: ConfigStorage()),
+        QRViewPage(),
+        SettingPage(),
         const Text(
           'you can cantact us by sending  email...',
           style: optionStyle,
@@ -120,9 +121,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Widget displayFirstTimePage() {
     if (_firstTimeToUse == true) {
       return Center(
-        child: selectLanguagePage(
-          storage: ConfigStorage(),
-        ),
+        child: selectLanguagePage(),
       );
     } else {
       return Center(
