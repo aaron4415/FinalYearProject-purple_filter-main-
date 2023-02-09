@@ -23,7 +23,8 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
     final camera = cameras.first;
     cameraController = CameraController(camera, ResolutionPreset.max);
     initializeCameraControllerFuture = cameraController.initialize();
-    lockCaptureOrientationFuture = cameraController.lockCaptureOrientation(DeviceOrientation.portraitUp);
+    lockCaptureOrientationFuture =
+        cameraController.lockCaptureOrientation(DeviceOrientation.portraitUp);
     cameraController.lockCaptureOrientation();
   }
 
@@ -41,32 +42,26 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      body: FutureBuilder<void> (
-          future: initializeCameraControllerFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return Scaffold(
-                body: FutureBuilder<void> (
-                  future: lockCaptureOrientationFuture,
-                  builder: (context, snapshot) {
-                    return ClipRect(
-                        clipBehavior: Clip.hardEdge,
-                        child: OverflowBox(
-                          maxHeight: MediaQuery.of(context).size.height,
-                          alignment: Alignment.topCenter,
-                          child: CameraPreview(cameraController)
-                        )
-                    );
-                  }
-                )
-              );
-            } else {
-              return const Center(child: CircularProgressIndicator());
-            }
-          }
-      )
-    );
+        body: FutureBuilder<void>(
+            future: initializeCameraControllerFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Scaffold(
+                    body: FutureBuilder<void>(
+                        future: lockCaptureOrientationFuture,
+                        builder: (context, snapshot) {
+                          return ClipRect(
+                              clipBehavior: Clip.hardEdge,
+                              child: OverflowBox(
+                                  maxHeight: MediaQuery.of(context).size.height,
+                                  alignment: Alignment.topCenter,
+                                  child: CameraPreview(cameraController)));
+                        }));
+              } else {
+                return const Center(
+                    child: CircularProgressIndicator()); //loading
+              }
+            }));
   }
 }
