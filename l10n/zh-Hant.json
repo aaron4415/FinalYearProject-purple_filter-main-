@@ -1,0 +1,16 @@
+{
+  "language": "zh",
+  "nextStep": "下一步",
+  "chooseALanguage": "選擇語言",
+  "chooseLanguageMessage": "請選擇用於應用中的語言",
+  "nickName": "暱稱",
+  "changeName": "更改名稱",
+  "appSettings": "應用設置",
+  "changeInterface": "改變界面",
+  "changeMode": "改變模式",
+  "changeLanguage": "更改語言",
+  "home": "主頁",
+  "setting": "設定",
+  "contactUs": "聯繫我們",
+  "signOut": "登出"
+}

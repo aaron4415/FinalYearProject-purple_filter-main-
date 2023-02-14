@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:bordered_text/bordered_text.dart';
 
 late List<CameraDescription> cameras;
 
@@ -48,6 +49,25 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return Scaffold(
+                    extendBodyBehindAppBar: true,
+                    appBar: AppBar(
+                      backgroundColor: Color(0x44000000),
+                      elevation: 0,
+                      title: Center(
+                          child: BorderedText(
+                        strokeWidth: 4.0,
+                        strokeColor: Colors.blue,
+                        child: Text(
+                          'Fanta-Health',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 21.0,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )),
+                    ),
                     body: FutureBuilder<void>(
                         future: lockCaptureOrientationFuture,
                         builder: (context, snapshot) {

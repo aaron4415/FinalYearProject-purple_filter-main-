@@ -1,0 +1,16 @@
+{
+  "language": "Japanese",
+  "nextStep": "次のステップ",
+  "chooseALanguage": "言語を選択する",
+  "chooseLanguageMessage": "アプリで使用する言語を選択してください",
+  "nickName": "ニックネーム",
+  "changeName": "名前を変更",
+  "appSettings": "アプリの設定",
+  "changeInterface": "インターフェースの変更",
+  "changeMode": "モード変更",
+  "changeLanguage": "言語を変更",
+  "home": "ホーム",
+  "setting": "設定",
+  "contactUs": "お問い合わせ",
+  "signOut": "サインアウト"
+}

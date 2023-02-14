@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:bordered_text/bordered_text.dart';
 
 class LowerPartSecond extends StatefulWidget {
   const LowerPartSecond({Key? key}) : super(key: key);
@@ -21,10 +22,17 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              "Distance",
-              style: TextStyle(
-                color: Colors.blue,
+            BorderedText(
+              strokeWidth: 4.0,
+              strokeColor: Colors.blue,
+              child: Text(
+                'Distance',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
             const Icon(
@@ -37,12 +45,15 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
               percent: 0.4,
               progressColor: Colors.purpleAccent,
             ),
-            const Text(
+            Text(
               '2cm',
               style: TextStyle(
-                color: Colors.blue,
+                color: Colors.white,
+                fontSize: 20.0,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold,
               ),
-            )
+            ),
           ],
         ));
   }

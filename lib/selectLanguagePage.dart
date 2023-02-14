@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'dart:async';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'authMain.dart';
+import 'l10n/locale_keys.g.dart';
+import 'package:easy_localization/easy_localization.dart';
 // void main() {
 //   runApp(const MyApp());
 // }
@@ -78,40 +80,6 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
     await prefs.setString('language', newLanguage);
   }
 
-  String showSelect() {
-    switch (_language) {
-      case "english":
-        {
-          return "Select Language";
-          // statements;
-        }
-
-      case "simplifiedChinese":
-        {
-          return "选择语言";
-          //statements;
-        }
-
-      case "traditionalChinese":
-        {
-          return "選擇語言";
-          //statements;
-        }
-
-      case "japanese":
-        {
-          return "言語を選択する";
-          //statements;
-        }
-
-      default:
-        {
-          return "Select Language";
-          //statements;
-        }
-    }
-  }
-
   Widget showReturnButton() {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -137,6 +105,62 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
                   ),
                 )),
           ));
+    } else {
+      return Padding(
+          padding: EdgeInsets.only(top: height / 300),
+          child: InkWell(
+            onTap: () {}, // Handle your callback
+            child: Ink(
+              height: height / 20,
+              width: width / 3,
+              color: Colors.white,
+            ),
+          ));
+    }
+  }
+
+  Widget showNextButton() {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    if (_firstTimeToUse == true) {
+      return Expanded(
+          child: Align(
+        alignment: FractionalOffset.bottomRight,
+        child: Padding(
+            padding: EdgeInsets.only(bottom: 10.0),
+            child: Padding(
+                padding: EdgeInsets.only(top: height / 300),
+                child: InkWell(
+                  onTap: () {
+                    _saveFirstTimeToUse();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AuthAppPage()),
+                    );
+                  }, // Handle your callback
+                  child: Ink(
+                      height: height / 20,
+                      width: width / 3,
+                      color: Colors.white,
+                      child: Padding(
+                        //左边添加8像素补白
+                        padding: EdgeInsets.only(
+                            left: width / 45, top: height / 100),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Row(children: [
+                            Text(LocaleKeys.nextStep.tr()),
+                            new Expanded(
+                              child: Icon(
+                                Icons.navigate_next,
+                              ),
+                            ),
+                          ]),
+                        ),
+                      )),
+                ))),
+      ));
     } else {
       return Padding(
           padding: EdgeInsets.only(top: height / 300),
@@ -203,7 +227,7 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
                   child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        showSelect(),
+                        LocaleKeys.chooseALanguage.tr(),
                         textAlign: TextAlign.center,
                       )),
                 )
@@ -224,8 +248,8 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
                           //左边添加8像素补白
                           padding: EdgeInsets.only(
                               left: width / 45, top: height / 100),
-                          child: new Text(
-                            "請選擇用於App中的語言",
+                          child: Text(
+                            LocaleKeys.chooseLanguageMessage.tr(),
                             style: TextStyle(
                                 fontSize: height / 55, color: Colors.black),
                             textAlign: TextAlign.left,
@@ -237,8 +261,9 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
                 padding: EdgeInsets.only(top: height / 250),
                 child: InkWell(
                   onTap: () {
-                    changedMessage("ENGLISH");
+                    //changedMessage("ENGLISH");
                     _saveLanguage("english");
+                    context.setLocale(Locale('en'));
                   }, // Handle your callback
                   child: Ink(
                       height: height / 20,
@@ -258,8 +283,10 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
                 padding: EdgeInsets.only(top: height / 300),
                 child: InkWell(
                   onTap: () {
-                    changedMessage("简体中文");
+                    //changedMessage("简体中文");
                     _saveLanguage("simplifiedChinese");
+                    context.setLocale(Locale('zh', 'Hans'));
+                    //  context.setLocale(Locale('zh'));
                   }, // Handle your callback
                   child: Ink(
                       height: height / 20,
@@ -279,8 +306,9 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
                 padding: EdgeInsets.only(top: height / 300),
                 child: InkWell(
                   onTap: () {
-                    changedMessage("繁體中文");
+                    //changedMessage("繁體中文");
                     _saveLanguage("traditionalChinese");
+                    context.setLocale(Locale('zh', 'Hant'));
                   }, // Handle your callback
                   child: Ink(
                       height: height / 20,
@@ -300,8 +328,11 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
                 padding: EdgeInsets.only(top: height / 300),
                 child: InkWell(
                   onTap: () {
-                    changedMessage("日本語");
+                    //changedMessage("日本語");
                     _saveLanguage("japanese");
+                    context.setLocale(Locale(
+                      'ja',
+                    ));
                   }, // Handle your callback
                   child: Ink(
                       height: height / 20,
@@ -317,6 +348,7 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
                       )),
                 )),
             Divider(color: Colors.black),
+            showNextButton()
           ],
         ),
       ),

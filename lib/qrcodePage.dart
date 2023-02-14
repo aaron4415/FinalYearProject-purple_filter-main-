@@ -12,6 +12,7 @@ import 'package:platform_device_id/platform_device_id.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'scanner_widget.dart';
+import 'frame.dart';
 
 class QRViewPage extends StatefulWidget {
   const QRViewPage({Key? key}) : super(key: key);
@@ -520,8 +521,13 @@ class _QRViewExampleState extends State<QRViewPage>
                         TextButton(
                           child: const Text('ok'),
                           onPressed: () {
+                            dispose();
                             Navigator.of(context).pop();
-                            Phoenix.rebirth(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyStatefulWidget()),
+                            );
                           },
                         ),
                       ],
@@ -555,7 +561,12 @@ class _QRViewExampleState extends State<QRViewPage>
                           child: const Text('ok'),
                           onPressed: () {
                             Navigator.of(context).pop();
-                            Phoenix.rebirth(context);
+                            dispose();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyStatefulWidget()),
+                            );
                           },
                         ),
                       ],
@@ -582,7 +593,6 @@ class _QRViewExampleState extends State<QRViewPage>
                           child: const Text('ok'),
                           onPressed: () {
                             Navigator.of(context).pop();
-                            Phoenix.rebirth(context);
                           },
                         ),
                       ],
@@ -615,7 +625,6 @@ class _QRViewExampleState extends State<QRViewPage>
                     child: const Text('ok'),
                     onPressed: () {
                       Navigator.of(context).pop();
-                      Phoenix.rebirth(context);
                     },
                   ),
                 ],

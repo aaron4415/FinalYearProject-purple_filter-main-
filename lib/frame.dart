@@ -1,23 +1,34 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phoenix/flutter_phoenix.dart';
+
 import 'selectLanguagePage.dart';
 import 'qrcodePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'setting.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'l10n/codegen_loader.g.dart';
+import 'l10n/locale_keys.g.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
     name: 'purple_filter',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
     /// 1. Wrap your App widget in the Phoenix widget
-
-    Phoenix(
-      child: const MyApp(),
+    EasyLocalization(
+      supportedLocales: [
+        Locale('en'), // English
+        Locale('zh', 'Hans'), // simplified Chinese
+        Locale('zh', 'Hant'), // traditional Chinese
+        Locale('ja'), // Japanese
+      ],
+      path: 'lib/l10n',
+      assetLoader: CodegenLoader(),
+      child: MyApp(),
     ),
   );
 }
@@ -31,6 +42,21 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: _title,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      /*    localizationsDelegates: [
+        AppLocalizations.delegate, // Add this line
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en'), // English
+        // const Locale('cn'), // simplified Chinese
+        const Locale('zh'), // traditional Chinese
+        const Locale('ja'), // Japanese
+      ], */
       home: MyStatefulWidget(),
     );
   }
@@ -131,26 +157,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   Widget? displayBottomNavigationBar() {
-    if (_firstTimeToUse == true) {
+    if (_firstTimeToUse == true || _keyStore == false) {
       return null;
     } else {
       return BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home, color: Colors.black),
-            label: 'Home',
+            label: LocaleKeys.home.tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.app_settings_alt, color: Colors.black),
-            label: 'Setting',
+            label: LocaleKeys.setting.tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.contact_support, color: Colors.black),
-            label: 'Contact us',
+            label: LocaleKeys.contactUs.tr(),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_rounded, color: Colors.black),
-            label: 'Sign out',
+            label: LocaleKeys.signOut.tr(),
           ),
         ],
         currentIndex: _selectedIndex,

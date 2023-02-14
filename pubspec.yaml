@@ -48,6 +48,11 @@ dependencies:
   platform_device_id: ^1.0.1
   flutter_phoenix: ^1.1.0
   shared_preferences: ^2.0.17
+  flutter_localizations:
+    sdk: flutter
+  easy_localization: ^3.0.1
+  widget_and_text_animator: ^1.0.9
+  bordered_text: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +73,7 @@ flutter:
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
+  generate: true
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:

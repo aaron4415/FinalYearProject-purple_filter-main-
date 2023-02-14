@@ -53,6 +53,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
+        /*  appBar: AppBar(
+          title: const Text('Fanta-Health'),
+        ), */
         backgroundColor: Color.fromARGB(255, 3, 1, 36),
         body: Column(
           children: [

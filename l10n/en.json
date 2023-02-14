@@ -1,0 +1,16 @@
+{
+  "language": "English",
+  "nextStep": "Next Step",
+  "chooseALanguage": "Select a language",
+  "chooseLanguageMessage": "Please select the language used in the app",
+  "nickName": "Nick Name",
+  "changeName": "change name",
+  "appSettings": "App settings",
+  "changeInterface": "change interface",
+  "changeMode": "change mode",
+  "changeLanguage": "change language",
+  "home": "Home",
+  "setting": "Setting",
+  "contactUs": "Contact Us",
+  "signOut": "Sign Out"
+}

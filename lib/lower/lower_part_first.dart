@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 import 'red_button.dart';
+import 'package:bordered_text/bordered_text.dart';
 
 const IconData coronavirus = IconData(0xe199, fontFamily: 'MaterialIcons');
 
@@ -35,12 +36,19 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(children: const [
+                        Row(children: [
                           SizedBox(
-                              child: Text(
-                            'SARS-COV-2',
-                            style: TextStyle(
-                              color: Colors.blue,
+                              child: BorderedText(
+                            strokeWidth: 4.0,
+                            strokeColor: Colors.blue,
+                            child: Text(
+                              'SARS-COV-2',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 21.0,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           )),
                           Icon(
@@ -48,11 +56,18 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
                             color: Colors.blue,
                           ),
                         ]),
-                        const SizedBox(
-                            child: Text(
-                          '<75%',
-                          style: TextStyle(
-                            color: Colors.blue,
+                        SizedBox(
+                            child: BorderedText(
+                          strokeWidth: 4.0,
+                          strokeColor: Colors.blue,
+                          child: Text(
+                            '<75%',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 21.0,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ))
                       ])))
