@@ -7,7 +7,7 @@ import Foundation
 
 import firebase_auth
 import firebase_core
-import path_provider_macos
+import path_provider_foundation
 import platform_device_id
 import platform_device_id_macos
 import shared_preferences_foundation
