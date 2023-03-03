@@ -36,7 +36,7 @@ class _QRViewExampleState extends State<QRViewPage>
         animateScanAnimation(false);
       }
     });
-    animateScanAnimation(false);
+    animateScanAnimation(false); // true for reverse, false for normal
     super.initState();
     controller?.resumeCamera();
     initPlatformState();
@@ -339,21 +339,23 @@ class _QRViewExampleState extends State<QRViewPage>
         children: <Widget>[
           Expanded(
               child: Column(
-            children: [
-              SizedBox(
-                height: height / 45,
-              ),
-              const Center(
-                child: Text(
-                  'Please use the Qrcode to activate your product',
-                  style: TextStyle(
+              children: [
+                SizedBox(
+                  height: height / 45,
+                ),
+                const Center(
+                  child: Text(
+                    'Please use the Qrcode to activate your product',
+                    style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.grey),
-                ),
-              ),
-            ],
-          )),
+                      color: Colors.grey
+                      )
+                  )
+                )
+              ]
+            )
+          ),
           Expanded(
               flex: 10,
               child: Stack(children: [

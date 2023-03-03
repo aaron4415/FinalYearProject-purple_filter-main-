@@ -13,7 +13,6 @@ class SettingPage extends StatefulWidget {
 }
 
 class SettingPageState extends State<SettingPage> {
-  // This widget is the home page of your application.
 
   List<String> allItem = [];
   @override
