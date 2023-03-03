@@ -453,7 +453,7 @@ class _QRViewExampleState extends State<QRViewPage>
       setState(() {
         result = scanData;
       });
-      log('resultAAA');
+
       if (result != null) {
         try {
           final networkResult = await InternetAddress.lookup('example.com');
@@ -468,38 +468,37 @@ class _QRViewExampleState extends State<QRViewPage>
                 "https://us-central1-airy-phalanx-323908.cloudfunctions.net/app/api/updateQrCode/$result1";
             final response = await http.get(Uri.parse(tempUrl));
 
-            if (response.statusCode == 500) {
-              return showDialog<void>(
-                context: context,
-                barrierDismissible: false, // user must tap button!
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('warning message'),
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: const <Widget>[
-                          Text('This key is not valid'),
-                        ],
-                      ),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('ok'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Phoenix.rebirth(context);
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            } else if (response.statusCode == 200) {
+            if (response.statusCode == 200) {
               // If the server did return a 200 OK response,
               // then parse the JSON.
               final tempCheckState = jsonDecode(response.body);
-
-              if (tempCheckState['data']["deviceId"] == _deviceId &&
+              if (tempCheckState['data'] == null) {
+                return showDialog<void>(
+                  context: context,
+                  barrierDismissible: false, // user must tap button!
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('warning message'),
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: const <Widget>[
+                            Text('This key is not valid'),
+                          ],
+                        ),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('ok'),
+                          onPressed: () {
+                            Navigator.of(context, rootNavigator: true)
+                                .pop('dialog');
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else if (tempCheckState['data']["deviceId"] == _deviceId &&
                   tempCheckState['data']["used"] == "true") {
                 _saveKeyStore();
                 _saveMode(tempCheckState['data']["mode"]);
@@ -603,7 +602,32 @@ class _QRViewExampleState extends State<QRViewPage>
             } else {
               // If the server did not return a 200 OK response,
               // then throw an exception.
-              return log(response.statusCode.toString());
+
+              return showDialog<void>(
+                context: context,
+                barrierDismissible: false, // user must tap button!
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: const Text('warning message'),
+                    content: SingleChildScrollView(
+                      child: ListBody(
+                        children: const <Widget>[
+                          Text('This key is not valid'),
+                        ],
+                      ),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        child: const Text('ok'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Phoenix.rebirth(context);
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
             }
           }
         } on SocketException catch (_) {

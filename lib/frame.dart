@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
+import 'package:camera/camera.dart';
 import 'selectLanguagePage.dart';
 import 'qrcodePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,28 +9,43 @@ import 'setting.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'l10n/codegen_loader.g.dart';
 import 'l10n/locale_keys.g.dart';
+import 'upper/camera_preview.dart';
+import 'package:flutter/services.dart';
+import 'main.dart';
 
 Future<void> main() async {
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+  } on CameraException catch (e) {
+    debugPrint('Error in fetching the camera: $e');
+  }
+
+  cameras = await availableCameras();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
     name: 'purple_filter',
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(
-    /// 1. Wrap your App widget in the Phoenix widget
-    EasyLocalization(
-      supportedLocales: [
-        Locale('en'), // English
-        Locale('zh', 'Hans'), // simplified Chinese
-        Locale('zh', 'Hant'), // traditional Chinese
-        Locale('ja'), // Japanese
-      ],
-      path: 'lib/l10n',
-      assetLoader: CodegenLoader(),
-      child: MyApp(),
-    ),
-  );
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.bottom]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(
+      /// 1. Wrap your App widget in the Phoenix widget
+      EasyLocalization(
+        supportedLocales: [
+          Locale('en'), // English
+          Locale('zh', 'Hans'), // simplified Chinese
+          Locale('zh', 'Hant'), // traditional Chinese
+          Locale('ja'), // Japanese
+        ],
+        path: 'lib/l10n',
+        assetLoader: CodegenLoader(),
+        child: MyApp(),
+      ),
+    );
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -110,10 +125,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       ];
     } else {
       return <Widget>[
-        const Text(
-          'main program',
-          style: optionStyle,
-        ),
+        HomePage(),
         SettingPage(),
         const Text(
           'you can cantact us by sending  email...',
