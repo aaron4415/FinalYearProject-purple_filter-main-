@@ -37,6 +37,18 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: width / 200, color: Colors.blue),
+                              color: Colors.blue,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              coronavirus,
+                              color: Colors.white,
+                            ),
+                          ),
                           SizedBox(
                               child: BorderedText(
                             strokeWidth: 4.0,
@@ -51,10 +63,6 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
                               ),
                             ),
                           )),
-                          Icon(
-                            coronavirus,
-                            color: Colors.blue,
-                          ),
                         ]),
                         SizedBox(
                             child: BorderedText(

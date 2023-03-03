@@ -53,6 +53,8 @@ dependencies:
   easy_localization: ^3.0.1
   widget_and_text_animator: ^1.0.9
   bordered_text: ^2.0.0
+  audioplayers: ^3.0.1
+  confetti: ^0.7.0
 
 dev_dependencies:
   flutter_test:
@@ -80,8 +82,10 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-assets:
-  - images/button_icon.jpg
+  assets:
+    - images/button_icon.jpg
+    - assets/
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

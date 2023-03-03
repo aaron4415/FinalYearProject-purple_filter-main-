@@ -15,13 +15,12 @@ class LowerPart extends StatefulWidget {
 class _LowerPartState extends State<LowerPart> {
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: const [
         LowerPartFirst(),
         LowerPartSecond(),
         LowerPartThird(),
-        MenuButton()
+        //MenuButton()
       ],
     );
   }

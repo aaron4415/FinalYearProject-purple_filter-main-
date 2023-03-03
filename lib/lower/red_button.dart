@@ -2,11 +2,15 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+
 import 'package:sensors_plus/sensors_plus.dart';
 
 import '../main.dart';
 import '../upper/overlay_purple.dart';
 import '../upper/upper_part.dart';
+import 'package:audioplayers/audioplayers.dart';
+
+import 'package:purple_filter/upper/upper_part.dart' as globals;
 
 int time = 0;
 double distance = 0;
@@ -14,8 +18,10 @@ double userAccelerationX = 0;
 double userAccelerationY = 0;
 double userAccelerationZ = 0;
 double instantMovementX = 0;
-
+bool isPlayingAnimation = false;
 double x = 0;
+
+final player = AudioPlayer();
 
 class RedButton extends StatefulWidget {
   const RedButton({Key? key}) : super(key: key);
@@ -30,11 +36,19 @@ class _RedButtonState extends State<RedButton> {
   Sensors sensor = Sensors();
   bool _hasBeenPressed = true;
   double count = 0;
+
   var img = const AssetImage("images/button_icon.jpg");
+  @override
+  void dispose() {
+    globals.controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     dynamic width = MediaQuery.of(context).size.width;
     dynamic height = MediaQuery.of(context).size.height;
+
     return ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
@@ -53,7 +67,7 @@ class _RedButtonState extends State<RedButton> {
                 userAccelerationX = event.x;
                 userAccelerationY = event.y;
                 userAccelerationZ = event.z;
-
+                globals.visible = true;
                 distance += 0.5 * event.x * count * count;
                 if (distance > 1000) {
                   distance = 10;
@@ -92,9 +106,17 @@ class _RedButtonState extends State<RedButton> {
                     if (time >= 5) {
                       time = 5;
                       timer.cancel();
+                      player.play(
+                          AssetSource('succ.mp3')); //play the sound effect
+                      setState(() {
+                        print("false");
+                        globals.visible = false;
+                      });
                     }
+
                     mainTime = time;
                   });
+
                   redButtonLogic = true;
                 });
               }));
@@ -107,6 +129,9 @@ class _RedButtonState extends State<RedButton> {
               redButtonLogic = false;
               count = 0;
               distance = 0;
+              setState(() {
+                globals.visible = false;
+              });
               setState(() {
                 _hasBeenPressed = !_hasBeenPressed;
               });

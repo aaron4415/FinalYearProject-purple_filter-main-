@@ -18,10 +18,21 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
     final height = MediaQuery.of(context).size.height;
 
     return Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+        padding: const EdgeInsets.only(top: 0.0, bottom: 0.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              decoration: BoxDecoration(
+                border: Border.all(width: width / 100, color: Colors.blue),
+                color: Colors.blue,
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(
+                pinch_sharp,
+                color: Colors.white,
+              ),
+            ),
             BorderedText(
               strokeWidth: 4.0,
               strokeColor: Colors.blue,
@@ -35,23 +46,23 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
                 ),
               ),
             ),
-            const Icon(
-              pinch_sharp,
-              color: Colors.blue,
-            ),
             LinearPercentIndicator(
               width: width / 2,
               lineHeight: height / 32,
               percent: 0.4,
               progressColor: Colors.purpleAccent,
             ),
-            Text(
-              '2cm',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20.0,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
+            BorderedText(
+              strokeWidth: 4.0,
+              strokeColor: Colors.blue,
+              child: Text(
+                '2cm',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

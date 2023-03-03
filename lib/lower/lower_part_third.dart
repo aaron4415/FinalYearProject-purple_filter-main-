@@ -21,12 +21,12 @@ class _LowerPartThirdState extends State<LowerPartThird> {
             margin: const EdgeInsets.only(
                 left: 15.0, right: 15.0, top: 4.0, bottom: 4.0),
             decoration: BoxDecoration(
-                border: Border.all(color: Colors.tealAccent),
+                border: Border.all(color: Colors.white),
                 shape: BoxShape.rectangle),
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: EdgeInsets.all(4.0),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -48,7 +48,7 @@ class _LowerPartThirdState extends State<LowerPartThird> {
                         child: ConstrainedBox(
                             constraints:
                                 BoxConstraints(maxWidth: width / 3 * 2),
-                            child: displayTable())))
+                            child: displayTable(width))))
               ],
             )));
   }

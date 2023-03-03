@@ -24,14 +24,14 @@ class SettingPageState extends State<SettingPage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color(0xff0080FF),
+      backgroundColor: Color.fromARGB(255, 3, 1, 36),
       body: Container(
         margin: EdgeInsets.only(top: height * 0.04),
         child: Column(
           children: <Widget>[
             BorderedText(
               strokeWidth: 4.0,
-              strokeColor: Colors.black,
+              strokeColor: Colors.blue,
               child: Text(
                 LocaleKeys.setting.tr(),
                 style: TextStyle(
@@ -53,13 +53,13 @@ class SettingPageState extends State<SettingPage> {
               padding: EdgeInsets.only(top: height / 45),
               child: BorderedText(
                 strokeWidth: 4.0,
-                strokeColor: Colors.black,
+                strokeColor: Colors.blue,
                 child: Text(
                   'Name',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: height / 40,
+                    fontSize: height / 50,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.bold,
                   ),
@@ -98,35 +98,58 @@ class SettingPageState extends State<SettingPage> {
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(top: height / 45),
+                padding: EdgeInsets.only(top: height / 75),
                 child: InkWell(
-                  onTap: () {}, // Handle your callback
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SelectUIPage()),
+                    );
+                  }, // Handle your callback
                   child: Ink(
                       height: height / 20,
                       width: width,
-                      color: Color(0xff0080FF),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Row(children: <Widget>[
-                              Icon(Icons.perm_identity, color: Colors.white),
-                              BorderedText(
+                      color: Color.fromARGB(255, 3, 1, 36),
+                      child: Row(children: <Widget>[
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: width / 75, color: Colors.blue),
+                              color: Colors.blue,
+                              shape: BoxShape.circle,
+                            ),
+                            child:
+                                Icon(Icons.perm_identity, color: Colors.white),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                              padding: EdgeInsets.only(right: width / 120),
+                              child: BorderedText(
                                 strokeWidth: 4.0,
-                                strokeColor: Colors.black,
+                                strokeColor: Colors.blue,
                                 child: Text(
                                   LocaleKeys.changeName.tr(),
                                   style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: height / 45,
+                                    fontSize: height / 30,
                                     fontStyle: FontStyle.italic,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   textAlign: TextAlign.left,
                                 ),
-                              )
-                            ]),
-                          ])),
-                  //Text('更改介面'),
+                              )),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Icon(
+                            Icons.navigate_next,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ])),
                 )),
             Padding(
               //左边添加8像素补白
@@ -160,7 +183,7 @@ class SettingPageState extends State<SettingPage> {
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(top: height / 300),
+                padding: EdgeInsets.only(top: height / 75),
                 child: InkWell(
                   onTap: () {
                     Navigator.push(
@@ -171,26 +194,47 @@ class SettingPageState extends State<SettingPage> {
                   child: Ink(
                       height: height / 20,
                       width: width,
-                      color: Color(0xff0080FF),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(Icons.app_shortcut, color: Colors.white),
-                            BorderedText(
-                              strokeWidth: 4.0,
-                              strokeColor: Colors.black,
-                              child: Text(
-                                LocaleKeys.changeInterface.tr(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: height / 45,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 3, 1, 36),
+                      child: Row(children: <Widget>[
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: width / 75, color: Colors.blue),
+                              color: Colors.blue,
+                              shape: BoxShape.circle,
+                            ),
+                            child:
+                                Icon(Icons.app_shortcut, color: Colors.white),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                              padding: EdgeInsets.only(right: width / 120),
+                              child: BorderedText(
+                                strokeWidth: 4.0,
+                                strokeColor: Colors.blue,
+                                child: Text(
+                                  LocaleKeys.changeInterface.tr(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: height / 30,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.left,
                                 ),
-                                textAlign: TextAlign.left,
-                              ),
-                            )
-                          ])),
+                              )),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Icon(
+                            Icons.navigate_next,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ])),
                 )),
             Divider(color: Colors.white),
             Padding(
@@ -200,27 +244,47 @@ class SettingPageState extends State<SettingPage> {
                   child: Ink(
                       height: height / 20,
                       width: width,
-                      color: Color(0xff0080FF),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(Icons.settings_applications,
+                      color: Color.fromARGB(255, 3, 1, 36),
+                      child: Row(children: <Widget>[
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: width / 75, color: Colors.blue),
+                              color: Colors.blue,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(Icons.settings_applications,
                                 color: Colors.white),
-                            BorderedText(
-                              strokeWidth: 4.0,
-                              strokeColor: Colors.black,
-                              child: Text(
-                                LocaleKeys.changeMode.tr(),
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: height / 45,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                              padding: EdgeInsets.only(right: width / 120),
+                              child: BorderedText(
+                                strokeWidth: 4.0,
+                                strokeColor: Colors.blue,
+                                child: Text(
+                                  LocaleKeys.changeMode.tr(),
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: height / 30,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.left,
                                 ),
-                                textAlign: TextAlign.left,
-                              ),
-                            )
-                          ])),
+                              )),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Icon(
+                            Icons.navigate_next,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ])),
                   //Text('更改介面'),
                 )),
             Divider(color: Colors.white),
@@ -237,26 +301,47 @@ class SettingPageState extends State<SettingPage> {
                   child: Ink(
                       height: height / 20,
                       width: width,
-                      color: Color(0xff0080FF),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(Icons.language, color: Colors.white),
-                            BorderedText(
+                      color: Color.fromARGB(255, 3, 1, 36),
+                      child: Row(children: <Widget>[
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: width / 75, color: Colors.blue),
+                              color: Colors.blue,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(Icons.language, color: Colors.white),
+                          ),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(right: width / 120),
+                            child: BorderedText(
                               strokeWidth: 4.0,
-                              strokeColor: Colors.black,
+                              strokeColor: Colors.blue,
                               child: Text(
                                 LocaleKeys.changeLanguage.tr(),
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: height / 45,
+                                  fontSize: height / 30,
                                   fontStyle: FontStyle.italic,
                                   fontWeight: FontWeight.bold,
                                 ),
-                                textAlign: TextAlign.left,
+                                textAlign: TextAlign.center,
                               ),
-                            )
-                          ])),
+                            ),
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Icon(
+                            Icons.navigate_next,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ])),
                   //Text('更改介面'),
                 )),
             Divider(color: Colors.white),
