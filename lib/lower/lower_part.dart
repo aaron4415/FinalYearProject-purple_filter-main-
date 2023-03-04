@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'menu_button.dart';
 import 'lower_part_first.dart';
 import 'lower_part_second.dart';
 import 'lower_part_third.dart';
@@ -19,8 +18,7 @@ class _LowerPartState extends State<LowerPart> {
       children: const [
         LowerPartFirst(),
         LowerPartSecond(),
-        LowerPartThird(),
-        //MenuButton()
+        LowerPartThird()
       ],
     );
   }

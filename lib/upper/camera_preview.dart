@@ -51,13 +51,13 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
                 return Scaffold(
                     extendBodyBehindAppBar: true,
                     appBar: AppBar(
-                      backgroundColor: Color(0x44000000),
+                      backgroundColor: const Color(0x44000000),
                       elevation: 0,
                       title: Center(
                           child: BorderedText(
                         strokeWidth: 4.0,
                         strokeColor: Colors.blue,
-                        child: Text(
+                        child: const Text(
                           'Fanta-Health',
                           style: TextStyle(
                             color: Colors.white,

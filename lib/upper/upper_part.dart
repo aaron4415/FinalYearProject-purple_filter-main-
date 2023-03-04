@@ -1,21 +1,9 @@
-import 'dart:async';
-
-import 'package:confetti/confetti.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:purple_filter/main.dart';
 
 import 'camera_preview.dart';
 import 'empty_container.dart';
 import 'overlay_purple.dart';
-import 'package:purple_filter/lower/red_button.dart' as globals;
-// List<PurpleFilter> list = [
-//   PurpleFilter(leftFactor: 1),
-//   PurpleFilter(topFactor: -6, bottomFactor: 6, rightFactor: 1.5, leftFactor: 1.5,),
-//   PurpleFilter(bottomFactor: -6, rightFactor: 1.5, topFactor: 6, leftFactor: 1.5),
-//   PurpleFilter(leftFactor: -12),
-//   PurpleFilter(rightFactor: -12)
-// ];
 
 List<PurpleFilter> list = [];
 late AnimationController controller;
@@ -37,12 +25,12 @@ class _UpperPartState extends State<UpperPart>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     )..repeat(reverse: true);
   }
 
   // Animation
-  late Animation<double> _animation =
+  late final Animation<double> _animation =
       CurvedAnimation(parent: controller, curve: Curves.linear);
   @override
   void dispose() {

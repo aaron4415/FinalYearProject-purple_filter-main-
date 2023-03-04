@@ -54,7 +54,7 @@ class _RedButtonState extends State<RedButton> {
         style: ElevatedButton.styleFrom(
           backgroundColor: _hasBeenPressed ? Colors.blue : Colors.red,
           shape: const CircleBorder(),
-          fixedSize: Size(width / 4.5, height / 6),
+          fixedSize: Size(width / 4.5, height / 6.5),
           side: BorderSide(color: Colors.white, width: 5),
         ),
         child: Column(
