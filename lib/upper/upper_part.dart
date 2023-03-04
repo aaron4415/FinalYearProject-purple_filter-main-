@@ -3,7 +3,7 @@ import 'package:purple_filter/main.dart';
 
 import 'camera_preview.dart';
 import 'empty_container.dart';
-import 'overlay_purple.dart';
+import 'purple_filter.dart';
 
 List<PurpleFilter> list = [];
 late AnimationController controller;

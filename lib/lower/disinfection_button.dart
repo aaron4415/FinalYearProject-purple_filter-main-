@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
 import '../main.dart';
-import '../upper/overlay_purple.dart';
+import '../upper/purple_filter.dart';
 import '../upper/upper_part.dart';
 import 'package:audioplayers/audioplayers.dart';
 
