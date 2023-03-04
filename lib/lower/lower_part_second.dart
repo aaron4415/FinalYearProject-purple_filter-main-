@@ -36,7 +36,7 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
             BorderedText(
               strokeWidth: 4.0,
               strokeColor: Colors.blue,
-              child: Text(
+              child: const Text(
                 'Distance',
                 style: TextStyle(
                   color: Colors.white,
@@ -55,7 +55,7 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
             BorderedText(
               strokeWidth: 4.0,
               strokeColor: Colors.blue,
-              child: Text(
+              child: const Text(
                 '2cm',
                 style: TextStyle(
                   color: Colors.white,

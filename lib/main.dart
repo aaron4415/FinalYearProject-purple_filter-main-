@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: const Color.fromARGB(255, 3, 1, 36),
         body: Column(
           children: [
-            SizedBox(height: height / 2, child: UpperPart(time: mainTime)),
+            SizedBox(height: height / 2, child: UpperPart()),
             const LowerPart()
           ],
         ));

@@ -26,7 +26,7 @@ class _LowerPartThirdState extends State<LowerPartThird> {
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(4.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [

@@ -10,9 +10,8 @@ late AnimationController controller;
 bool visible = false;
 
 class UpperPart extends StatefulWidget {
-  final int time;
 
-  const UpperPart({Key? key, required this.time}) : super(key: key);
+  const UpperPart({Key? key}) : super(key: key);
 
   @override
   State<UpperPart> createState() => _UpperPartState();
