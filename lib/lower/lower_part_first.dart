@@ -40,11 +40,11 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
                           Container(
                             decoration: BoxDecoration(
                               border: Border.all(
-                                  width: width / 200, color: Colors.blue),
+                                  width: width / 220, color: Colors.blue),
                               color: Colors.blue,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
+                            child: const Icon(
                               coronavirus,
                               color: Colors.white,
                             ),
@@ -53,7 +53,7 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
                               child: BorderedText(
                             strokeWidth: 4.0,
                             strokeColor: Colors.blue,
-                            child: Text(
+                            child: const Text(
                               'SARS-COV-2',
                               style: TextStyle(
                                 color: Colors.white,
@@ -66,18 +66,18 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
                         ]),
                         SizedBox(
                             child: BorderedText(
-                          strokeWidth: 4.0,
-                          strokeColor: Colors.blue,
-                          child: Text(
-                            '<75%',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 21.0,
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ))
+                              strokeWidth: 4.0,
+                              strokeColor: Colors.blue,
+                              child: const Text(
+                                '<75%',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 21.0,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ))
                       ])))
         ]),
         RedButton()

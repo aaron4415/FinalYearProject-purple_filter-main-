@@ -1,29 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'dart:async';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'authMain.dart';
 import 'l10n/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-// void main() {
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: AuthAppPage(storage: ConfigStorage()),
-//     );
-//   }
-// }
 
 class selectLanguagePage extends StatefulWidget {
   const selectLanguagePage({Key? key}) : super(key: key);
