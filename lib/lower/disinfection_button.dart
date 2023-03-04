@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
@@ -23,14 +22,14 @@ double x = 0;
 
 final player = AudioPlayer();
 
-class RedButton extends StatefulWidget {
-  const RedButton({Key? key}) : super(key: key);
+class DisinfectionButton extends StatefulWidget {
+  const DisinfectionButton({Key? key}) : super(key: key);
 
   @override
-  State<RedButton> createState() => _RedButtonState();
+  State<DisinfectionButton> createState() => _DisinfectionButtonState();
 }
 
-class _RedButtonState extends State<RedButton> {
+class _DisinfectionButtonState extends State<DisinfectionButton> {
   final _streamSubscriptions = <StreamSubscription<dynamic>>[];
 
   Sensors sensor = Sensors();
@@ -55,7 +54,7 @@ class _RedButtonState extends State<RedButton> {
           backgroundColor: _hasBeenPressed ? Colors.blue : Colors.red,
           shape: const CircleBorder(),
           fixedSize: Size(width / 4.5, height / 6.5),
-          side: BorderSide(color: Colors.white, width: 5),
+          side: const BorderSide(color: Colors.white, width: 5),
         ),
         child: Column(
           children: <Widget>[
