@@ -3,69 +3,78 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:bordered_text/bordered_text.dart';
 
 class LowerPartSecond extends StatefulWidget {
-  const LowerPartSecond({Key? key}) : super(key: key);
+    const LowerPartSecond({Key? key}) : super(key: key);
 
-  @override
-  State<LowerPartSecond> createState() => _LowerPartSecondState();
+    @override
+    State<LowerPartSecond> createState() => _LowerPartSecondState();
 }
 
-const IconData pinch_sharp = IconData(0xf0456, fontFamily: 'MaterialIcons');
-
 class _LowerPartSecondState extends State<LowerPartSecond> {
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
+    IconData pinchSharp = const IconData(0xf0456, fontFamily: 'MaterialIcons');
 
-    return Padding(
-        padding: const EdgeInsets.only(top: 0.0, bottom: 0.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              decoration: BoxDecoration(
+    @override
+    Widget build(BuildContext context) {
+        final width = MediaQuery.of(context).size.width;
+        final height = MediaQuery.of(context).size.height;
+
+        Widget pinchSharpIcon = Container(
+            decoration: BoxDecoration(
                 border: Border.all(width: width / 100, color: Colors.blue),
                 color: Colors.blue,
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(
-                pinch_sharp,
-                color: Colors.white,
-              ),
+                shape: BoxShape.circle
             ),
-            BorderedText(
-              strokeWidth: 4.0,
-              strokeColor: Colors.blue,
-              child: const Text(
+            child: Icon(
+                pinchSharp,
+                color: Colors.white,
+            )
+        );
+
+        Widget distanceText = BorderedText(
+            strokeWidth: 4.0,
+            strokeColor: Colors.blue,
+            child: const Text(
                 'Distance',
                 style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            LinearPercentIndicator(
+                    color: Colors.white,
+                    fontSize: 20.0,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                )
+            )
+        );
+
+        Widget distanceIndicator = LinearPercentIndicator(
               width: width / 2,
               lineHeight: height / 32,
-              percent: 0.4,
+              percent: 0.4, // TODO: The merge function should link to here, need a variable to hold the pixel value and translate to distance
               progressColor: Colors.purpleAccent,
-            ),
-            BorderedText(
-              strokeWidth: 4.0,
-              strokeColor: Colors.blue,
-              child: const Text(
-                '2cm',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ));
-  }
+        );
+
+        Widget distanceDisplay = BorderedText(
+            strokeWidth: 4.0,
+            strokeColor: Colors.blue,
+            child: const Text(
+                  '2cm', // TODO: Change this to a variable and changes as the distanceIndicator
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+              )
+            )
+        );
+
+        return Padding(
+            padding: const EdgeInsets.only(top: 0.0, bottom: 0.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                  pinchSharpIcon,
+                  distanceText, // It does nothing but to display the word "distance"
+                  distanceIndicator, // Progress bar to show distance in graphic
+                  distanceDisplay // Text to display the realtime distance
+              ],
+            )
+        );
+    }
 }
