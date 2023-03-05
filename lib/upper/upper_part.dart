@@ -17,55 +17,44 @@ class UpperPart extends StatefulWidget {
   State<UpperPart> createState() => _UpperPartState();
 }
 
-class _UpperPartState extends State<UpperPart>
-    with SingleTickerProviderStateMixin {
-  @override
-  void initState() {
-    super.initState();
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 1),
-    )..repeat(reverse: true);
-  }
+class _UpperPartState extends State<UpperPart> with SingleTickerProviderStateMixin {
+    @override
+    void initState() {
+      super.initState();
+      controller = AnimationController(
+            vsync: this,
+            duration: const Duration(seconds: 1)
+        )..repeat(reverse: true);
+    }
 
-  // Animation
-  late final Animation<double> _animation =
-      CurvedAnimation(parent: controller, curve: Curves.linear);
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+    // Animation
+    late final Animation<double> _animation = CurvedAnimation(parent: controller, curve: Curves.linear);
 
-  @override
-  Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+    @override
+    void dispose() {controller.dispose(); super.dispose();}
 
-    return Stack(children: [
-      const CameraPreviewWidget(),
-      Align(
-        alignment: Alignment.center,
-        child: Center(
-          child: AnimatedOpacity(
-            // If the widget is visible, animate to 0.0 (invisible).
-            // If the widget is hidden, animate to 1.0 (fully visible).
-            opacity: visible ? 1.0 : 0.0,
-            duration: const Duration(seconds: 1),
-            // The green box must be a child of the AnimatedOpacity widget.
-            child: FadeTransition(
-              opacity: _animation,
-              child: Container(
-                height: height,
-                width: width,
-                color: Colors.white,
-              ),
+    @override
+    Widget build(BuildContext context) {
+        final height = MediaQuery.of(context).size.height;
+        final width = MediaQuery.of(context).size.width;
+
+        return Stack(children: [
+            const CameraPreviewWidget(),
+            Align(
+                alignment: Alignment.center,
+                  child: Center(
+                      child: AnimatedOpacity(
+                          opacity: visible ? 1.0 : 0.0, // Widget visible/hidden ? 0.0 (invisible) : 1.0 (full visible)
+                          duration: const Duration(seconds: 1),
+                          child: FadeTransition(
+                              opacity: _animation,
+                              child: Container( height: height, width: width, color: Colors.white)
+                        )
+                    )
+                )
             ),
-          ),
-        ),
-      ),
-      redButtonLogic ? PurpleFilter.noPara() : const EmptyContainer(),
-      for (PurpleFilter l in list) l
-    ]);
-  }
+            redButtonLogic ? PurpleFilter.noPara() : const EmptyContainer(),
+            for (PurpleFilter l in list) l
+        ]);
+    }
 }
