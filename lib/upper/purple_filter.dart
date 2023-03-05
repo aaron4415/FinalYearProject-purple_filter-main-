@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../main.dart';
+import '../homePage.dart';
 
 class PurpleFilter extends StatefulWidget {
 

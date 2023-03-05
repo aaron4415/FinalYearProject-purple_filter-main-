@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'frame.dart';
+import 'main.dart';
 
 class AuthAppPage extends StatefulWidget {
   const AuthAppPage({super.key});

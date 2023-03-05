@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'frame.dart';
+import 'main.dart';
 import 'dart:io';
 import 'dart:async';
 import 'package:path_provider/path_provider.dart';
@@ -12,7 +12,7 @@ import 'package:platform_device_id/platform_device_id.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'scanner_widget.dart';
-import 'frame.dart';
+import 'main.dart';
 
 class QRViewPage extends StatefulWidget {
   const QRViewPage({Key? key}) : super(key: key);
