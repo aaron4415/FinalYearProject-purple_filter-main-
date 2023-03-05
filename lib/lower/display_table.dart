@@ -1,54 +1,43 @@
 import 'package:flutter/material.dart';
 
-import 'table_padding.dart';
-import 'package:widget_and_text_animator/widget_and_text_animator.dart';
 import 'package:bordered_text/bordered_text.dart';
 
 const IconData coronavirus = IconData(0xe199, fontFamily: 'MaterialIcons');
-const IconData brightness_high_outlined =
-    IconData(0xeefc, fontFamily: 'MaterialIcons');
-const IconData coronavirus_outlined =
-    IconData(0xef88, fontFamily: 'MaterialIcons');
+const IconData brightnessHighOutlined = IconData(0xeefc, fontFamily: 'MaterialIcons');
+const IconData coronavirusOutlined = IconData(0xef88, fontFamily: 'MaterialIcons');
+
 Table displayTable(width) {
-  return Table(
-    border: const TableBorder(
-        verticalInside: BorderSide(width: 2.0, color: Colors.blue)),
-    children: [
-      TableRow(children: [
-        TableCell(
-            child: Row(children: [
-          TableCell(
-            child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: width / 200, color: Colors.blue),
-                  color: Colors.blue,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  coronavirus,
-                  color: Colors.white,
-                )),
-          ),
-          TableCell(
-            child: BorderedText(
-              strokeWidth: 4.0,
-              strokeColor: Colors.blue,
-              child: Text(
-                'Covid-19',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 21.0,
-                  fontStyle: FontStyle.italic,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
+
+    Container covid19Icon = Container(
+            decoration: BoxDecoration(
+              border: Border.all(width: width / 200, color: Colors.blue),
+              color: Colors.blue,
+              shape: BoxShape.circle,
             ),
-          ),
-        ])),
-        BorderedText(
+            child: const Icon(
+              coronavirus,
+              color: Colors.white,
+            )
+    );
+
+    BorderedText covid19Name = BorderedText(
           strokeWidth: 4.0,
           strokeColor: Colors.blue,
-          child: Text(
+          child: const Text(
+            'Covid-19',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 21.0,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.bold
+            )
+          )
+    );
+
+    BorderedText covid19Percentage = BorderedText(
+        strokeWidth: 4.0,
+        strokeColor: Colors.blue,
+        child: const Text(
             '<99%',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -56,44 +45,40 @@ Table displayTable(width) {
               fontSize: 21.0,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,
-            ),
-          ),
+            )
         )
-      ]),
-      TableRow(children: [
-        TableCell(
-            child: Row(children: [
-          TableCell(
-            child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: width / 200, color: Colors.blue),
-                  color: Colors.blue,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  brightness_high_outlined,
-                  color: Colors.white,
-                )),
-          ),
-          TableCell(
-              child: BorderedText(
-            strokeWidth: 4.0,
-            strokeColor: Colors.blue,
-            child: Text(
-              'Coils',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 21.0,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          )),
-        ])),
-        BorderedText(
-          strokeWidth: 4.0,
-          strokeColor: Colors.blue,
-          child: Text(
+    );
+
+    Container coilsIcon = Container(
+        decoration: BoxDecoration(
+          border: Border.all(width: width / 200, color: Colors.blue),
+          color: Colors.blue,
+          shape: BoxShape.circle,
+        ),
+        child: const Icon(
+          brightnessHighOutlined,
+          color: Colors.white,
+        )
+    );
+
+    BorderedText coilsName = BorderedText(
+        strokeWidth: 4.0,
+        strokeColor: Colors.blue,
+        child: const Text(
+            'Coils',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 21.0,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.bold,
+            )
+        )
+    );
+
+    BorderedText coilsPercentage = BorderedText(
+        strokeWidth: 4.0,
+        strokeColor: Colors.blue,
+        child: const Text(
             '<99%',
             textAlign: TextAlign.center,
             style: TextStyle(
@@ -101,56 +86,61 @@ Table displayTable(width) {
               fontSize: 21.0,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,
-            ),
-          ),
+          )
         )
-      ]),
-      TableRow(children: [
-        TableCell(
-            child: Row(children: [
-          TableCell(
-            child: Container(
-                decoration: BoxDecoration(
-                  border: Border.all(width: width / 200, color: Colors.blue),
-                  color: Colors.blue,
-                  shape: BoxShape.circle,
-                ),
-                child: Icon(
-                  coronavirus_outlined,
-                  color: Colors.white,
-                )),
-          ),
-          TableCell(
-              child: BorderedText(
-            strokeWidth: 4.0,
-            strokeColor: Colors.blue,
-            child: Text(
-              'Bacterial',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 21.0,
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          )),
-        ])),
-        BorderedText(
-          strokeWidth: 4.0,
-          strokeColor: Colors.blue,
-          child: Text(
+    );
+
+    Container bacterialIcon = Container(
+        decoration: BoxDecoration(
+          border: Border.all(width: width / 200, color: Colors.blue),
+          color: Colors.blue,
+          shape: BoxShape.circle,
+        ),
+        child: const Icon(
+            coronavirusOutlined,
+            color: Colors.white,
+        )
+    );
+
+    BorderedText bacterialName = BorderedText(
+        strokeWidth: 4.0,
+        strokeColor: Colors.blue,
+        child: const Text(
+            'Bacterial',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 21.0,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.bold
+          )
+        )
+    );
+
+    BorderedText bacterialPercentage = BorderedText(
+        strokeWidth: 4.0,
+        strokeColor: Colors.blue,
+        child: const Text(
             '<99%',
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
               fontSize: 21.0,
               fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+              fontWeight: FontWeight.bold
+            )
         )
-      ]),
-    ],
-  );
+    );
+
+    return Table(
+        columnWidths: {
+          0: FlexColumnWidth(width / 150),
+          1: FlexColumnWidth(width * 0.30),
+          2: FlexColumnWidth(width * 0.20)
+        },
+        children: [
+            TableRow(children: [covid19Icon, covid19Name, covid19Percentage]),
+            TableRow(children: [coilsIcon, coilsName, coilsPercentage]),
+            TableRow(children: [bacterialIcon, bacterialName, bacterialPercentage])
+        ]
+    );
 }
-//Coils Bacterial
