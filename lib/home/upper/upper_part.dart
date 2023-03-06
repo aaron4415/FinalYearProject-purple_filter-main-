@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:purple_filter/homePage.dart';
+import 'package:purple_filter/home/homePage.dart';
 
 import 'camera_preview.dart';
 import 'empty_container.dart';

@@ -9,7 +9,7 @@ import '../upper/purple_filter.dart';
 import '../upper/upper_part.dart';
 import 'package:audioplayers/audioplayers.dart';
 
-import 'package:purple_filter/upper/upper_part.dart' as globals;
+import 'package:purple_filter/home/upper/upper_part.dart' as globals;
 
 int time = 0;
 double distance = 0;
