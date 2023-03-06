@@ -1,17 +1,35 @@
+import 'dart:ffi';
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/services.dart';
+
 import 'selectLanguagePage.dart';
 import 'qrViewPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'setting.dart';
-import 'package:easy_localization/easy_localization.dart';
+
+import 'detect_distance/convert_image_platform_interface.dart';
+
 import 'l10n/codegen_loader.g.dart';
 import 'l10n/locale_keys.g.dart';
+
 import 'home/upper/camera_preview.dart';
-import 'package:flutter/services.dart';
 import 'home/homePage.dart';
+
+class ConvertImage {
+  Future<String?> getPlatformVersion() {
+    return ConvertImagePlatform.instance.getPlatformVersion();
+  }
+}
+
+final DynamicLibrary convertImageLib = Platform.isAndroid
+    ? DynamicLibrary.open("libconvertImage.so")
+    : DynamicLibrary.process();
 
 Future<void> main() async {
   try {
