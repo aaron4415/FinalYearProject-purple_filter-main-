@@ -1,16 +1,13 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bordered_text/bordered_text.dart';
 
-import '../../detect_distance/allocator.dart';
-import '../../detect_distance/type_definition.dart';
 
 late List<CameraDescription> cameras;
-late Convert conv;
+late CameraController cameraController;
 
 class CameraPreviewWidget extends StatefulWidget {
   const CameraPreviewWidget({Key? key}) : super(key: key);
@@ -22,10 +19,6 @@ class CameraPreviewWidget extends StatefulWidget {
 class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
   late Future<void> initializeCameraControllerFuture;
   late Future<void> lockCaptureOrientationFuture;
-  late CameraController cameraController;
-
-  late CameraImage _savedImage;
-  Allocator allocator = A();
 
   void initializeCameraController() {
     final camera = cameras.first;
