@@ -29,6 +29,7 @@ extern "C" {
     }
 
     int *convertImage(uint8_t *plane0, uint8_t *plane12, int size1, int size2, int bytesPerRow, int bytesPerPixel, int width, int height) {
+        int bytesPerColumn = size1 / bytesPerRow;
 
         int x, y, uvIndex, index;
         int yp, up, vp;
@@ -55,10 +56,10 @@ extern "C" {
 
         vector<int> data0int0; vector<int> data1int0; vector<int> data2int0;
 
-        for (x = 0; x < 1280; x++) {
-                for (y = 0; y < 768; y++) {
-                    uvIndex = (x/4) * 768 +  y/2;
-                    index = x * 768 + y;
+        for (x = 0; x < bytesPerColumn; x++) {
+                for (y = 0; y < bytesPerRow; y++) {
+                    uvIndex = (x/4) * bytesPerRow +  y/2;
+                    index = x * bytesPerRow + y;
 
                     yp = plane0[index];
                     up = plane1[uvIndex];
@@ -85,11 +86,15 @@ extern "C" {
             data2uchar0.push_back(static_cast<uchar>(data2int0.at(i)));
         }
 
-        cv::Mat ch0(data0uchar0); cv::Mat ch1(data1uchar0); cv::Mat ch2(data2uchar0);
+        data0int0.clear(); data1int0.clear(); data2int0.clear();
 
-        ch0 = ch0.reshape(0, 1280);
-        ch1 = ch1.reshape(0, 1280);
-        ch2 = ch2.reshape(0, 1280);
+        cv::Mat ch0(data0uchar0); cv::Mat ch1(data1uchar0); cv::Mat ch2(data2uchar0);
+        
+        data0uchar0.clear(); data1uchar0.clear(); data2uchar0.clear();
+
+        ch0 = ch0.reshape(0, bytesPerColumn);
+        ch1 = ch1.reshape(0, bytesPerColumn);
+        ch2 = ch2.reshape(0, bytesPerColumn);
 
         cv::Mat mergesrc[3] = {ch0, ch1, ch2}; cv::Mat mergedst;
 
@@ -116,6 +121,8 @@ extern "C" {
             data1int1.push_back(static_cast<int>(data1uchar1.at(i)));
             data2int1.push_back(static_cast<int>(data2uchar1.at(i)));
         }
+        
+        data0uchar1.clear(); data1uchar1.clear(); data2uchar1.clear();
 
         int maxL = 0;
         for (int i = 0; i < data0int1.size(); i++) {
@@ -152,8 +159,8 @@ extern "C" {
         }
 
         nc::NdArray<int> columnTotals;
-        nc::NdArray<int> data1NdArray(data1int1); data1NdArray.reshape(1280, 768);
-        columnTotals = nc::sum(data1NdArray, nc::Axis::ROW) / 1280;
+        nc::NdArray<int> data1NdArray(data1int1); data1NdArray.reshape(bytesPerColumn, bytesPerRow);
+        columnTotals = nc::sum(data1NdArray, nc::Axis::ROW) / bytesPerColumn;
 
         int columnTotalsMax = columnTotals.max()[0];
         vector<int> columnTotalsVector;
@@ -164,6 +171,8 @@ extern "C" {
             }
             columnTotalsVector.push_back(temp);
         }
+        
+        data0int1.clear(); data1int1.clear(); data2int1.clear();
 
         vector<vector<int>> dataPointVector;
         bool clusterStart = false;
@@ -180,6 +189,7 @@ extern "C" {
                     endIndex = index1;
                     if (endIndex - startIndex > 5) {
                         dataPointVector.push_back({startIndex, endIndex});
+                        index2 = 0;
                     }
                 }
             } else if (columnTotalsVector.at(i) == 0 && clusterStart == true) {
@@ -187,6 +197,7 @@ extern "C" {
                 if (index2 > 5) {
                     endIndex = startIndex + index2;
                     dataPointVector.push_back({startIndex, endIndex});
+                    index2 = 0;
                 }
             }
             index1 += 1;

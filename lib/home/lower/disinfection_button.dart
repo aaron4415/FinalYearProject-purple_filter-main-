@@ -72,6 +72,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     }
 
     Future<int> calculateDifference(_savedImage) async {
+      // print(_savedImage.planes[0].bytes.length);
+      // print(_savedImage.planes[0].bytesPerRow);
       ffi.Pointer<ffi.Uint8> p = allocator.allocate(
           _savedImage.planes[0].bytes.length
       );
@@ -100,7 +102,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       ffi.Pointer<ffi.Int> imgP = conv(p, p1,
           _savedImage.planes[0].bytes.length,
           _savedImage.planes[1].bytes.length,
-          _savedImage.planes[1].bytesPerRow,
+          _savedImage.planes[0].bytesPerRow,
           1,
           _savedImage.width, _savedImage.height
       );

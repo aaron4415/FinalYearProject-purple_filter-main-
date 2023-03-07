@@ -22,7 +22,7 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
 
   void initializeCameraController() {
     final camera = cameras.first;
-    cameraController = CameraController(camera, ResolutionPreset.max, imageFormatGroup: ImageFormatGroup.yuv420);
+    cameraController = CameraController(camera, ResolutionPreset.low, imageFormatGroup: ImageFormatGroup.yuv420);
     initializeCameraControllerFuture = cameraController.initialize();
     lockCaptureOrientationFuture =
         cameraController.lockCaptureOrientation(DeviceOrientation.portraitUp);
