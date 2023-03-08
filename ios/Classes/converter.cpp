@@ -78,8 +78,6 @@ extern "C" {
                     data2int0.push_back(b);
                 }
         }
-        
-        free(plane1); free(plane2);
 
         vector<uchar> data0uchar0; vector<uchar> data1uchar0; vector<uchar> data2uchar0;
 
@@ -89,11 +87,7 @@ extern "C" {
             data2uchar0.push_back(static_cast<uchar>(data2int0.at(i)));
         }
 
-        data0int0.clear(); data1int0.clear(); data2int0.clear();
-
         cv::Mat ch0(data0uchar0); cv::Mat ch1(data1uchar0); cv::Mat ch2(data2uchar0);
-        
-        data0uchar0.clear(); data1uchar0.clear(); data2uchar0.clear();
 
         ch0 = ch0.reshape(0, bytesPerColumn);
         ch1 = ch1.reshape(0, bytesPerColumn);
@@ -124,8 +118,6 @@ extern "C" {
             data1int1.push_back(static_cast<int>(data1uchar1.at(i)));
             data2int1.push_back(static_cast<int>(data2uchar1.at(i)));
         }
-        
-        data0uchar1.clear(); data1uchar1.clear(); data2uchar1.clear();
 
         int maxL = 0;
         for (int i = 0; i < data0int1.size(); i++) {
@@ -174,8 +166,6 @@ extern "C" {
             }
             columnTotalsVector.push_back(temp);
         }
-        
-        data0int1.clear(); data1int1.clear(); data2int1.clear();
 
         vector<vector<int>> dataPointVector;
         bool clusterStart = false;
@@ -219,7 +209,7 @@ extern "C" {
             }
         }
 
-        int midPoint = columnTotals.numCols() / 2; int pixelDifference = -1;
+        int pixelDifference = -1;
         if (dataPointVector.size() == 1) {
             vector<int> dataPoint = dataPointVector.at(0);
             int startOfPoint = dataPoint.at(0); int endOfPoint = dataPoint.at(1);
@@ -292,10 +282,23 @@ extern "C" {
             int projectCoordinate2 = startOfPoint2 + secondMaxCoordinate;
             pixelDifference = abs(projectCoordinate2 - projectCoordinate1);
         }
-
+        
         int value = pixelDifference;
         int *valueRef = (int*)malloc(sizeof(int));
         valueRef[0] = value;
+        
+        data0int0.clear(); data1int0.clear(); data2int0.clear();
+        data0int1.clear(); data1int1.clear(); data2int1.clear();
+        
+        data0uchar0.clear(); data1uchar0.clear(); data2uchar0.clear();
+        data0uchar1.clear(); data1uchar1.clear(); data2uchar1.clear();
+        
+        ch0.release(); ch1.release(); ch2.release(); channels.clear();
+
+        columnTotalsVector.clear(); dataPointVector.clear();
+        
+        free(plane1); free(plane2);
+        
         return valueRef;
     }
  }

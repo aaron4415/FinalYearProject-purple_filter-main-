@@ -97,11 +97,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
       pointerList1.setRange(0, _savedImage.planes[1].bytes.lengthInBytes, _savedImage.planes[1].bytes);
 
-      print("FootStep 1");
-
-      print(_savedImage.planes[0].bytesPerRow);
-
-
       ffi.Pointer<ffi.Int> imgP = conv(p, p1,
           _savedImage.planes[0].bytes.length,
           _savedImage.planes[1].bytes.length,
@@ -110,10 +105,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           _savedImage.width, _savedImage.height
       );
 
-      print("FootStep2");
-
       imgData = imgP.value;
-      print(imgData);
 
       allocator.free(p);
       allocator.free(p1);
@@ -128,44 +120,56 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         onLongPressStart: (LongPressStartDetails longPressStartDetails) async {
           await cameraController.startImageStream((CameraImage image) async {
             _processCameraImage(image);
-            setState(() {
-              calculateDifference(_savedImage);
-            });
+            // setState(() {
+            //   calculateDifference(_savedImage);
+            // });
           });
+          globals.visible = true;
+          timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
+              time++;
+              if (time >= 5) {
+                  time = 5;
+                  timer.cancel();
+                  player.resume(); //play the sound effect
+                  setState(() { globals.visible = false; });
+              }
+              mainTime = time;
+          });
+          redButtonLogic = true;
 
-          _streamSubscriptions.add(sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) {
-              userAccelerationX = event.x; userAccelerationY = event.y; userAccelerationZ = event.z;
-              globals.visible = true;
-              distance += 0.5 * event.x * count * count;
-              if (distance > 1000) { distance = 10; count = 1; }
-              if (distance < -1000) { distance = -10; count = 1; }
-
-              setState(() {
-                distance; instantMovementX;
-                if (userAccelerationX.abs() > 0.3) {
-                  PurpleFilter.noPara().condition = 0;
-                  list.add(PurpleFilter());
-                }
-
-                for (PurpleFilter l in list) {
-                  timer1 = Timer.periodic(const Duration(seconds: 1), (timer) {
-                    if (distance > 0) { l.condition++; } else { l.condition--; }
-                  });
-                }
-
-                timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
-                  time++; count++;
-                  if (time >= 5) {
-                    time = 5;
-                    timer.cancel();
-                    player.resume(); //play the sound effect
-                    setState(() { globals.visible = false; });
-                  }
-                  mainTime = time;
-                });
-                redButtonLogic = true;
-              });
-          }));
+          // _streamSubscriptions.add(sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+          //     //userAccelerationX = event.x; userAccelerationY = event.y; userAccelerationZ = event.z;
+          //     globals.visible = true;
+          //     // distance += 0.5 * event.x * count * count;
+          //     // if (distance > 1000) { distance = 10; count = 1; }
+          //     // if (distance < -1000) { distance = -10; count = 1; }
+          //
+          //     setState(() {
+          //       // distance; instantMovementX;
+          //       // if (userAccelerationX.abs() > 0.3) {
+          //       //   PurpleFilter.noPara().condition = 0;
+          //       //   list.add(PurpleFilter());
+          //       // }
+          //
+          //       // for (PurpleFilter l in list) {
+          //       //   timer1 = Timer.periodic(const Duration(seconds: 1), (timer) {
+          //       //     if (distance > 0) { l.condition++; } else { l.condition--; }
+          //       //   });
+          //       // }
+          //
+          //       timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
+          //         time++; count++;
+          //         if (time >= 5) {
+          //           time = 5;
+          //           timer.cancel();
+          //           player.resume(); //play the sound effect
+          //           setState(() { globals.visible = false; });
+          //         }
+          //         mainTime = time;
+          //       });
+          //       redButtonLogic = true;
+          //     });
+          // }));
         setState(() {_hasBeenPressed = !_hasBeenPressed;});
         }, onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
             mainTime = 0; redButtonLogic = false;
@@ -173,11 +177,12 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
             setState(() {
               globals.visible = false;
               _hasBeenPressed = !_hasBeenPressed;
-              for (StreamSubscription s in _streamSubscriptions) { s.cancel(); }
-              list = [];
+              // for (StreamSubscription s in _streamSubscriptions) { s.cancel(); }
+              list.clear();
               cameraController.stopImageStream();
               player.release();
-              timer1.cancel(); timer2.cancel();
+              // timer1.cancel();
+              timer2.cancel();
             });
     });
 
