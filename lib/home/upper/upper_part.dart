@@ -53,8 +53,8 @@ class _UpperPartState extends State<UpperPart> with SingleTickerProviderStateMix
                     )
                 )
             ),
-            redButtonLogic ? PurpleFilter.noPara() : const EmptyContainer(),
-            for (PurpleFilter l in list) l
+            //redButtonLogic ? PurpleFilter.noPara() : const EmptyContainer(),
+            //for (PurpleFilter l in list) l
         ]);
     }
 }
