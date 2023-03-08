@@ -67,13 +67,16 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     dynamic width = MediaQuery.of(context).size.width;
     dynamic height = MediaQuery.of(context).size.height;
 
+    player.setSource(AssetSource('succ.mp3'));
+
+    late Timer timer1;
+    late Timer timer2;
+
     void _processCameraImage(CameraImage image) async {
         setState(() { _savedImage = image; });
     }
 
     Future<int> calculateDifference(_savedImage) async {
-      // print(_savedImage.planes[0].bytes.length);
-      // print(_savedImage.planes[0].bytesPerRow);
       ffi.Pointer<ffi.Uint8> p = allocator.allocate(
           _savedImage.planes[0].bytes.length
       );
@@ -145,17 +148,17 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
                 }
 
                 for (PurpleFilter l in list) {
-                  Timer.periodic(const Duration(seconds: 1), (timer) {
+                  timer1 = Timer.periodic(const Duration(seconds: 1), (timer) {
                     if (distance > 0) { l.condition++; } else { l.condition--; }
                   });
                 }
 
-                Timer.periodic(const Duration(seconds: 1), (timer) {
+                timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
                   time++; count++;
                   if (time >= 5) {
                     time = 5;
                     timer.cancel();
-                    player.play(AssetSource('succ.mp3')); //play the sound effect
+                    player.resume(); //play the sound effect
                     setState(() { globals.visible = false; });
                   }
                   mainTime = time;
@@ -173,6 +176,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
               for (StreamSubscription s in _streamSubscriptions) { s.cancel(); }
               list = [];
               cameraController.stopImageStream();
+              player.release();
+              timer1.cancel(); timer2.cancel();
             });
     });
 

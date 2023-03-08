@@ -52,6 +52,7 @@ extern "C" {
                 vCount++;
             }
         }
+        
         uCount = 0; vCount = 0;
 
         vector<int> data0int0; vector<int> data1int0; vector<int> data2int0;
@@ -77,6 +78,8 @@ extern "C" {
                     data2int0.push_back(b);
                 }
         }
+        
+        free(plane1); free(plane2);
 
         vector<uchar> data0uchar0; vector<uchar> data1uchar0; vector<uchar> data2uchar0;
 
@@ -161,7 +164,7 @@ extern "C" {
         nc::NdArray<int> columnTotals;
         nc::NdArray<int> data1NdArray(data1int1); data1NdArray.reshape(bytesPerColumn, bytesPerRow);
         columnTotals = nc::sum(data1NdArray, nc::Axis::ROW) / bytesPerColumn;
-
+        
         int columnTotalsMax = columnTotals.max()[0];
         vector<int> columnTotalsVector;
         for (int i = 0; i < columnTotals.size(); i++) {
