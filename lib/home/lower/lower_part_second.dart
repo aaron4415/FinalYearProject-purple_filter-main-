@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:bordered_text/bordered_text.dart';
 
-import 'disinfection_button.dart';
+int pixelDifference = 0;
 
 class LowerPartSecond extends StatefulWidget {
     const LowerPartSecond({Key? key}) : super(key: key);
@@ -56,7 +56,7 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
             strokeWidth: 4.0,
             strokeColor: Colors.blue,
             child: Text(
-                  '$imgData', // TODO: Change this to a variable and changes as the distanceIndicator
+                  '$pixelDifference', // TODO: Change this to a variable and changes as the distanceIndicator
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,

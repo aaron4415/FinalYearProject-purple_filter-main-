@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:purple_filter/home/lower/lower_part_second.dart';
 
 import 'package:sensors_plus/sensors_plus.dart';
 
@@ -74,7 +75,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
     void _processCameraImage(CameraImage image) async { setState(() { _savedImage = image; }); }
 
-    Future<int> calculateDifference(_savedImage) async {
+    Future<void> calculateDifference(_savedImage) async {
       ffi.Pointer<ffi.Uint8> p = allocator.allocate(_savedImage.planes[0].bytes.length);
 
       ffi.Pointer<ffi.Uint8> p1 = allocator.allocate(_savedImage.planes[1].bytes.lengthInBytes);
@@ -97,9 +98,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       imgData = imgP.value;
 
       allocator.free(p); allocator.free(p1);
-      setState(() { imgData; });
-      print("The function is executed");
-      return imgData;
+      setState(() { pixelDifference = imgData; print("$pixelDifference"); });
     }
 
     GestureDetector disinfectionButtonListener = GestureDetector(
@@ -108,6 +107,11 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
             await cameraController.startImageStream((CameraImage image) async {
               _processCameraImage(image);
               calculateDifference(_savedImage);
+            });
+
+            setState(() {
+              imgData;
+              print("$imgData");
             });
 
             globals.visible = true;

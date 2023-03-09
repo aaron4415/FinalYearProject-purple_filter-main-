@@ -9,6 +9,7 @@ import 'package:bordered_text/bordered_text.dart';
 late List<CameraDescription> cameras;
 late CameraController cameraController;
 
+
 class CameraPreviewWidget extends StatefulWidget {
   const CameraPreviewWidget({Key? key}) : super(key: key);
 
@@ -55,17 +56,17 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
                       elevation: 0,
                       title: Center(
                           child: BorderedText(
-                        strokeWidth: 4.0,
-                        strokeColor: Colors.blue,
-                        child: const Text(
-                          'Fanta-Health',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 21.0,
-                            fontStyle: FontStyle.italic,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                              strokeWidth: 4.0,
+                              strokeColor: Colors.blue,
+                              child: const Text(
+                                  'Fanta-Health',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 21.0,
+                                    fontStyle: FontStyle.italic,
+                                    fontWeight: FontWeight.bold
+                                )
+                              )
                       )),
                     ),
                     body: FutureBuilder<void>(
