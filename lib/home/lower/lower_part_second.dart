@@ -5,7 +5,7 @@ import 'package:bordered_text/bordered_text.dart';
 int pixelDifference = 0;
 
 class LowerPartSecond extends StatefulWidget {
-    const LowerPartSecond({Key? key}) : super(key: key);
+    LowerPartSecond({Key? key}) : super(key: key);
 
     @override
     State<LowerPartSecond> createState() => _LowerPartSecondState();

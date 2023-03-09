@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
         body: Column(
           children: [
             SizedBox(height: height / 2, child: UpperPart()),
-            const LowerPart()
+            LowerPart()
           ],
         ));
   }
