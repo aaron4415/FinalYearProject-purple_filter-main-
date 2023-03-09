@@ -20,6 +20,7 @@ import 'l10n/locale_keys.g.dart';
 
 import 'home/upper/camera_preview.dart';
 import 'home/homePage.dart';
+import 'Login/login_screen.dart';
 
 class ConvertImage {
   Future<String?> getPlatformVersion() {
@@ -106,11 +107,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   bool _keyStore = false;
   bool _firstTimeToUse = true;
+  bool _logined = false;
   @override
   void initState() {
     super.initState();
     _loadFirstTimeToUse();
     _loadsaveKeyStore();
+    _loadIsLogin();
   }
 
   _loadFirstTimeToUse() async {
@@ -125,6 +128,24 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     setState(() {
       _keyStore = prefs.getBool("keyStore") ?? false;
     });
+  }
+
+  _loadIsLogin() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _logined = prefs.getBool("logined") ?? false;
+    });
+  }
+
+  _saveLogin() async {
+    //實體化
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    //獲取 counter 為 null 則預設值設定為 0
+    //_firstTimeToUse = (prefs.getBool('firstTime') ?? true);
+
+    //寫入
+    await prefs.setBool('logined', false);
   }
 
   List<Widget> returnPage() {
@@ -172,12 +193,59 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     setState(() {
       _selectedIndex = index;
     });
+    switch (_selectedIndex) {
+      case 0:
+        break;
+
+      case 3:
+        showAlertDialog(context);
+        break;
+    }
+  }
+
+  showAlertDialog(BuildContext context) {
+    // Init
+    AlertDialog dialog = AlertDialog(
+      title: Text("Are you sure to Sign Out?"),
+      actions: [
+        ElevatedButton(
+            child: Text("Yes"),
+            onPressed: () {
+              _saveLogin();
+              Navigator.of(context, rootNavigator: true).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MyApp()),
+              );
+            }),
+        ElevatedButton(
+            child: Text("Cancel"),
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true).pop();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const MyApp()),
+              );
+            }),
+      ],
+    );
+
+    // Show the dialog
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return dialog;
+        });
   }
 
   Widget displayFirstTimePage() {
     if (_firstTimeToUse == true) {
       return Center(
         child: selectLanguagePage(),
+      );
+    } else if (_logined == false) {
+      return Center(
+        child: LoginScreen(),
       );
     } else {
       return Center(
@@ -187,7 +255,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   Widget? displayBottomNavigationBar() {
-    if (_firstTimeToUse == true || _keyStore == false) {
+    if (_firstTimeToUse == true || _keyStore == false || _logined == false) {
       return null;
     } else {
       return BottomNavigationBar(

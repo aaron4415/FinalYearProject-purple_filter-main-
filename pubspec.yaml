@@ -57,6 +57,7 @@ dependencies:
   confetti: ^0.7.0
   ffi: ^2.0.1
   permission_handler: ^10.1.0
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -87,7 +88,8 @@ flutter:
   assets:
     - images/button_icon.jpg
     - assets/
-
+    - assets/images/
+    - assets/icons/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
