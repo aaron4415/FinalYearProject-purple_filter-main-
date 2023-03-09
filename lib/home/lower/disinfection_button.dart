@@ -98,7 +98,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       imgData = imgP.value;
 
       allocator.free(p); allocator.free(p1);
-      setState(() { pixelDifference = imgData; print("$pixelDifference"); });
+      setState(() { pixelDifference = imgData == -1? pixelDifference : imgData ; print("$pixelDifference"); });
     }
 
     GestureDetector disinfectionButtonListener = GestureDetector(
@@ -161,6 +161,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
                 player.release();
                 // timer1.cancel();
                 timer2.cancel();
+                imgData = 0;
             });
     });
 

@@ -153,6 +153,7 @@ extern "C" {
             }
         }
 
+        /// This Transform The 2D Array Into 1D Array.
         nc::NdArray<int> columnTotals;
         nc::NdArray<int> data1NdArray(data1int1); data1NdArray.reshape(bytesPerColumn, bytesPerRow);
         columnTotals = nc::sum(data1NdArray, nc::Axis::ROW) / bytesPerColumn;
@@ -167,6 +168,7 @@ extern "C" {
             columnTotalsVector.push_back(temp);
         }
 
+        /// This Will Store All Possible Clusters Of Points.
         vector<vector<int>> dataPointVector;
         bool clusterStart = false;
         int index1 = 0; int index2 = 0;
@@ -195,7 +197,7 @@ extern "C" {
             }
             index1 += 1;
         }
-
+        /// If Detet=ct More Than Two Clusters, This Is The Finally Filter To Merge Very Close Clusters Into One.
         if (dataPointVector.size() == 2) {
             vector<int> pt1 = dataPointVector.at(0);
             vector<int> pt2 = dataPointVector.at(1);
@@ -208,7 +210,7 @@ extern "C" {
                 dataPointVector.push_back({startOfPt1, endOfPt2});
             }
         }
-
+        /// Now Only Deal With One Cluster And Two Clusters. More Than Two Is Not Considered.
         int pixelDifference = -1;
         if (dataPointVector.size() == 1) {
             vector<int> dataPoint = dataPointVector.at(0);
@@ -262,6 +264,7 @@ extern "C" {
                     secondMaxCoordinateVector.push_back(i);
                 }
             }
+            /// If Finally Succeed To Get Two Cluster, Calculate The Average Point Of Each Cluster
             int firstMaxCoordinate; int secondMaxCoordinate;
             firstMaxCoordinate = firstMaxCoordinateVector.at(0); secondMaxCoordinate = secondMaxCoordinateVector.at(0);
             if (firstMaxCoordinateVector.size() > 1) {
@@ -282,8 +285,14 @@ extern "C" {
             int projectCoordinate2 = startOfPoint2 + secondMaxCoordinate;
             pixelDifference = abs(projectCoordinate2 - projectCoordinate1);
         }
+        /// Calculate The Percentage Difference
+        int value;
+        if (pixelDifference != -1) {
+            value = pixelDifference * 100 / columnTotalsVector.size();
+        } else {
+            value = pixelDifference;
+        }
         
-        int value = pixelDifference;
         int *valueRef = (int*)malloc(sizeof(int));
         valueRef[0] = value;
         
