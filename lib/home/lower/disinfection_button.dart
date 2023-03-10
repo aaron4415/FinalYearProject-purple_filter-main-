@@ -110,20 +110,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
       imgData = imgP.value;
 
-<<<<<<< HEAD
-      allocator.free(p);
-      allocator.free(p1);
-      setState(() {
-        pixelDifference = imgData;
-        print("$pixelDifference");
-      });
-=======
       allocator.free(p); allocator.free(p1);
       setState(() { pixelDifference = imgData; print("$pixelDifference"); });
-<<<<<<< HEAD
->>>>>>> parent of 7110354 (Added Comment in c++)
-=======
->>>>>>> parent of 7110354 (Added Comment in c++)
     }
 
     GestureDetector disinfectionButtonListener = GestureDetector(
