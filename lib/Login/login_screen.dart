@@ -11,17 +11,20 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Background(
       child: SingleChildScrollView(
-        child: const MobileLoginScreen(),
-      ),
+        child: MobileLoginScreen(),
+      )
     );
   }
 }
 
-class MobileLoginScreen extends StatelessWidget {
-  const MobileLoginScreen({
-    Key? key,
-  }) : super(key: key);
+class MobileLoginScreen extends StatefulWidget {
+  MobileLoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<MobileLoginScreen> createState() => _MobileLoginScreenState();
+}
+
+class _MobileLoginScreenState extends State<MobileLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,16 +32,43 @@ class MobileLoginScreen extends StatelessWidget {
       children: <Widget>[
         const LoginScreenTopImage(),
         Row(
-          children: const [
-            Spacer(),
+          children: [
+            const Spacer(),
             Expanded(
               flex: 8,
               child: LoginForm(),
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ],
     );
   }
 }
+
+
+// class MobileLoginScreen extends StatelessWidget {
+//   MobileLoginScreen({
+//     Key? key,
+//   }) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: <Widget>[
+//         const LoginScreenTopImage(),
+//         Row(
+//           children: [
+//             const Spacer(),
+//             Expanded(
+//               flex: 8,
+//               child: LoginForm(),
+//             ),
+//             const Spacer(),
+//           ],
+//         ),
+//       ],
+//     );
+//   }
+// }

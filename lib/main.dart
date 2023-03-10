@@ -35,17 +35,19 @@ final DynamicLibrary convertImageLib = Platform.isAndroid
 Future<void> main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp(
+      name: 'purple_filter',
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   } on CameraException catch (e) {
     debugPrint('Error in fetching the camera: $e');
+  } on FirebaseException catch (e) {
+    debugPrint('The Firebase errpr: $e');
   }
 
   cameras = await availableCameras();
-  WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await Firebase.initializeApp(
-    name: 'purple_filter',
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom]);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
@@ -97,7 +99,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+  MyStatefulWidget({Key? key}) : super(key: key);
 
   @override
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();

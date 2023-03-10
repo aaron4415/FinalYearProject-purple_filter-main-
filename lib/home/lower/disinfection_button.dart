@@ -110,12 +110,17 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
       imgData = imgP.value;
 
+<<<<<<< HEAD
       allocator.free(p);
       allocator.free(p1);
       setState(() {
         pixelDifference = imgData;
         print("$pixelDifference");
       });
+=======
+      allocator.free(p); allocator.free(p1);
+      setState(() { pixelDifference = imgData; print("$pixelDifference"); });
+>>>>>>> parent of 7110354 (Added Comment in c++)
     }
 
     GestureDetector disinfectionButtonListener = GestureDetector(
@@ -145,6 +150,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       });
       redButtonLogic = true;
 
+<<<<<<< HEAD
       // _streamSubscriptions.add(sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) {
       //     //userAccelerationX = event.x; userAccelerationY = event.y; userAccelerationZ = event.z;
       //     globals.visible = true;
@@ -184,6 +190,56 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         // timer1.cancel();
         timer2.cancel();
       });
+=======
+            globals.visible = true;
+            timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
+                time++;
+                if (time >= 5) {
+                    time = 5;
+                    timer.cancel();
+                    player.resume(); //play the sound effect
+                    setState(() { globals.visible = false; });
+                }
+                mainTime = time;
+            });
+            redButtonLogic = true;
+
+            // _streamSubscriptions.add(sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+            //     //userAccelerationX = event.x; userAccelerationY = event.y; userAccelerationZ = event.z;
+            //     globals.visible = true;
+            //     // distance += 0.5 * event.x * count * count;
+            //     // if (distance > 1000) { distance = 10; count = 1; }
+            //     // if (distance < -1000) { distance = -10; count = 1; }
+            //
+            //     setState(() {
+            //       // distance; instantMovementX;
+            //       // if (userAccelerationX.abs() > 0.3) {
+            //       //   PurpleFilter.noPara().condition = 0;
+            //       //   list.add(PurpleFilter());
+            //       // }
+            //
+            //       // for (PurpleFilter l in list) {
+            //       //   timer1 = Timer.periodic(const Duration(seconds: 1), (timer) {
+            //       //     if (distance > 0) { l.condition++; } else { l.condition--; }
+            //       //   });
+            //       // }
+            //     });
+            // }));
+            setState(() {_hasBeenPressed = !_hasBeenPressed;});
+        }, onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
+            mainTime = 0; redButtonLogic = false;
+            count = 0; distance = 0;
+            setState(() {
+                globals.visible = false;
+                _hasBeenPressed = !_hasBeenPressed;
+                // for (StreamSubscription s in _streamSubscriptions) { s.cancel(); }
+                list.clear();
+                cameraController.stopImageStream();
+                player.release();
+                // timer1.cancel();
+                timer2.cancel();
+            });
+>>>>>>> parent of 7110354 (Added Comment in c++)
     });
 
     return ElevatedButton(

@@ -48,7 +48,7 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
         Widget distanceIndicator = LinearPercentIndicator(
               width: width / 2,
               lineHeight: height / 32,
-              percent: 0.4, /// TODO: The merge function should link to here, need a variable to hold the pixel value and translate to distance
+              percent: 0.4, // TODO: The merge function should link to here, need a variable to hold the pixel value and translate to distance
               progressColor: Colors.purpleAccent,
         );
 
@@ -56,7 +56,7 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
             strokeWidth: 4.0,
             strokeColor: Colors.blue,
             child: Text(
-                  '$pixelDifference', /// TODO: Change this to a variable and changes as the distanceIndicator
+                  '$pixelDifference', // TODO: Change this to a variable and changes as the distanceIndicator
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,

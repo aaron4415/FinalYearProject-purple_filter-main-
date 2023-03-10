@@ -64,8 +64,8 @@ class _AuthAppPageState extends State<AuthAppPage> {
                       context,
                       MaterialPageRoute(builder: (context) => const MyApp()),
                     );
-                    // createUserWithEmailAndPassword(
-                    // email: 'kinglaam00@gmail.com', password: '1234567abc');
+                    createUserWithEmailAndPassword(
+                    email: 'kinglaam00@gmail.com', password: '1234567abc');
                   },
                 ),
               ]),
