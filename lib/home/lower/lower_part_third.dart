@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'display_table.dart';
 
 class LowerPartThird extends StatefulWidget {
-  LowerPartThird({Key? key}) : super(key: key);
+  const LowerPartThird({Key? key}) : super(key: key);
 
   @override
   State<LowerPartThird> createState() => _LowerPartThirdState();

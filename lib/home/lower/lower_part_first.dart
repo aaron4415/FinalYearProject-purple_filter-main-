@@ -5,7 +5,7 @@ import 'disinfection_button.dart';
 import 'package:bordered_text/bordered_text.dart';
 
 class LowerPartFirst extends StatefulWidget {
-  LowerPartFirst({Key? key}) : super(key: key);
+  const LowerPartFirst({Key? key}) : super(key: key);
 
   @override
   State<LowerPartFirst> createState() => _LowerPartFirstState();

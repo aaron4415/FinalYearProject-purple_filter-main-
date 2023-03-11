@@ -40,12 +40,11 @@ Future<void> main() async {
   } on CameraException catch (e) {
     debugPrint('Error in fetching the camera: $e');
   } on FirebaseException catch (e) {
-    debugPrint('The Firebase errpr: $e');
+    debugPrint('Error in initializing firebase: $e');
   }
 
   cameras = await availableCameras();
   await EasyLocalization.ensureInitialized();
-
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom]);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])

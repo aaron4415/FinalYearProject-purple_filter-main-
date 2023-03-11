@@ -13,7 +13,6 @@ import '../../detect_distance/allocator.dart';
 import '../../detect_distance/type_definition.dart';
 import '../../main.dart';
 import '../homePage.dart';
-import '../upper/purple_filter.dart';
 import '../upper/upper_part.dart';
 import '../upper/camera_preview.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -114,8 +113,42 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       allocator.free(p);
       allocator.free(p1);
       setState(() {
-        pixelDifference = imgData;
-        print("$pixelDifference");
+        pixelDifferencePercentage =
+            imgData == -1 ? pixelDifferencePercentage : imgData;
+        if (pixelDifferencePercentage <= 80 &&
+            pixelDifferencePercentage >= 70) {
+          double firstDigit = pixelDifferencePercentage - 70;
+          double secondDigit = 0.5;
+          actualDistance = secondDigit + firstDigit / 10;
+        } else if (pixelDifferencePercentage < 70 &&
+            pixelDifferencePercentage >= 55) {
+          double firstDigit = pixelDifferencePercentage - 55;
+          double secondDigit = 1.5;
+          actualDistance = secondDigit + firstDigit / 10;
+        } else if (pixelDifferencePercentage < 55 &&
+            pixelDifferencePercentage >= 45) {
+          double firstDigit = pixelDifferencePercentage - 45;
+          double secondDigit = 3;
+          actualDistance = secondDigit + firstDigit / 10;
+        } else if (pixelDifferencePercentage < 45 &&
+            pixelDifferencePercentage >= 35) {
+          double firstDigit = pixelDifferencePercentage - 35;
+          double secondDigit = 4;
+          actualDistance = secondDigit + firstDigit / 10;
+        } else if (pixelDifferencePercentage < 35 &&
+            pixelDifferencePercentage >= 25) {
+          double firstDigit = pixelDifferencePercentage - 25;
+          double secondDigit = 5;
+          actualDistance = secondDigit + firstDigit / 10;
+        } else if (pixelDifferencePercentage < 25 &&
+            pixelDifferencePercentage >= 10) {
+          double firstDigit = pixelDifferencePercentage - 10;
+          double secondDigit = 6;
+          actualDistance = secondDigit + firstDigit / 10;
+        } else {
+          actualDistance = 0;
+        }
+        progressBarPercentage = 1 - (pixelDifferencePercentage / 100);
       });
     }
 
@@ -131,21 +164,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         print("$imgData");
       });
 
-      globals.borderColor = Colors.blue;
-      timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
-        time++;
-        if (time >= 5) {
-          time = 5;
-          timer.cancel();
-          player.resume(); //play the sound effect
-          setState(() {
-            globals.borderColor = Colors.red;
-          });
-        }
-        mainTime = time;
-      });
-      redButtonLogic = true;
-
       globals.visible = true;
       timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
         time++;
@@ -154,12 +172,15 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           timer.cancel();
           player.resume(); //play the sound effect
           setState(() {
-            globals.borderColor = Colors.blue;
+            globals.visible = false;
           });
         }
         mainTime = time;
       });
       redButtonLogic = true;
+      setState(() {
+        _hasBeenPressed = !_hasBeenPressed;
+      });
 
       // _streamSubscriptions.add(sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) {
       //     //userAccelerationX = event.x; userAccelerationY = event.y; userAccelerationZ = event.z;
@@ -182,9 +203,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       //       // }
       //     });
       // }));
-      setState(() {
-        _hasBeenPressed = !_hasBeenPressed;
-      });
     }, onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
       mainTime = 0;
       redButtonLogic = false;
@@ -193,12 +211,13 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       setState(() {
         globals.visible = false;
         _hasBeenPressed = !_hasBeenPressed;
-        // for (StreamSubscription s in _streamSubscriptions) { s.cancel(); }
         list.clear();
         cameraController.stopImageStream();
         player.release();
-        // timer1.cancel();
         timer2.cancel();
+        imgData = 0;
+        pixelDifferencePercentage = 0;
+        actualDistance = 0;
       });
     });
 
