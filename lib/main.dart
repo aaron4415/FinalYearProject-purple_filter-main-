@@ -1,6 +1,4 @@
-import 'dart:ffi';
-import 'dart:io';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -28,9 +26,9 @@ class ConvertImage {
   }
 }
 
-final DynamicLibrary convertImageLib = Platform.isAndroid
+/* final DynamicLibrary convertImageLib = Platform.isAndroid
     ? DynamicLibrary.open("libconvertImage.so")
-    : DynamicLibrary.process();
+    : DynamicLibrary.process(); */
 
 Future<void> main() async {
   try {
@@ -110,12 +108,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool _keyStore = false;
   bool _firstTimeToUse = true;
   bool _logined = false;
+  String _UID = "";
   @override
   void initState() {
     super.initState();
     _loadFirstTimeToUse();
     _loadsaveKeyStore();
     _loadIsLogin();
+    _loadUserId();
   }
 
   _loadFirstTimeToUse() async {
@@ -139,6 +139,14 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     });
   }
 
+  _loadUserId() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _UID = prefs.getString("UID") ?? "noUser";
+    });
+    print("main" + _UID);
+  }
+
   _saveLogin() async {
     //實體化
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -148,6 +156,17 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
     //寫入
     await prefs.setBool('logined', false);
+  }
+
+  _saveUserId() async {
+    //實體化
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    //獲取 counter 為 null 則預設值設定為 0
+    //_firstTimeToUse = (prefs.getBool('firstTime') ?? true);
+
+    //寫入
+    await prefs.setString('UID', "noUser");
   }
 
   List<Widget> returnPage() {
@@ -212,8 +231,10 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       actions: [
         ElevatedButton(
             child: Text("Yes"),
-            onPressed: () {
+            onPressed: () async {
               _saveLogin();
+              _saveUserId();
+              await FirebaseAuth.instance.signOut();
               Navigator.of(context, rootNavigator: true).pop();
               Navigator.push(
                 context,

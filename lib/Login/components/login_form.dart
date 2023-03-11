@@ -31,7 +31,6 @@ class _LoginFormState extends State<LoginForm> {
       email: email,
       password: password,
     );
-    log(currentUser!.email.toString());
   }
 
   _saveLogin() async {
@@ -43,6 +42,17 @@ class _LoginFormState extends State<LoginForm> {
 
     //寫入
     await prefs.setBool('logined', true);
+  }
+
+  _saveUserId(String uID) async {
+    //實體化
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    //獲取 counter 為 null 則預設值設定為 0
+    //_firstTimeToUse = (prefs.getBool('firstTime') ?? true);
+
+    //寫入
+    await prefs.setString('UID', uID);
   }
 
   @override
@@ -84,15 +94,37 @@ class _LoginFormState extends State<LoginForm> {
           Hero(
             tag: "login_btn",
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyApp()),
-                );
-                _saveLogin();
-                signInWithEmailAndPassword(
-                    email: _controllerEmail.text,
-                    password: _controllerPassword.text);
+              onPressed: () async {
+                try {
+                  final credential = await FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: _controllerEmail.text,
+                          password: _controllerPassword.text);
+                } on FirebaseAuthException catch (e) {
+                  if (e.code == 'user-not-found') {
+                    final snackBar = SnackBar(
+                      content: Text('No user found for that email.'),
+                      backgroundColor: Colors.teal,
+                      behavior: SnackBarBehavior.floating,
+                      margin: EdgeInsets.all(50),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  } else if (e.code == 'wrong-password') {
+                    log('Wrong password provided for that user.');
+                  }
+                }
+
+                FirebaseAuth.instance.authStateChanges().listen((User? user) {
+                  if (user != null) {
+                    print(user.uid);
+                    _saveLogin();
+                    _saveUserId(user.uid);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyApp()),
+                    );
+                  }
+                });
               },
               child: Text(
                 "Login".toUpperCase(),

@@ -15,11 +15,7 @@ class _LowerPartState extends State<LowerPart> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        LowerPartFirst(),
-        LowerPartSecond(),
-        LowerPartThird()
-      ],
+      children: [LowerPartFirst(), LowerPartSecond(), LowerPartThird()],
     );
   }
 }
