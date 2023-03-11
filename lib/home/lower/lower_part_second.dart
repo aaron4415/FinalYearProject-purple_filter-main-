@@ -3,9 +3,10 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:bordered_text/bordered_text.dart';
 
 int pixelDifference = 0;
+double progressBarPercentage = 0.0;
 
 class LowerPartSecond extends StatefulWidget {
-    const LowerPartSecond({Key? key}) : super(key: key);
+    LowerPartSecond({Key? key}) : super(key: key);
 
     @override
     State<LowerPartSecond> createState() => _LowerPartSecondState();
@@ -48,7 +49,8 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
         Widget distanceIndicator = LinearPercentIndicator(
               width: width / 2,
               lineHeight: height / 32,
-              percent: 0.4, /// TODO: The merge function should link to here, need a variable to hold the pixel value and translate to distance
+          /// TODO: The merge function should link to here, need a variable to hold the pixel value and translate to distance
+              percent: progressBarPercentage,
               progressColor: Colors.purpleAccent,
         );
 
@@ -56,7 +58,7 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
             strokeWidth: 4.0,
             strokeColor: Colors.blue,
             child: Text(
-                  '$pixelDifference', /// TODO: Change this to a variable and changes as the distanceIndicator
+                  '$pixelDifference cm', /// TODO: Change this to a variable and changes as the distanceIndicator
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
