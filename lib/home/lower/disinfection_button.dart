@@ -98,9 +98,35 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
       allocator.free(p); allocator.free(p1);
       setState(() {
-        pixelDifference = imgData == -1? pixelDifference : imgData ;
-        print("$pixelDifference");
-        progressBarPercentage = pixelDifference / 100;
+        pixelDifferencePercentage = imgData == -1? pixelDifferencePercentage : imgData ;
+        if (pixelDifferencePercentage <= 80 && pixelDifferencePercentage >= 70) {
+            double firstDigit = pixelDifferencePercentage - 70;
+            double secondDigit = 0.5;
+            actualDistance = secondDigit + firstDigit / 10;
+        } else if (pixelDifferencePercentage < 70 && pixelDifferencePercentage >= 55) {
+            double firstDigit = pixelDifferencePercentage - 55;
+            double secondDigit = 1.5;
+            actualDistance = secondDigit + firstDigit / 10;
+        } else if (pixelDifferencePercentage < 55 && pixelDifferencePercentage >= 45) {
+            double firstDigit = pixelDifferencePercentage - 45;
+            double secondDigit = 3;
+            actualDistance = secondDigit + firstDigit / 10;
+        } else if (pixelDifferencePercentage < 45 && pixelDifferencePercentage >= 35) {
+            double firstDigit = pixelDifferencePercentage - 35;
+            double secondDigit = 4;
+            actualDistance = secondDigit + firstDigit / 10;
+        } else if (pixelDifferencePercentage < 35 && pixelDifferencePercentage >= 25) {
+            double firstDigit = pixelDifferencePercentage - 25;
+            double secondDigit = 5;
+            actualDistance = secondDigit + firstDigit / 10;
+        } else if (pixelDifferencePercentage < 25 && pixelDifferencePercentage >= 10) {
+            double firstDigit = pixelDifferencePercentage - 10;
+            double secondDigit = 6;
+            actualDistance = secondDigit + firstDigit / 10;
+        } else {
+            actualDistance = 0;
+        }
+        progressBarPercentage = 1 - (pixelDifferencePercentage / 100);
       });
     }
 
@@ -159,7 +185,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
                 player.release();
                 timer2.cancel();
                 imgData = 0;
-                pixelDifference = 0;
+                pixelDifferencePercentage = 0;
+                actualDistance = 0;
             });
     });
 

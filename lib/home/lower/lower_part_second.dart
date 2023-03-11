@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:bordered_text/bordered_text.dart';
 
-int pixelDifference = 0;
+int pixelDifferencePercentage = 0;
 double progressBarPercentage = 0.0;
+double actualDistance = 0.0;
 
 class LowerPartSecond extends StatefulWidget {
     LowerPartSecond({Key? key}) : super(key: key);
@@ -47,7 +48,7 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
         );
 
         Widget distanceIndicator = LinearPercentIndicator(
-              width: width / 2,
+              width: width / 2.1,
               lineHeight: height / 32,
           /// TODO: The merge function should link to here, need a variable to hold the pixel value and translate to distance
               percent: progressBarPercentage,
@@ -58,7 +59,7 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
             strokeWidth: 4.0,
             strokeColor: Colors.blue,
             child: Text(
-                  '$pixelDifference cm', /// TODO: Change this to a variable and changes as the distanceIndicator
+                  '$actualDistance cm', /// TODO: Change this to a variable and changes as the distanceIndicator
                   style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
