@@ -12,7 +12,6 @@ import '../../detect_distance/allocator.dart';
 import '../../detect_distance/type_definition.dart';
 import '../../main.dart';
 import '../homePage.dart';
-import '../upper/purple_filter.dart';
 import '../upper/upper_part.dart';
 import '../upper/camera_preview.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -109,11 +108,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
               calculateDifference(_savedImage);
             });
 
-            setState(() {
-              imgData;
-              print("$imgData");
-            });
-
             globals.visible = true;
             timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
                 time++;
@@ -126,6 +120,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
                 mainTime = time;
             });
             redButtonLogic = true;
+            setState(() {_hasBeenPressed = !_hasBeenPressed;});
 
             // _streamSubscriptions.add(sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) {
             //     //userAccelerationX = event.x; userAccelerationY = event.y; userAccelerationZ = event.z;
@@ -148,20 +143,19 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
             //       // }
             //     });
             // }));
-            setState(() {_hasBeenPressed = !_hasBeenPressed;});
-        }, onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
+        },
+        onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
             mainTime = 0; redButtonLogic = false;
             count = 0; distance = 0;
             setState(() {
                 globals.visible = false;
                 _hasBeenPressed = !_hasBeenPressed;
-                // for (StreamSubscription s in _streamSubscriptions) { s.cancel(); }
                 list.clear();
                 cameraController.stopImageStream();
                 player.release();
-                // timer1.cancel();
                 timer2.cancel();
                 imgData = 0;
+                pixelDifference = 0;
             });
     });
 
