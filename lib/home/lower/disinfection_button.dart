@@ -193,35 +193,24 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           calculateDifference(_savedImage);
         });
 
-      setState(() {
-        imgData;
-        print("$imgData");
-      });
-
-      globals.visible = true;
-      timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
-        time++;
-        if (time >= 5) {
-          time = 5;
-          timer.cancel();
-          player.resume(); //play the sound effect
-          setState(() {
-            globals.visible = false;
-          });
-        }
-        mainTime = time;
-      });
-      redButtonLogic = true;
-      setState(() {
-        _hasBeenPressed = !_hasBeenPressed;
-      });
+        _streamSubscriptions.add(listenGyroscope());
+        timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
+          time++;
+          if (time >= 5) {
+            time = 5;
+            timer.cancel();
+            player.resume(); //play the sound effect
+          }
+          mainTime = time;
+        });
+        redButtonLogic = true;
+        setState(() { _hasBeenPressed = !_hasBeenPressed; });
     }, onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
       mainTime = 0;
       redButtonLogic = false;
       count = 0;
       distance = 0;
       setState(() {
-        globals.visible = false;
         _hasBeenPressed = !_hasBeenPressed;
         list.clear();
         cameraController.stopImageStream();

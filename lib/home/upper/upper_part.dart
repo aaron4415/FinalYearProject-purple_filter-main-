@@ -7,7 +7,6 @@ import 'purple_filter.dart';
 
 List<PurpleFilter> list = [];
 late AnimationController controller;
-bool visible = false;
 Color borderColor = Colors.blue;
 
 class UpperPart extends StatefulWidget {
