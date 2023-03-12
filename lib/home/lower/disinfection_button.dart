@@ -4,9 +4,9 @@ import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:purple_filter/home/lower/lower_part_second.dart';
-
+import 'package:audioplayers/audioplayers.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+import 'package:simple_kalman/simple_kalman.dart';
 
 import '../../detect_distance/allocator.dart';
 import '../../detect_distance/type_definition.dart';
@@ -14,16 +14,13 @@ import '../../main.dart';
 import '../homePage.dart';
 import '../upper/upper_part.dart';
 import '../upper/camera_preview.dart';
-import 'package:audioplayers/audioplayers.dart';
 
+import 'package:purple_filter/home/lower/lower_part_second.dart';
 import 'package:purple_filter/home/upper/upper_part.dart' as globals;
 
 int time = 0;
-double distance = 0;
-double userAccelerationX = 0;
-double userAccelerationY = 0;
-double userAccelerationZ = 0;
-double instantMovementX = 0;
+int distance = 0;
+
 bool isPlayingAnimation = false;
 double x = 0;
 
@@ -48,6 +45,45 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
   Sensors sensor = Sensors();
   bool _hasBeenPressed = true;
   double count = 0;
+
+  List<double> filteredAcceleration = [];
+  List<double> filteredGyroscope = [];
+
+  List<double> filteredVelocity = [];
+
+  double accelerationMinMax = 0;
+  double accelerationMin = 0;
+  double accelerationMax = 0;
+
+
+  double nonZeroGyroscopeDataPercentage = 0;
+  bool isDeviceMoving = false;
+  bool isRealSpeedChange = false;
+
+  void listenGyroscope() async {
+    sensor.gyroscopeEvents.listen( (GyroscopeEvent event) {
+      double combinedXYZ = event.z * event.z + event.y * event.y + event.x * event.x;
+      final gyroscopeFilter = SimpleKalman(errorMeasure: 512, errorEstimate: 120, q: 0.5);
+      double gyroscopeData = gyroscopeFilter.filtered(combinedXYZ);
+      gyroscopeData = gyroscopeData < 0.0005 ? 0 : gyroscopeData;
+      filteredGyroscope.add(gyroscopeData);
+      if (filteredGyroscope.length > 300) filteredGyroscope.removeAt(0);
+
+      List<double> sublistOfFilteredGyroscope =
+      filteredGyroscope.length > 100 ?
+      filteredGyroscope.sublist(filteredGyroscope.length-100,
+          filteredGyroscope.length-1) : filteredGyroscope;
+      int nonZeroCount = 0;
+      for (double element in sublistOfFilteredGyroscope) {
+        if (element != 0 ) nonZeroCount++;
+      }
+      nonZeroGyroscopeDataPercentage = nonZeroCount / 100; //threshold > 0.05 (5%)
+      nonZeroCount = 0;
+      setState(() {
+        isDeviceMoving = nonZeroGyroscopeDataPercentage > 0.30 ? true : false;
+      });
+    });
+  }
 
   var img = const AssetImage("images/button_icon.jpg");
   @override
@@ -151,11 +187,11 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     }
 
     GestureDetector disinfectionButtonListener = GestureDetector(
-        onLongPressStart: (LongPressStartDetails longPressStartDetails) async {
-      await cameraController.startImageStream((CameraImage image) async {
-        _processCameraImage(image);
-        calculateDifference(_savedImage);
-      });
+      onLongPressStart: (LongPressStartDetails longPressStartDetails) async {
+        await cameraController.startImageStream((CameraImage image) async {
+          _processCameraImage(image);
+          calculateDifference(_savedImage);
+        });
 
       setState(() {
         imgData;
@@ -179,28 +215,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       setState(() {
         _hasBeenPressed = !_hasBeenPressed;
       });
-
-      // _streamSubscriptions.add(sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) {
-      //     //userAccelerationX = event.x; userAccelerationY = event.y; userAccelerationZ = event.z;
-      //     globals.visible = true;
-      //     // distance += 0.5 * event.x * count * count;
-      //     // if (distance > 1000) { distance = 10; count = 1; }
-      //     // if (distance < -1000) { distance = -10; count = 1; }
-      //
-      //     setState(() {
-      //       // distance; instantMovementX;
-      //       // if (userAccelerationX.abs() > 0.3) {
-      //       //   PurpleFilter.noPara().condition = 0;
-      //       //   list.add(PurpleFilter());
-      //       // }
-      //
-      //       // for (PurpleFilter l in list) {
-      //       //   timer1 = Timer.periodic(const Duration(seconds: 1), (timer) {
-      //       //     if (distance > 0) { l.condition++; } else { l.condition--; }
-      //       //   });
-      //       // }
-      //     });
-      // }));
     }, onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
       mainTime = 0;
       redButtonLogic = false;
@@ -228,6 +242,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           fixedSize: Size(width / 4.5, height / 6.5),
           side: const BorderSide(color: Colors.white, width: 5),
         ),
-        child: disinfectionButtonListener);
+        child: disinfectionButtonListener
+    );
   }
 }
