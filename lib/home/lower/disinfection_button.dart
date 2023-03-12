@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:ffi' as ffi;
 import 'dart:typed_data';
-import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -60,17 +59,16 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
   @override
   void initState() {
     super.initState();
-    /*  conv = convertImageLib
+    conv = convertImageLib
         .lookup<ffi.NativeFunction<convert_func>>('convertImage')
-        .asFunction<Convert>(); */
+        .asFunction<Convert>();
+    player.setSource(AssetSource('succ.mp3'));
   }
 
   @override
   Widget build(BuildContext context) {
     dynamic width = MediaQuery.of(context).size.width;
     dynamic height = MediaQuery.of(context).size.height;
-
-    player.setSource(AssetSource('succ.mp3'));
 
     late Timer timer1;
     late Timer timer2;
@@ -113,8 +111,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       allocator.free(p);
       allocator.free(p1);
       setState(() {
-        pixelDifferencePercentage =
-            imgData == -1 ? pixelDifferencePercentage : imgData;
+        pixelDifferencePercentage = imgData == -1 ? pixelDifferencePercentage : imgData;
         if (pixelDifferencePercentage <= 80 &&
             pixelDifferencePercentage >= 70) {
           double firstDigit = pixelDifferencePercentage - 70;
@@ -148,6 +145,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         } else {
           actualDistance = 0;
         }
+        print("pixelDifferencePercentage: $pixelDifferencePercentage");
         progressBarPercentage = 1 - (pixelDifferencePercentage / 100);
       });
     }
@@ -155,8 +153,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     GestureDetector disinfectionButtonListener = GestureDetector(
         onLongPressStart: (LongPressStartDetails longPressStartDetails) async {
       await cameraController.startImageStream((CameraImage image) async {
-        /*  _processCameraImage(image);
-        calculateDifference(_savedImage); */
+        _processCameraImage(image);
+        calculateDifference(_savedImage);
       });
 
       setState(() {
@@ -218,6 +216,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         imgData = 0;
         pixelDifferencePercentage = 0;
         actualDistance = 0;
+        progressBarPercentage = 0;
       });
     });
 

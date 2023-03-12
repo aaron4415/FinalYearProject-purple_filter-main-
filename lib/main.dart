@@ -1,3 +1,6 @@
+import 'dart:ffi';
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +29,9 @@ class ConvertImage {
   }
 }
 
-/* final DynamicLibrary convertImageLib = Platform.isAndroid
+final DynamicLibrary convertImageLib = Platform.isAndroid
     ? DynamicLibrary.open("libconvertImage.so")
-    : DynamicLibrary.process(); */
+    : DynamicLibrary.process();
 
 Future<void> main() async {
   try {

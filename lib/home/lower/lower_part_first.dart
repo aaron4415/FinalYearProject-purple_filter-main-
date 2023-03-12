@@ -81,7 +81,7 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
           progressBar,
           upperFirstLeftPart // It contains the progress bar, the target virus and its icon, and the disinfection percentage
         ]),
-        const DisinfectionButton()
+        DisinfectionButton()
       ],
     );
   }
