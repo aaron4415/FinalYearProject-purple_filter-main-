@@ -50,8 +50,8 @@ class _UpperPartState extends State<UpperPart>
           ),
         ),
       ),
-      redButtonLogic ? PurpleFilter.noPara() : const EmptyContainer(),
-      for (PurpleFilter l in list) l
+      // redButtonLogic ? PurpleFilter.noPara() : const EmptyContainer(),
+      // for (PurpleFilter l in list) l
     ]);
   }
 }
