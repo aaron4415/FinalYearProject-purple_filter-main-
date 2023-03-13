@@ -55,13 +55,20 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
   double accelerationMin = 0;
   double accelerationMax = 0;
 
-
+  late StreamSubscription<GyroscopeEvent> listener;
   double nonZeroGyroscopeDataPercentage = 0;
   bool isDeviceMoving = false;
   bool isRealSpeedChange = false;
 
-  void listenGyroscope() async {
-    sensor.gyroscopeEvents.listen( (GyroscopeEvent event) {
+  var img = const AssetImage("images/button_icon.jpg");
+  @override
+  void dispose() {
+    globals.controller.dispose();
+    super.dispose();
+  }
+
+  void initializeListener() {
+    listener = sensor.gyroscopeEvents.listen( (GyroscopeEvent event) {
       double combinedXYZ = event.z * event.z + event.y * event.y + event.x * event.x;
       final gyroscopeFilter = SimpleKalman(errorMeasure: 512, errorEstimate: 120, q: 0.5);
       double gyroscopeData = gyroscopeFilter.filtered(combinedXYZ);
@@ -79,17 +86,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       }
       nonZeroGyroscopeDataPercentage = nonZeroCount / 100; //threshold > 0.05 (5%)
       nonZeroCount = 0;
-      setState(() {
-        isDeviceMoving = nonZeroGyroscopeDataPercentage > 0.30 ? true : false;
-      });
+      setState(() { isDeviceMoving = nonZeroGyroscopeDataPercentage > 0.10 ? true : false; });
     });
-  }
-
-  var img = const AssetImage("images/button_icon.jpg");
-  @override
-  void dispose() {
-    globals.controller.dispose();
-    super.dispose();
   }
 
   @override
@@ -113,6 +111,42 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       setState(() {
         _savedImage = image;
       });
+    }
+
+    void actualDistanceCalculation(pixelDifferencePercentage) {
+      if (pixelDifferencePercentage <= 80 &&
+          pixelDifferencePercentage >= 70) {
+        double firstDigit = pixelDifferencePercentage - 70;
+        double secondDigit = 0.5;
+        actualDistance = secondDigit + firstDigit / 10;
+      } else if (pixelDifferencePercentage < 70 &&
+          pixelDifferencePercentage >= 55) {
+        double firstDigit = pixelDifferencePercentage - 55;
+        double secondDigit = 1.5;
+        actualDistance = secondDigit + firstDigit / 10;
+      } else if (pixelDifferencePercentage < 55 &&
+          pixelDifferencePercentage >= 45) {
+        double firstDigit = pixelDifferencePercentage - 45;
+        double secondDigit = 3;
+        actualDistance = secondDigit + firstDigit / 10;
+      } else if (pixelDifferencePercentage < 45 &&
+          pixelDifferencePercentage >= 35) {
+        double firstDigit = pixelDifferencePercentage - 35;
+        double secondDigit = 4;
+        actualDistance = secondDigit + firstDigit / 10;
+      } else if (pixelDifferencePercentage < 35 &&
+          pixelDifferencePercentage >= 25) {
+        double firstDigit = pixelDifferencePercentage - 25;
+        double secondDigit = 5;
+        actualDistance = secondDigit + firstDigit / 10;
+      } else if (pixelDifferencePercentage < 25 &&
+          pixelDifferencePercentage >= 10) {
+        double firstDigit = pixelDifferencePercentage - 10;
+        double secondDigit = 6;
+        actualDistance = secondDigit + firstDigit / 10;
+      } else {
+        actualDistance = 0;
+      }
     }
 
     Future<void> calculateDifference(_savedImage) async {
@@ -148,40 +182,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       allocator.free(p1);
       setState(() {
         pixelDifferencePercentage = imgData == -1 ? pixelDifferencePercentage : imgData;
-        if (pixelDifferencePercentage <= 80 &&
-            pixelDifferencePercentage >= 70) {
-          double firstDigit = pixelDifferencePercentage - 70;
-          double secondDigit = 0.5;
-          actualDistance = secondDigit + firstDigit / 10;
-        } else if (pixelDifferencePercentage < 70 &&
-            pixelDifferencePercentage >= 55) {
-          double firstDigit = pixelDifferencePercentage - 55;
-          double secondDigit = 1.5;
-          actualDistance = secondDigit + firstDigit / 10;
-        } else if (pixelDifferencePercentage < 55 &&
-            pixelDifferencePercentage >= 45) {
-          double firstDigit = pixelDifferencePercentage - 45;
-          double secondDigit = 3;
-          actualDistance = secondDigit + firstDigit / 10;
-        } else if (pixelDifferencePercentage < 45 &&
-            pixelDifferencePercentage >= 35) {
-          double firstDigit = pixelDifferencePercentage - 35;
-          double secondDigit = 4;
-          actualDistance = secondDigit + firstDigit / 10;
-        } else if (pixelDifferencePercentage < 35 &&
-            pixelDifferencePercentage >= 25) {
-          double firstDigit = pixelDifferencePercentage - 25;
-          double secondDigit = 5;
-          actualDistance = secondDigit + firstDigit / 10;
-        } else if (pixelDifferencePercentage < 25 &&
-            pixelDifferencePercentage >= 10) {
-          double firstDigit = pixelDifferencePercentage - 10;
-          double secondDigit = 6;
-          actualDistance = secondDigit + firstDigit / 10;
-        } else {
-          actualDistance = 0;
-        }
-        print("pixelDifferencePercentage: $pixelDifferencePercentage");
+        actualDistanceCalculation(pixelDifferencePercentage); // This void() changes the value of $actualDistance
         progressBarPercentage = 1 - (pixelDifferencePercentage / 100);
       });
     }
@@ -192,8 +193,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           _processCameraImage(image);
           calculateDifference(_savedImage);
         });
-
-        _streamSubscriptions.add(listenGyroscope());
+        initializeListener();
+        _streamSubscriptions.add(listener);
         timer2 = Timer.periodic(const Duration(seconds: 1), (timer) {
           time++;
           if (time >= 5) {
@@ -205,11 +206,13 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         });
         redButtonLogic = true;
         setState(() { _hasBeenPressed = !_hasBeenPressed; });
-    }, onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
+    },
+    onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
       mainTime = 0;
       redButtonLogic = false;
       count = 0;
       distance = 0;
+      _streamSubscriptions.clear();
       setState(() {
         _hasBeenPressed = !_hasBeenPressed;
         list.clear();
