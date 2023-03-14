@@ -11,6 +11,7 @@ abstract class  LocaleKeys {
   static const changeInterface = 'changeInterface';
   static const changeMode = 'changeMode';
   static const changeLanguage = 'changeLanguage';
+  static const changeTableList = 'changeTableList';
   static const home = 'home';
   static const setting = 'setting';
   static const contactUs = 'contactUs';

@@ -1,11 +1,14 @@
 import 'dart:developer';
-import '../../../authMain.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
 import '../../../main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:cool_alert/cool_alert.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import '/Signup/signup_screen.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({super.key});
@@ -55,9 +58,13 @@ class _LoginFormState extends State<LoginForm> {
     await prefs.setString('UID', uID);
   }
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Form(
+      key: _formKey,
       child: Column(
         children: [
           TextFormField(
@@ -66,6 +73,12 @@ class _LoginFormState extends State<LoginForm> {
             textInputAction: TextInputAction.next,
             cursorColor: kPrimaryColor,
             onSaved: (email) {},
+            validator: (String? controllerEmail) {
+              if (controllerEmail == null || controllerEmail.isEmpty) {
+                return 'Email is required';
+              }
+              return null;
+            },
             decoration: const InputDecoration(
               hintText: "Your email",
               prefixIcon: Padding(
@@ -81,6 +94,12 @@ class _LoginFormState extends State<LoginForm> {
               obscureText: true,
               controller: _controllerPassword,
               cursorColor: kPrimaryColor,
+              validator: (String? controllerPassword) {
+                if (controllerPassword == null || controllerPassword.isEmpty) {
+                  return 'password is required';
+                }
+                return null;
+              },
               decoration: const InputDecoration(
                 hintText: "Your password",
                 prefixIcon: Padding(
@@ -95,36 +114,50 @@ class _LoginFormState extends State<LoginForm> {
             tag: "login_btn",
             child: ElevatedButton(
               onPressed: () async {
-                try {
-                  final credential = await FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                          email: _controllerEmail.text,
-                          password: _controllerPassword.text);
-                } on FirebaseAuthException catch (e) {
-                  if (e.code == 'user-not-found') {
-                    final snackBar = SnackBar(
-                      content: Text('No user found for that email.'),
-                      backgroundColor: Colors.teal,
-                      behavior: SnackBarBehavior.floating,
-                      margin: EdgeInsets.all(50),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  } else if (e.code == 'wrong-password') {
-                    log('Wrong password provided for that user.');
+                if (_formKey.currentState!.validate()) {
+                  // If the form is valid, display a snackbar. In the real world,
+                  // you'd often call a server or save the information in a database.
+                  try {
+                    final credential = await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: _controllerEmail.text,
+                            password: _controllerPassword.text);
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'user-not-found') {
+                      CoolAlert.show(
+                        context: context,
+                        type: CoolAlertType.error,
+                        title: 'Error when trying to login',
+                        text: "Your email or passward is wrong.",
+                        loopAnimation: false,
+                      );
+                    } else if (e.code == 'wrong-password') {
+                      CoolAlert.show(
+                        context: context,
+                        type: CoolAlertType.error,
+                        title: 'Error when trying to login',
+                        text: "Your email or passward is wrong.",
+                        loopAnimation: false,
+                      );
+                    }
                   }
-                }
 
-                FirebaseAuth.instance.authStateChanges().listen((User? user) {
-                  if (user != null) {
-                    print(user.uid);
-                    _saveLogin();
-                    _saveUserId(user.uid);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MyApp()),
-                    );
-                  }
-                });
+                  FirebaseAuth.instance.authStateChanges().listen((User? user) {
+                    if (user != null) {
+                      log("User: " + user.uid);
+
+                      print(user.uid);
+
+                      _saveLogin();
+                      _saveUserId(user.uid);
+
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const MyApp()),
+                      );
+                    }
+                  });
+                }
               },
               child: Text(
                 "Login".toUpperCase(),
@@ -138,7 +171,7 @@ class _LoginFormState extends State<LoginForm> {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return AuthAppPage();
+                    return SignUpScreen();
                   },
                 ),
               );

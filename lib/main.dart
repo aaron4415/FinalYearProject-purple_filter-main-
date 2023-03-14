@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +22,8 @@ import 'l10n/locale_keys.g.dart';
 import 'home/upper/camera_preview.dart';
 import 'home/homePage.dart';
 import 'Login/login_screen.dart';
+import 'package:cool_alert/cool_alert.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class ConvertImage {
   Future<String?> getPlatformVersion() {
@@ -63,7 +68,24 @@ Future<void> main() async {
         child: MyApp(),
       ),
     );
+    configLoading();
   });
+}
+
+void configLoading() {
+  EasyLoading.instance
+    ..displayDuration = const Duration(milliseconds: 2000)
+    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+    ..loadingStyle = EasyLoadingStyle.dark
+    ..indicatorSize = 45.0
+    ..radius = 10.0
+    ..progressColor = Colors.yellow
+    ..backgroundColor = Colors.green
+    ..indicatorColor = Colors.yellow
+    ..textColor = Colors.yellow
+    ..maskColor = Colors.blue.withOpacity(0.5)
+    ..userInteractions = true
+    ..dismissOnTap = false;
 }
 
 class MyApp extends StatelessWidget {
@@ -91,6 +113,7 @@ class MyApp extends StatelessWidget {
         const Locale('ja'), // Japanese
       ], */
       home: MyStatefulWidget(),
+      builder: EasyLoading.init(),
     );
   }
 }
@@ -108,13 +131,21 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool _firstTimeToUse = true;
   bool _logined = false;
   String _UID = "";
+  Timer? _timer;
   @override
   void initState() {
     super.initState();
+    EasyLoading.show(status: 'loading...');
     _loadFirstTimeToUse();
     _loadsaveKeyStore();
     _loadIsLogin();
     _loadUserId();
+    EasyLoading.addStatusCallback((status) {
+      print('EasyLoading Status $status');
+      if (status == EasyLoadingStatus.dismiss) {
+        _timer?.cancel();
+      }
+    });
   }
 
   _loadFirstTimeToUse() async {
@@ -143,7 +174,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     setState(() {
       _UID = prefs.getString("UID") ?? "noUser";
     });
-    print("main" + _UID);
   }
 
   _saveLogin() async {
@@ -169,6 +199,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   List<Widget> returnPage() {
+    EasyLoading.dismiss();
     if (_keyStore == false) {
       return <Widget>[
         QRViewPage(),
@@ -218,61 +249,50 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         break;
 
       case 3:
-        showAlertDialog(context);
+        CoolAlert.show(
+          context: context,
+          title: "Do you want to logout?",
+          type: CoolAlertType.confirm,
+          showCancelBtn: true,
+          confirmBtnText: 'Yes',
+          onConfirmBtnTap: () async {
+            _saveLogin();
+            _saveUserId();
+            await FirebaseAuth.instance.signOut();
+            Navigator.of(context, rootNavigator: true).pop();
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MyApp()),
+            );
+          },
+          cancelBtnText: 'No',
+          onCancelBtnTap: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MyApp()),
+            );
+          },
+          confirmBtnColor: Colors.green,
+          barrierDismissible: false,
+        );
         break;
     }
   }
 
-  showAlertDialog(BuildContext context) {
-    // Init
-    AlertDialog dialog = AlertDialog(
-      title: Text("Are you sure to Sign Out?"),
-      actions: [
-        ElevatedButton(
-            child: Text("Yes"),
-            onPressed: () async {
-              _saveLogin();
-              _saveUserId();
-              await FirebaseAuth.instance.signOut();
-              Navigator.of(context, rootNavigator: true).pop();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MyApp()),
-              );
-            }),
-        ElevatedButton(
-            child: Text("Cancel"),
-            onPressed: () {
-              Navigator.of(context, rootNavigator: true).pop();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const MyApp()),
-              );
-            }),
-      ],
-    );
-
-    // Show the dialog
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return dialog;
-        });
-  }
-
   Widget displayFirstTimePage() {
     if (_firstTimeToUse == true) {
-      return Center(
+      return (Center(
         child: selectLanguagePage(),
-      );
+      ));
     } else if (_logined == false) {
-      return Center(
+      return (Center(
         child: LoginScreen(),
-      );
+      ));
     } else {
-      return Center(
+      return (Center(
         child: returnPage().elementAt(_selectedIndex),
-      );
+      ));
     }
   }
 
