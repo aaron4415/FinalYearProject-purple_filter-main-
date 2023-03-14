@@ -7,7 +7,6 @@ import 'purple_filter.dart';
 
 List<PurpleFilter> list = [];
 late AnimationController controller;
-bool visible = false;
 Color borderColor = Colors.blue;
 
 class UpperPart extends StatefulWidget {
@@ -31,7 +30,6 @@ class _UpperPartState extends State<UpperPart>
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
     return Stack(children: [
@@ -52,8 +50,8 @@ class _UpperPartState extends State<UpperPart>
           ),
         ),
       ),
-      redButtonLogic ? PurpleFilter.noPara() : const EmptyContainer(),
-      for (PurpleFilter l in list) l
+      // redButtonLogic ? PurpleFilter.noPara() : const EmptyContainer(),
+      // for (PurpleFilter l in list) l
     ]);
   }
 }

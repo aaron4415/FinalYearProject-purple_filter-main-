@@ -29,12 +29,14 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
         child: Icon(
           pinchSharp,
           color: Colors.white,
-        ));
+        )
+    );
 
     Widget distanceText = BorderedText(
         strokeWidth: 4.0,
         strokeColor: Colors.blue,
-        child: const Text('Distance',
+        child: const Text(
+            'Distance',
             style: TextStyle(
               color: Colors.white,
               fontSize: 20.0,
@@ -45,8 +47,6 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
     Widget distanceIndicator = LinearPercentIndicator(
       width: width / 2.1,
       lineHeight: height / 32,
-
-      /// TODO: The merge function should link to here, need a variable to hold the pixel value and translate to distance
       percent: progressBarPercentage,
       progressColor: Colors.purpleAccent,
     );
@@ -54,15 +54,16 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
     Widget distanceDisplay = BorderedText(
         strokeWidth: 4.0,
         strokeColor: Colors.blue,
-        child: Text('$actualDistance cm',
-
-            /// TODO: Change this to a variable and changes as the distanceIndicator
+        child: Text(
+            '$actualDistance cm',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 20.0,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold,
-            )));
+            )
+        )
+    );
 
     return Padding(
         padding: const EdgeInsets.only(top: 0.0, bottom: 0.0),

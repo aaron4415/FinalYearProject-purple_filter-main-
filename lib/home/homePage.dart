@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'upper/upper_part.dart';
 import 'lower/lower_part.dart';
-
 int mainTime = 0;
 bool redButtonLogic = false;
 

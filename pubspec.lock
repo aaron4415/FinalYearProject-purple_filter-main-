@@ -679,6 +679,14 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.5"
+  simple_kalman:
+    dependency: "direct main"
+    description:
+      name: simple_kalman
+      sha256: b14c2827873755610c73739547d5cc05e16df47788a04bb87c1b40d7d2b4090f
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
