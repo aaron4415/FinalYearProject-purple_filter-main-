@@ -29,9 +29,6 @@ late Convert conv;
 late CameraImage _savedImage;
 ffi.Allocator allocator = A();
 
-// late Timer timer; late Timer timer1; late Timer timer3;
-// late Timer timer4; late Timer timer5; late Timer timer6;
-// late Timer timer7; late Timer timer8; late Timer timer2;
 late Timer timer;
 
 final player = AudioPlayer();
@@ -81,6 +78,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         .lookup<ffi.NativeFunction<convert_func>>('convertImage')
         .asFunction<Convert>();
     player.setSource(AssetSource('succ.mp3'));
+    player.setReleaseMode(ReleaseMode.stop);
   }
 
   @override
@@ -89,132 +87,26 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     dynamic height = MediaQuery.of(context).size.height;
 
     Future<void> determineEffectiveDisinfection() async{
-      //int counter = 0;
-      print("isDeviceMoving: $isDeviceMoving");
-      print("is streamSubscription empty: ${_streamSubscriptions.isEmpty}");
+      setState(() {
+        timer = Timer.periodic(
+          Duration(milliseconds: actualDistance.ceil() * 10), (timer) {
+            setState(() {
+              if (isDeviceMoving) { timer.cancel(); disinfectionPercentage = 0; }
+              disinfectionPercentage += 1;
+              if (disinfectionPercentage == 100) { timer.cancel(); player.resume(); }
+            });
+        });
+      });
+    }
+
+    Future<void> determineReset() async {
       setState(() {
         if (isDeviceMoving) {
           disinfectionPercentage = 0;
-          //counter = 0;
           if (timer.isActive) timer.cancel();
+          player.release();
+          determineEffectiveDisinfection().ignore();
         }
-        if (actualDistance < 1) {
-          timer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            //   if (counter > 100) timer.cancel();
-            //   if(counter < 100) counter += 1;
-            setState(() {
-              disinfectionPercentage+= 1;
-              if (disinfectionPercentage == 100) timer.cancel();
-            });
-          });
-        } else if (actualDistance >= 1 && actualDistance < 2) {
-          timer = Timer.periodic(const Duration(milliseconds: 20), (timer) {
-          //   setState(() {
-          //     disinfectionPercentage = counter;
-          //   });
-          //   if (counter > 100) timer.cancel();
-          //   if(counter < 100) counter += 1;
-            setState(() {
-              disinfectionPercentage+= 1;
-              if (disinfectionPercentage == 100) timer.cancel();
-            });
-          });
-        } else if (actualDistance >= 2 && actualDistance < 3) {
-          timer = Timer.periodic(const Duration(milliseconds: 30), (timer) {
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            // if (counter > 100) timer.cancel();
-            // if(counter < 100) counter += 1;
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            setState(() {
-              disinfectionPercentage+= 1;
-              if (disinfectionPercentage == 100) timer.cancel();
-            });
-          });
-        } else if (actualDistance >= 3 && actualDistance < 4) {
-          timer = Timer.periodic(const Duration(milliseconds: 40), (timer) {
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            // if (counter > 100) timer.cancel();
-            // if(counter < 100) counter += 1;
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            setState(() {
-              disinfectionPercentage+= 1;
-              if (disinfectionPercentage == 100) timer.cancel();
-            });
-          });
-        } else if (actualDistance >= 4 && actualDistance < 5) {
-          timer = Timer.periodic(const Duration(milliseconds: 50), (timer) {
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            // if (counter > 100) timer.cancel();
-            // if(counter < 100) counter += 1;
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            setState(() {
-              disinfectionPercentage+= 1;
-              if (disinfectionPercentage == 100) timer.cancel();
-            });
-          });
-        } else if (actualDistance >= 5 && actualDistance < 6) {
-          timer = Timer.periodic(const Duration(milliseconds: 60), (timer) {
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            // if (counter > 100) timer.cancel();
-            // if(counter < 100) counter += 1;
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            setState(() {
-              disinfectionPercentage+= 1;
-              if (disinfectionPercentage == 100) timer.cancel();
-            });
-          });
-        } else if (actualDistance >= 6 && actualDistance < 7) {
-          timer = Timer.periodic(const Duration(milliseconds: 70), (timer) {
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            // if (counter > 100) timer.cancel();
-            // if(counter < 100) counter += 1;
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            setState(() {
-              disinfectionPercentage+= 1;
-              if (disinfectionPercentage == 100) timer.cancel();
-            });
-          });
-        } else if (actualDistance >= 7 && actualDistance < 8) {
-          timer = Timer.periodic(const Duration(milliseconds: 80), (timer) {
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            // if (counter > 100) timer.cancel();
-            // if(counter < 100) counter += 1;
-            // setState(() {
-            //   disinfectionPercentage = counter;
-            // });
-            setState(() {
-              disinfectionPercentage+= 1;
-              if (disinfectionPercentage == 100) timer.cancel();
-            });
-          });
-        }
-
-        if (disinfectionPercentage == 100) player.resume();
       });
     }
 
@@ -326,7 +218,9 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         });
         initializeListener();
         _streamSubscriptions.add(listener);
-        determineEffectiveDisinfection();
+        await determineReset();
+        await determineEffectiveDisinfection();
+
         setState(() { _hasBeenPressed = !_hasBeenPressed; redButtonLogic = true; });
     },
     onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
@@ -346,10 +240,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         disinfectionPercentage = 0;
 
         timer.cancel();
-        // timer1.cancel(); timer2.cancel();
-        // timer3.cancel(); timer4.cancel();
-        // timer5.cancel(); timer6.cancel();
-        // timer7.cancel(); timer8.cancel();
       });
     });
 
