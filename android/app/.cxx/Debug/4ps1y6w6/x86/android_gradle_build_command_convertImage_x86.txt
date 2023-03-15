@@ -1,0 +1,7 @@
+Executable : C:\Users\Alex Yu\AppData\Local\Android\sdk\cmake\3.18.1\bin\ninja.exe
+arguments : 
+-C
+C:\Users\Alex Yu\Documents\GitHub\purple_filter-main\android\app\.cxx\Debug\4ps1y6w6\x86
+convertImage
+jvmArgs : 
+

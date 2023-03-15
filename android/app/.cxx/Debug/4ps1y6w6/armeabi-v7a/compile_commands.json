@@ -1,0 +1,7 @@
+[
+{
+  "directory": "C:/Users/Alex Yu/Documents/GitHub/purple_filter-main/android/app/.cxx/Debug/4ps1y6w6/armeabi-v7a",
+  "command": "C:\\Users\\ALEXYU~1\\AppData\\Local\\Android\\Sdk\\ndk\\214~1.707\\TOOLCH~1\\llvm\\prebuilt\\WINDOW~1\\bin\\CLANG_~1.EXE --target=armv7-none-linux-androideabi24 --gcc-toolchain=\"C:/Users/Alex Yu/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64\" --sysroot=\"C:/Users/Alex Yu/AppData/Local/Android/Sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/windows-x86_64/sysroot\" -DconvertImage_EXPORTS -I../../../../.././app/src/main/include -I../../../../.././app/src/main/boost_1_81_0 -isystem ../../../../../third_sdk/OpenCV-android-sdk/sdk/native/jni/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC -o CMakeFiles\\convertImage.dir\\C_\\Users\\Alex_Yu\\Documents\\GitHub\\purple_filter-main\\ios\\Classes\\converter.cpp.o -c \"C:\\Users\\Alex Yu\\Documents\\GitHub\\purple_filter-main\\ios\\Classes\\converter.cpp\"",
+  "file": "C:\\Users\\Alex Yu\\Documents\\GitHub\\purple_filter-main\\ios\\Classes\\converter.cpp"
+}
+]
