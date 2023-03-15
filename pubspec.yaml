@@ -31,28 +31,42 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  camera: ^0.9.4+1
-  percent_indicator: ^4.0.1
-  sensors_plus: ^1.4.1
+
+  flutter_localizations:
+    sdk: flutter
+  easy_localization: ^3.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
+  camera: ^0.9.4+1
+  sensors_plus: ^1.4.1
   usb_serial: ^0.4.0
+  platform_device_id: ^1.0.1
+
   qr_code_scanner: ^1.0.1
 
   http: ^0.13.5
+
   firebase_core: ^2.4.1
   firebase_auth: ^4.2.5
   path_provider: ^2.0.11
-  platform_device_id: ^1.0.1
+
   flutter_phoenix: ^1.1.0
   shared_preferences: ^2.0.17
-  flutter_localizations:
-    sdk: flutter
-  easy_localization: ^3.0.1
+  percent_indicator: ^4.0.1
   widget_and_text_animator: ^1.0.9
   bordered_text: ^2.0.0
+  audioplayers: ^3.0.1
+  confetti: ^0.7.0
+  flutter_svg: ^1.1.6
+  ffi: ^2.0.1
+  permission_handler: ^10.1.0
+
+  cool_alert: ^1.1.0
+  flutter_easyloading: ^3.0.5
+  simple_kalman: ^1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -80,8 +94,11 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-assets:
-  - images/button_icon.jpg
+  assets:
+    - images/button_icon.jpg
+    - assets/
+    - assets/images/
+    - assets/icons/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

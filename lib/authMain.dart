@@ -2,31 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'frame.dart';
-
-/* Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    name: 'purple_filter',
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.orange,
-      ),
-      home: const AuthAppPage(),
-    );
-  }
-} */
+import 'main.dart';
 
 class AuthAppPage extends StatefulWidget {
   const AuthAppPage({super.key});
@@ -88,8 +64,8 @@ class _AuthAppPageState extends State<AuthAppPage> {
                       context,
                       MaterialPageRoute(builder: (context) => const MyApp()),
                     );
-                    // createUserWithEmailAndPassword(
-                    // email: 'kinglaam00@gmail.com', password: '1234567abc');
+                    createUserWithEmailAndPassword(
+                    email: 'kinglaam00@gmail.com', password: '1234567abc');
                   },
                 ),
               ]),

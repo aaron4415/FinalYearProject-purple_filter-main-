@@ -1,29 +1,12 @@
 import 'package:flutter/material.dart';
 
 import 'dart:async';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'authMain.dart';
+
 import 'l10n/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
-// void main() {
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: AuthAppPage(storage: ConfigStorage()),
-//     );
-//   }
-// }
+import 'Login/login_screen.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class selectLanguagePage extends StatefulWidget {
   const selectLanguagePage({Key? key}) : super(key: key);
@@ -35,11 +18,19 @@ class selectLanguagePage extends StatefulWidget {
 class _selectLanguagePageState extends State<selectLanguagePage> {
   String _language = "english";
   bool _firstTimeToUse = true;
+  Timer? _timer;
   @override
   void initState() {
     super.initState();
     _loadFirstTimeToUse();
     _loadLanguagePage();
+    EasyLoading.addStatusCallback((status) {
+      print('EasyLoading Status $status');
+      if (status == EasyLoadingStatus.dismiss) {
+        _timer?.cancel();
+      }
+    });
+    EasyLoading.dismiss();
   }
 
   _loadFirstTimeToUse() async {
@@ -136,7 +127,7 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const AuthAppPage()),
+                          builder: (context) => const LoginScreen()),
                     );
                   }, // Handle your callback
                   child: Ink(
@@ -199,7 +190,7 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const AuthAppPage()),
+                        builder: (context) => const LoginScreen()),
                   );
                 }
               },
