@@ -35,7 +35,8 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
           color: Colors.blue,
           shape: BoxShape.circle,
         ),
-        child: Icon(coronavirus, color: Colors.white));
+        child: Icon(coronavirus, color: Colors.white)
+    );
 
     Widget virusType = SizedBox(
         child: BorderedText(

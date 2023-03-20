@@ -12,7 +12,6 @@ import '../../detect_distance/allocator.dart';
 import '../../detect_distance/type_definition.dart';
 import '../../main.dart';
 import '../homePage.dart';
-import '../upper/upper_part.dart';
 import '../upper/camera_preview.dart';
 
 import 'package:purple_filter/home/lower/lower_part_second.dart';
@@ -91,9 +90,9 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         timer = Timer.periodic(
           Duration(milliseconds: actualDistance.ceil() * 10), (timer) {
             setState(() {
-              if (isDeviceMoving) { timer.cancel(); disinfectionPercentage = 0; }
+              if (isDeviceMoving) { disinfectionPercentage = 0; timer.cancel(); }
               disinfectionPercentage += 1;
-              if (disinfectionPercentage == 100) { timer.cancel(); player.resume(); }
+              if (disinfectionPercentage == 100) { player.resume(); timer.cancel();  }
             });
         });
       });
