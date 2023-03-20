@@ -28,7 +28,7 @@ late Convert conv;
 late CameraImage _savedImage;
 ffi.Allocator allocator = A();
 
-late Timer timer;
+
 
 final player = AudioPlayer();
 
@@ -42,14 +42,8 @@ class DisinfectionButton extends StatefulWidget {
 }
 
 class _DisinfectionButtonState extends State<DisinfectionButton> {
-  final _streamSubscriptions = <StreamSubscription<dynamic>>[];
-
-  Sensors sensor = Sensors();
   bool _hasBeenPressed = true;
   double count = 0;
-
-  List<double> filteredAcceleration = [];
-  List<double> filteredGyroscope = [];
 
   List<double> filteredVelocity = [];
 
@@ -57,11 +51,9 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
   double accelerationMin = 0;
   double accelerationMax = 0;
 
-  late StreamSubscription<GyroscopeEvent> listener;
-  double nonZeroGyroscopeDataPercentage = 0;
-  bool isDeviceMoving = false;
   bool isRealSpeedChange = false;
 
+  late Timer timer;
   var img = const AssetImage("images/button_icon.jpg");
 
   @override
@@ -91,8 +83,10 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           Duration(milliseconds: actualDistance.ceil() * 10), (timer) {
             setState(() {
               if (isDeviceMoving) { disinfectionPercentage = 0; timer.cancel(); }
-              disinfectionPercentage += 1;
-              if (disinfectionPercentage == 100) { player.resume(); timer.cancel();  }
+              else {
+                if (disinfectionPercentage < 100) { disinfectionPercentage += 1; }
+                else { player.resume(); timer.cancel(); }
+              }
             });
         });
       });
@@ -106,29 +100,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           player.release();
           determineEffectiveDisinfection().ignore();
         }
-      });
-    }
-
-    void initializeListener() {
-      listener = sensor.gyroscopeEvents.listen( (GyroscopeEvent event) {
-        double combinedXYZ = event.z * event.z + event.y * event.y + event.x * event.x;
-        final gyroscopeFilter = SimpleKalman(errorMeasure: 512, errorEstimate: 120, q: 0.5);
-        double gyroscopeData = gyroscopeFilter.filtered(combinedXYZ);
-        gyroscopeData = gyroscopeData < 0.0005 ? 0 : gyroscopeData;
-        filteredGyroscope.add(gyroscopeData);
-        if (filteredGyroscope.length > 300) filteredGyroscope.removeAt(0);
-
-        List<double> sublistOfFilteredGyroscope =
-        filteredGyroscope.length > 100 ?
-        filteredGyroscope.sublist(filteredGyroscope.length-100,
-            filteredGyroscope.length-1) : filteredGyroscope;
-        int nonZeroCount = 0;
-        for (double element in sublistOfFilteredGyroscope) {
-          if (element != 0 ) nonZeroCount++;
-        }
-        nonZeroGyroscopeDataPercentage = nonZeroCount / 100; //threshold > 0.05 (5%)
-        nonZeroCount = 0;
-        setState(() { isDeviceMoving = nonZeroGyroscopeDataPercentage > 0.20 ? true : false; });
       });
     }
 
@@ -176,11 +147,9 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
     Future<void> calculateDifference(savedImage) async {
       ffi.Pointer<ffi.Uint8> p = allocator.allocate(savedImage.planes[0].bytes.length);
-
       ffi.Pointer<ffi.Uint8> p1 = allocator.allocate(savedImage.planes[1].bytes.lengthInBytes);
 
       Uint8List pointerList = p.asTypedList(savedImage.planes[0].bytes.length);
-
       Uint8List pointerList1 = p1.asTypedList(savedImage.planes[1].bytes.length);
 
       pointerList.setRange(
@@ -215,8 +184,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           _processCameraImage(image);
           calculateDifference(_savedImage);
         });
-        initializeListener();
-        _streamSubscriptions.add(listener);
         await determineReset();
         await determineEffectiveDisinfection();
 
@@ -229,7 +196,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
       setState(() {
         cameraController.stopImageStream(); _hasBeenPressed = !_hasBeenPressed;
-        listener.cancel(); _streamSubscriptions.clear();
         // list.clear();
         player.release();
         imgData = 0;

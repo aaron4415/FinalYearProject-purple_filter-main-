@@ -1,10 +1,15 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:bordered_text/bordered_text.dart';
+import 'package:sensors_plus/sensors_plus.dart';
+import 'package:simple_kalman/simple_kalman.dart';
 
 int pixelDifferencePercentage = 0;
 double progressBarPercentage = 0.0;
 double actualDistance = 0.0;
+bool isDeviceMoving = false;
 
 class LowerPartSecond extends StatefulWidget {
   LowerPartSecond({Key? key}) : super(key: key);
@@ -15,6 +20,18 @@ class LowerPartSecond extends StatefulWidget {
 
 class _LowerPartSecondState extends State<LowerPartSecond> {
   IconData pinchSharp = const IconData(0xf0456, fontFamily: 'MaterialIcons');
+
+
+  void initializeListener() {
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    initializeListener();
+  }
 
   @override
   Widget build(BuildContext context) {
