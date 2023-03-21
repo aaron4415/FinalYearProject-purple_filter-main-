@@ -3,6 +3,7 @@ import 'dart:ffi' as ffi;
 import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -12,7 +13,6 @@ import '../../detect_distance/allocator.dart';
 import '../../detect_distance/type_definition.dart';
 import '../../main.dart';
 import '../homePage.dart';
-import '../upper/upper_part.dart';
 import '../upper/camera_preview.dart';
 
 import 'package:purple_filter/home/lower/lower_part_second.dart';
@@ -29,8 +29,6 @@ late Convert conv;
 late CameraImage _savedImage;
 ffi.Allocator allocator = A();
 
-late Timer timer;
-
 final player = AudioPlayer();
 
 int imgData = 0;
@@ -43,14 +41,9 @@ class DisinfectionButton extends StatefulWidget {
 }
 
 class _DisinfectionButtonState extends State<DisinfectionButton> {
-  final _streamSubscriptions = <StreamSubscription<dynamic>>[];
-
-  Sensors sensor = Sensors();
+  late StreamSubscription<UserAccelerometerEvent> subscription;
   bool _hasBeenPressed = true;
   double count = 0;
-
-  List<double> filteredAcceleration = [];
-  List<double> filteredGyroscope = [];
 
   List<double> filteredVelocity = [];
 
@@ -58,12 +51,12 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
   double accelerationMin = 0;
   double accelerationMax = 0;
 
-  late StreamSubscription<GyroscopeEvent> listener;
-  double nonZeroGyroscopeDataPercentage = 0;
-  bool isDeviceMoving = false;
   bool isRealSpeedChange = false;
 
+  late Timer timer;
   var img = const AssetImage("images/button_icon.jpg");
+
+  Sensors sensor = Sensors();
 
   @override
   void dispose() {
@@ -89,49 +82,25 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     Future<void> determineEffectiveDisinfection() async{
       setState(() {
         timer = Timer.periodic(
-          Duration(milliseconds: actualDistance.ceil() * 10), (timer) {
+          Duration(milliseconds: actualDistance.ceil() * 5 + 5), (timer) {
             setState(() {
-              if (isDeviceMoving) { timer.cancel(); disinfectionPercentage = 0; }
-              disinfectionPercentage += 1;
-              if (disinfectionPercentage == 100) { timer.cancel(); player.resume(); }
+              if (disinfectionPercentage < 100) { disinfectionPercentage += 1; }
+              else { player.resume(); timer.cancel(); }
             });
         });
       });
     }
 
-    Future<void> determineReset() async {
-      setState(() {
-        if (isDeviceMoving) {
-          disinfectionPercentage = 0;
-          if (timer.isActive) timer.cancel();
-          player.release();
-          determineEffectiveDisinfection().ignore();
-        }
-      });
-    }
-
-    void initializeListener() {
-      listener = sensor.gyroscopeEvents.listen( (GyroscopeEvent event) {
-        double combinedXYZ = event.z * event.z + event.y * event.y + event.x * event.x;
-        final gyroscopeFilter = SimpleKalman(errorMeasure: 512, errorEstimate: 120, q: 0.5);
-        double gyroscopeData = gyroscopeFilter.filtered(combinedXYZ);
-        gyroscopeData = gyroscopeData < 0.0005 ? 0 : gyroscopeData;
-        filteredGyroscope.add(gyroscopeData);
-        if (filteredGyroscope.length > 300) filteredGyroscope.removeAt(0);
-
-        List<double> sublistOfFilteredGyroscope =
-        filteredGyroscope.length > 100 ?
-        filteredGyroscope.sublist(filteredGyroscope.length-100,
-            filteredGyroscope.length-1) : filteredGyroscope;
-        int nonZeroCount = 0;
-        for (double element in sublistOfFilteredGyroscope) {
-          if (element != 0 ) nonZeroCount++;
-        }
-        nonZeroGyroscopeDataPercentage = nonZeroCount / 100; //threshold > 0.05 (5%)
-        nonZeroCount = 0;
-        setState(() { isDeviceMoving = nonZeroGyroscopeDataPercentage > 0.20 ? true : false; });
-      });
-    }
+    // Future<void> determineReset() async {
+    //   setState(() {
+    //     if (isDeviceMoving) {
+    //       disinfectionPercentage = 0;
+    //       if (timer.isActive) timer.cancel();
+    //       player.release();
+    //       determineEffectiveDisinfection().ignore();
+    //     }
+    //   });
+    // }
 
     void _processCameraImage(CameraImage image) async {
       setState(() {
@@ -177,11 +146,9 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
     Future<void> calculateDifference(savedImage) async {
       ffi.Pointer<ffi.Uint8> p = allocator.allocate(savedImage.planes[0].bytes.length);
-
       ffi.Pointer<ffi.Uint8> p1 = allocator.allocate(savedImage.planes[1].bytes.lengthInBytes);
 
       Uint8List pointerList = p.asTypedList(savedImage.planes[0].bytes.length);
-
       Uint8List pointerList1 = p1.asTypedList(savedImage.planes[1].bytes.length);
 
       pointerList.setRange(
@@ -207,6 +174,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         pixelDifferencePercentage = imgData == -1 ? pixelDifferencePercentage : imgData;
         actualDistanceCalculation(pixelDifferencePercentage); // This void() changes the value of $actualDistance
         progressBarPercentage = 1 - (pixelDifferencePercentage / 100);
+        print("$progressBarPercentage");
       });
     }
 
@@ -216,11 +184,13 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           _processCameraImage(image);
           calculateDifference(_savedImage);
         });
-        initializeListener();
-        _streamSubscriptions.add(listener);
-        await determineReset();
-        await determineEffectiveDisinfection();
-
+        // await determineReset();
+        subscription = sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+          setState(() {
+            determineEffectiveDisinfection();
+            actualDistance;
+          });
+        });
         setState(() { _hasBeenPressed = !_hasBeenPressed; redButtonLogic = true; });
     },
     onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
@@ -230,15 +200,13 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
       setState(() {
         cameraController.stopImageStream(); _hasBeenPressed = !_hasBeenPressed;
-        listener.cancel(); _streamSubscriptions.clear();
-        // list.clear();
         player.release();
         imgData = 0;
         pixelDifferencePercentage = 0;
         actualDistance = 0;
         progressBarPercentage = 0;
         disinfectionPercentage = 0;
-
+        subscription.cancel();
         timer.cancel();
       });
     });

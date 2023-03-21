@@ -40,7 +40,8 @@ class _PurpleFilterState extends State<PurpleFilter> {
   Future updateLevel() async {
     if (mounted) {
       setState(() {
-        level = mainTime;
+        // level = mainTime;
+        level = 0;
         switch (level) {
           case 1: ringColor = lv1; break;
           case 2: ringColor = lv2; break;
