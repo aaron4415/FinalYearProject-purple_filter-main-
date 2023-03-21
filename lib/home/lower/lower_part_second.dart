@@ -20,17 +20,25 @@ class LowerPartSecond extends StatefulWidget {
 
 class _LowerPartSecondState extends State<LowerPartSecond> {
   IconData pinchSharp = const IconData(0xf0456, fontFamily: 'MaterialIcons');
-
-
-  void initializeListener() {
-
-  }
+  Sensors sensor = Sensors();
+  late StreamSubscription<AccelerometerEvent> streamSubscription;
 
   @override
   void initState() {
+    streamSubscription = sensor.accelerometerEvents.listen((AccelerometerEvent event) {
+      setState(() {
+        actualDistance;
+        progressBarPercentage;
+      });
+    });
     super.initState();
+  }
 
-    initializeListener();
+  @override
+  void dispose() {
+    super.dispose();
+
+    streamSubscription.cancel();
   }
 
   @override

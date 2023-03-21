@@ -3,6 +3,7 @@ import 'dart:ffi' as ffi;
 import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -28,8 +29,6 @@ late Convert conv;
 late CameraImage _savedImage;
 ffi.Allocator allocator = A();
 
-
-
 final player = AudioPlayer();
 
 int imgData = 0;
@@ -42,6 +41,7 @@ class DisinfectionButton extends StatefulWidget {
 }
 
 class _DisinfectionButtonState extends State<DisinfectionButton> {
+  late StreamSubscription<UserAccelerometerEvent> subscription;
   bool _hasBeenPressed = true;
   double count = 0;
 
@@ -55,6 +55,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
   late Timer timer;
   var img = const AssetImage("images/button_icon.jpg");
+
+  Sensors sensor = Sensors();
 
   @override
   void dispose() {
@@ -80,28 +82,25 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     Future<void> determineEffectiveDisinfection() async{
       setState(() {
         timer = Timer.periodic(
-          Duration(milliseconds: actualDistance.ceil() * 10), (timer) {
+          Duration(milliseconds: actualDistance.ceil() * 5 + 5), (timer) {
             setState(() {
-              if (isDeviceMoving) { disinfectionPercentage = 0; timer.cancel(); }
-              else {
-                if (disinfectionPercentage < 100) { disinfectionPercentage += 1; }
-                else { player.resume(); timer.cancel(); }
-              }
+              if (disinfectionPercentage < 100) { disinfectionPercentage += 1; }
+              else { player.resume(); timer.cancel(); }
             });
         });
       });
     }
 
-    Future<void> determineReset() async {
-      setState(() {
-        if (isDeviceMoving) {
-          disinfectionPercentage = 0;
-          if (timer.isActive) timer.cancel();
-          player.release();
-          determineEffectiveDisinfection().ignore();
-        }
-      });
-    }
+    // Future<void> determineReset() async {
+    //   setState(() {
+    //     if (isDeviceMoving) {
+    //       disinfectionPercentage = 0;
+    //       if (timer.isActive) timer.cancel();
+    //       player.release();
+    //       determineEffectiveDisinfection().ignore();
+    //     }
+    //   });
+    // }
 
     void _processCameraImage(CameraImage image) async {
       setState(() {
@@ -175,6 +174,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         pixelDifferencePercentage = imgData == -1 ? pixelDifferencePercentage : imgData;
         actualDistanceCalculation(pixelDifferencePercentage); // This void() changes the value of $actualDistance
         progressBarPercentage = 1 - (pixelDifferencePercentage / 100);
+        print("$progressBarPercentage");
       });
     }
 
@@ -184,9 +184,13 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           _processCameraImage(image);
           calculateDifference(_savedImage);
         });
-        await determineReset();
-        await determineEffectiveDisinfection();
-
+        // await determineReset();
+        subscription = sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+          setState(() {
+            determineEffectiveDisinfection();
+            actualDistance;
+          });
+        });
         setState(() { _hasBeenPressed = !_hasBeenPressed; redButtonLogic = true; });
     },
     onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
@@ -196,14 +200,13 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
       setState(() {
         cameraController.stopImageStream(); _hasBeenPressed = !_hasBeenPressed;
-        // list.clear();
         player.release();
         imgData = 0;
         pixelDifferencePercentage = 0;
         actualDistance = 0;
         progressBarPercentage = 0;
         disinfectionPercentage = 0;
-
+        subscription.cancel();
         timer.cancel();
       });
     });
