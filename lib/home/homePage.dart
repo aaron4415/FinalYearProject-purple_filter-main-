@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'upper/upper_part.dart';
 import 'lower/lower_part.dart';
+
 int mainTime = 0;
 bool redButtonLogic = false;
 
@@ -24,7 +25,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future updateMainTime() async {
-    setState(() { mainTime; });
+    setState(() {
+      mainTime;
+    });
   }
 
   @override
@@ -34,7 +37,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: const Color.fromARGB(255, 3, 1, 36),
         body: Column(
           children: [
-            SizedBox(height: height / 2, child: UpperPart()),
+            SizedBox(height: height / 2.1, child: UpperPart()),
             LowerPart()
           ],
         ));

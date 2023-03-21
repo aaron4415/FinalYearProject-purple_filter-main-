@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:bordered_text/bordered_text.dart';
 
-
 late List<CameraDescription> cameras;
 late CameraController cameraController;
-
 
 class CameraPreviewWidget extends StatefulWidget {
   const CameraPreviewWidget({Key? key}) : super(key: key);
@@ -23,7 +21,8 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
 
   void initializeCameraController() {
     final camera = cameras.first;
-    cameraController = CameraController(camera, ResolutionPreset.low, imageFormatGroup: ImageFormatGroup.yuv420);
+    cameraController = CameraController(camera, ResolutionPreset.low,
+        imageFormatGroup: ImageFormatGroup.yuv420);
     initializeCameraControllerFuture = cameraController.initialize();
     lockCaptureOrientationFuture =
         cameraController.lockCaptureOrientation(DeviceOrientation.portraitUp);
@@ -58,16 +57,12 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
                           child: BorderedText(
                               strokeWidth: 4.0,
                               strokeColor: Colors.blue,
-                              child: const Text(
-                                  'Fanta-Health',
+                              child: const Text('Fanta-Health',
                                   style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 21.0,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.bold
-                                )
-                              )
-                      )),
+                                      color: Colors.white,
+                                      fontSize: 21.0,
+                                      fontStyle: FontStyle.italic,
+                                      fontWeight: FontWeight.bold)))),
                     ),
                     body: FutureBuilder<void>(
                         future: lockCaptureOrientationFuture,

@@ -18,12 +18,11 @@ import 'detect_distance/convert_image_platform_interface.dart';
 
 import 'l10n/codegen_loader.g.dart';
 import 'l10n/locale_keys.g.dart';
-
+import 'contactUsPage.dart';
 import 'home/upper/camera_preview.dart';
 import 'home/homePage.dart';
 import 'Login/login_screen.dart';
 import 'package:cool_alert/cool_alert.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class ConvertImage {
   Future<String?> getPlatformVersion() {
@@ -68,24 +67,7 @@ Future<void> main() async {
         child: MyApp(),
       ),
     );
-    configLoading();
   });
-}
-
-void configLoading() {
-  EasyLoading.instance
-    ..displayDuration = const Duration(milliseconds: 2000)
-    ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-    ..loadingStyle = EasyLoadingStyle.dark
-    ..indicatorSize = 45.0
-    ..radius = 10.0
-    ..progressColor = Colors.yellow
-    ..backgroundColor = Colors.green
-    ..indicatorColor = Colors.yellow
-    ..textColor = Colors.yellow
-    ..maskColor = Colors.blue.withOpacity(0.5)
-    ..userInteractions = true
-    ..dismissOnTap = false;
 }
 
 class MyApp extends StatelessWidget {
@@ -113,7 +95,6 @@ class MyApp extends StatelessWidget {
         const Locale('ja'), // Japanese
       ], */
       home: MyStatefulWidget(),
-      builder: EasyLoading.init(),
     );
   }
 }
@@ -131,21 +112,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   bool _firstTimeToUse = true;
   bool _logined = false;
   String _UID = "";
-  Timer? _timer;
+
   @override
   void initState() {
     super.initState();
-    EasyLoading.show(status: 'loading...');
     _loadFirstTimeToUse();
     _loadsaveKeyStore();
     _loadIsLogin();
     _loadUserId();
-    EasyLoading.addStatusCallback((status) {
-      print('EasyLoading Status $status');
-      if (status == EasyLoadingStatus.dismiss) {
-        _timer?.cancel();
-      }
-    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   _loadFirstTimeToUse() async {
@@ -199,17 +178,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   List<Widget> returnPage() {
-    EasyLoading.dismiss();
     if (_keyStore == false) {
       return <Widget>[
         QRViewPage(),
         SettingPage(),
+        AboutUsPage(),
         const Text(
-          'you can cantact us by sending  email...',
-          style: optionStyle,
-        ),
-        const Text(
-          'Authentication',
+          '',
           style: optionStyle,
         ),
       ];
@@ -217,12 +192,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       return <Widget>[
         HomePage(),
         SettingPage(),
+        AboutUsPage(),
         const Text(
-          'you can cantact us by sending  email...',
-          style: optionStyle,
-        ),
-        const Text(
-          'Authentication',
+          '',
           style: optionStyle,
         ),
       ];
@@ -296,6 +268,34 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     }
   }
 
+/*   Widget displayContactPage() {
+    return Container(
+        padding: EdgeInsets.all(8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Contact Us:',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            SizedBox(height: 8),
+            ListTile(
+              leading: Icon(Icons.location_on),
+              title: Text('CityU'),
+              subtitle: Text('83 Tat Chee Ave, Kowloon Tong'),
+            ),
+            ListTile(
+              leading: Icon(Icons.phone),
+              title: Text('(852) 15145211'),
+            ),
+            ListTile(
+              leading: Icon(Icons.email),
+              title: Text('info@cityu.com'),
+            ),
+          ],
+        ));
+  } */
+
   Widget? displayBottomNavigationBar() {
     if (_firstTimeToUse == true || _keyStore == false || _logined == false) {
       return null;
@@ -329,6 +329,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: displayFirstTimePage(),
         bottomNavigationBar: displayBottomNavigationBar());
   }

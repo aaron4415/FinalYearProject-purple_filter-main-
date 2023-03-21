@@ -1,0 +1,43 @@
+{
+  "buildFiles": [
+    "C:\\Users\\Cheung King Laam\\Documents\\GitHub\\new_ftp\\android\\CMakeLists.txt",
+    "C:\\Users\\Cheung King Laam\\Documents\\GitHub\\new_ftp\\android\\third_sdk\\OpenCV-android-sdk\\sdk\\native\\jni\\abi-x86\\OpenCVConfig.cmake",
+    "C:\\Users\\Cheung King Laam\\Documents\\GitHub\\new_ftp\\android\\third_sdk\\OpenCV-android-sdk\\sdk\\native\\jni\\abi-x86\\OpenCVModules-release.cmake",
+    "C:\\Users\\Cheung King Laam\\Documents\\GitHub\\new_ftp\\android\\third_sdk\\OpenCV-android-sdk\\sdk\\native\\jni\\abi-x86\\OpenCVModules.cmake",
+    "C:\\Users\\Cheung King Laam\\Documents\\GitHub\\new_ftp\\android\\third_sdk\\OpenCV-android-sdk\\sdk\\native\\jni\\OpenCVConfig-version.cmake",
+    "C:\\Users\\Cheung King Laam\\Documents\\GitHub\\new_ftp\\android\\third_sdk\\OpenCV-android-sdk\\sdk\\native\\jni\\OpenCVConfig.cmake"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:/Users/Cheung King Laam/AppData/Local/Android/Sdk/cmake/3.18.1/bin/ninja.exe",
+      "-C",
+      "C:\\Users\\Cheung King Laam\\Documents\\GitHub\\new_ftp\\android\\app\\.cxx\\Debug\\113j9343\\x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\Cheung King Laam\\AppData\\Local\\Android\\sdk\\cmake\\3.18.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\Cheung King Laam\\Documents\\GitHub\\new_ftp\\android\\app\\.cxx\\Debug\\113j9343\\x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "convertImage::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "convertImage",
+      "output": "C:\\Users\\Cheung King Laam\\Documents\\GitHub\\new_ftp\\build\\app\\intermediates\\cxx\\Debug\\113j9343\\obj\\x86\\libconvertImage.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "C:\\Users\\Cheung King Laam\\AppData\\Local\\Android\\Sdk\\ndk\\21.1.6352462\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang.exe",
+      "cppCompilerExecutable": "C:\\Users\\Cheung King Laam\\AppData\\Local\\Android\\Sdk\\ndk\\21.1.6352462\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

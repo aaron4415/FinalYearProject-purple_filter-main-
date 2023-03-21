@@ -1,0 +1,3 @@
+C:/Users/Cheung King Laam/Documents/GitHub/new_ftp/android/app/.cxx/Debug/113j9343/x86/CMakeFiles/rebuild_cache.dir
+C:/Users/Cheung King Laam/Documents/GitHub/new_ftp/android/app/.cxx/Debug/113j9343/x86/CMakeFiles/convertImage.dir
+C:/Users/Cheung King Laam/Documents/GitHub/new_ftp/android/app/.cxx/Debug/113j9343/x86/CMakeFiles/edit_cache.dir
