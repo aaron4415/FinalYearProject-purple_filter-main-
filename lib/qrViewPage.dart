@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'dart:developer';
-
+import 'package:cool_alert/cool_alert.dart';
 import 'dart:io';
 import 'dart:async';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter_phoenix/flutter_phoenix.dart';
+
 import 'scanner_widget.dart';
 import 'main.dart';
 
@@ -23,7 +23,7 @@ class QRViewPage extends StatefulWidget {
 class _QRViewExampleState extends State<QRViewPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-
+  QRViewController? controller;
   @override
   void initState() {
     _animationController = new AnimationController(
@@ -38,6 +38,7 @@ class _QRViewExampleState extends State<QRViewPage>
     });
     animateScanAnimation(false);
     super.initState();
+
     controller?.resumeCamera();
     initPlatformState();
   }
@@ -77,7 +78,7 @@ class _QRViewExampleState extends State<QRViewPage>
   }
 
   Barcode? result;
-  QRViewController? controller;
+
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   TextEditingController _unameController = TextEditingController();
   var used = true;
@@ -114,200 +115,6 @@ class _QRViewExampleState extends State<QRViewPage>
     controller!.resumeCamera();
   }
 
-/*
-  Future<void> fetchAlbum() async {
-    if (result != null) {
-      try {
-        final networkResult = await InternetAddress.lookup('example.com');
-        if (networkResult.isNotEmpty &&
-            networkResult[0].rawAddress.isNotEmpty) {
-          final keyId = "${result?.code}";
-          var result1 = "${keyId.replaceAll("\n", "")}";
-
-          final tempUrl =
-              "https://us-central1-airy-phalanx-323908.cloudfunctions.net/app/api/qrcodeKeys/$result1";
-          final putUrl =
-              "https://us-central1-airy-phalanx-323908.cloudfunctions.net/app/api/updateQrCode/$result1";
-          final response = await http.get(Uri.parse(tempUrl));
-
-          if (response.statusCode == 500) {
-            return showDialog<void>(
-              context: context,
-              barrierDismissible: false, // user must tap button!
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text('warning message'),
-                  content: SingleChildScrollView(
-                    child: ListBody(
-                      children: const <Widget>[
-                        Text('This key is not valid'),
-                      ],
-                    ),
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      child: const Text('ok'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
-          } else if (response.statusCode == 200) {
-            // If the server did return a 200 OK response,
-            // then parse the JSON.
-            final tempCheckState = jsonDecode(response.body);
-
-            if (tempCheckState['data']["deviceId"] == _deviceId &&
-                tempCheckState['data']["used"] == "true") {
-              _changeKeyState();
-              showDialog<void>(
-                context: context,
-                barrierDismissible: false, // user must tap button!
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Congratulation'),
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: const <Widget>[
-                          Text(
-                              'this key is used on same device, Your application has been successfully activated'),
-                        ],
-                      ),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('ok'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Phoenix.rebirth(context);
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            } else if (tempCheckState['data']["used"] == false) {
-              //state change
-              _changeKeyState();
-              final putResponse = await http.put(Uri.parse(putUrl),
-                  body: {'used': 'true', 'deviceId': _deviceId});
-              //print('Response status: ${putResponse.statusCode}');
-              //print('Response body: ${putResponse.body}');
-              showDialog<void>(
-                context: context,
-                barrierDismissible: false, // user must tap button!
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('Congratulation'),
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: const <Widget>[
-                          Text(
-                              'Your application has been successfully activated'),
-                        ],
-                      ),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('ok'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Phoenix.rebirth(context);
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            } else {
-              showDialog<void>(
-                context: context,
-                barrierDismissible: false, // user must tap button!
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('warning message'),
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: const <Widget>[
-                          Text(
-                              'This key has been used, you need to use same device to activate'),
-                        ],
-                      ),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('ok'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
-                },
-              );
-            }
-          } else {
-            // If the server did not return a 200 OK response,
-            // then throw an exception.
-            return log(response.statusCode.toString());
-          }
-        }
-      } on SocketException catch (_) {
-        showDialog<void>(
-          context: context,
-          barrierDismissible: false, // user must tap button!
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('warning message'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: const <Widget>[
-                    Text('Please connect internet'),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('ok'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      }
-    } else {
-      showDialog<void>(
-        context: context,
-        barrierDismissible: false, // user must tap button!
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('warning message'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: const <Widget>[
-                  Text('no Qrcode found'),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('ok'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-  } */
   static const IconData qr_code_scanner_rounded =
       IconData(0xf00cc, fontFamily: 'MaterialIcons');
   @override
@@ -323,9 +130,11 @@ class _QRViewExampleState extends State<QRViewPage>
     //       .get();
     //   log("hihih");
     // }
+
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
+      key: GlobalKey(),
       appBar: AppBar(
           toolbarHeight: height / 16,
           leading: const Icon(qr_code_scanner_rounded, color: Colors.black),
@@ -447,14 +256,25 @@ class _QRViewExampleState extends State<QRViewPage>
   void _onQRViewCreated(QRViewController controller) {
     setState(() {
       this.controller = controller;
+      controller.resumeCamera();
     });
     controller.scannedDataStream.listen((scanData) async {
-      controller.pauseCamera();
       setState(() {
         result = scanData;
       });
 
       if (result != null) {
+        controller.pauseCamera();
+
+        bool showProgress = true;
+        showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: ((BuildContext context) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }));
         try {
           final networkResult = await InternetAddress.lookup('example.com');
           if (networkResult.isNotEmpty &&
@@ -473,7 +293,19 @@ class _QRViewExampleState extends State<QRViewPage>
               // then parse the JSON.
               final tempCheckState = jsonDecode(response.body);
               if (tempCheckState['data'] == null) {
-                return showDialog<void>(
+                return CoolAlert.show(
+                    context: context,
+                    type: CoolAlertType.warning,
+                    text: "This key is not valid",
+                    onConfirmBtnTap: (() {
+                      controller.resumeCamera();
+                      Navigator.of(context, rootNavigator: true).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => MyStatefulWidget()),
+                      );
+                    }));
+                /* showDialog<void>(
                   context: context,
                   barrierDismissible: false, // user must tap button!
                   builder: (BuildContext context) {
@@ -497,12 +329,27 @@ class _QRViewExampleState extends State<QRViewPage>
                       ],
                     );
                   },
-                );
+                ); */
               } else if (tempCheckState['data']["deviceId"] == _deviceId &&
                   tempCheckState['data']["used"] == "true") {
                 _saveKeyStore();
                 _saveMode(tempCheckState['data']["mode"]);
-                showDialog<void>(
+                CoolAlert.show(
+                    context: context,
+                    type: CoolAlertType.success,
+                    text:
+                        "This key is used on same device, Your application has been successfully activated!",
+                    onConfirmBtnTap: () {
+                      controller.resumeCamera();
+                      Navigator.of(context, rootNavigator: true).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => MyStatefulWidget()),
+                      );
+                      Navigator.of(context, rootNavigator: true).pop();
+                    });
+
+                /*  showDialog<void>(
                   context: context,
                   barrierDismissible: false, // user must tap button!
                   builder: (BuildContext context) {
@@ -532,7 +379,7 @@ class _QRViewExampleState extends State<QRViewPage>
                       ],
                     );
                   },
-                );
+                ); */
               } else if (tempCheckState['data']["used"] == false) {
                 //state change
                 _saveKeyStore();
@@ -541,7 +388,21 @@ class _QRViewExampleState extends State<QRViewPage>
                     body: {'used': 'true', 'deviceId': _deviceId});
                 //print('Response status: ${putResponse.statusCode}');
                 //print('Response body: ${putResponse.body}');
-                showDialog<void>(
+                CoolAlert.show(
+                    context: context,
+                    type: CoolAlertType.success,
+                    text: "Your application has been successfully activated!",
+                    onConfirmBtnTap: () {
+                      controller.resumeCamera();
+                      Navigator.of(context, rootNavigator: true).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => MyStatefulWidget()),
+                      );
+                      Navigator.of(context, rootNavigator: true).pop();
+                    });
+
+                /*  showDialog<void>(
                   context: context,
                   barrierDismissible: false, // user must tap button!
                   builder: (BuildContext context) {
@@ -571,9 +432,9 @@ class _QRViewExampleState extends State<QRViewPage>
                       ],
                     );
                   },
-                );
+                ); */
               } else {
-                showDialog<void>(
+                /*  showDialog<void>(
                   context: context,
                   barrierDismissible: false, // user must tap button!
                   builder: (BuildContext context) {
@@ -597,13 +458,38 @@ class _QRViewExampleState extends State<QRViewPage>
                       ],
                     );
                   },
-                );
+                ); */
+                CoolAlert.show(
+                    context: context,
+                    type: CoolAlertType.warning,
+                    text:
+                        "This key has been used, you need to use same device to activate",
+                    onConfirmBtnTap: (() {
+                      controller.resumeCamera();
+                      Navigator.of(context, rootNavigator: true).pop();
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => MyStatefulWidget()),
+                      );
+                    }));
               }
             } else {
               // If the server did not return a 200 OK response,
               // then throw an exception.
 
-              return showDialog<void>(
+              return CoolAlert.show(
+                  context: context,
+                  type: CoolAlertType.warning,
+                  text: "This key is not valid",
+                  onConfirmBtnTap: (() {
+                    controller.resumeCamera();
+                    Navigator.of(context, rootNavigator: true).pop();
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => MyStatefulWidget()),
+                    );
+                  }));
+              /* showDialog<void>(
                 context: context,
                 barrierDismissible: false, // user must tap button!
                 builder: (BuildContext context) {
@@ -627,11 +513,11 @@ class _QRViewExampleState extends State<QRViewPage>
                     ],
                   );
                 },
-              );
+              ); */
             }
           }
         } on SocketException catch (_) {
-          showDialog<void>(
+          /*   showDialog<void>(
             context: context,
             barrierDismissible: false, // user must tap button!
             builder: (BuildContext context) {
@@ -654,37 +540,23 @@ class _QRViewExampleState extends State<QRViewPage>
                 ],
               );
             },
+          ); */
+
+          CoolAlert.show(
+            context: context,
+            type: CoolAlertType.warning,
+            text: "Please connect internet",
+            onConfirmBtnTap: () async {
+              controller.resumeCamera();
+              Navigator.of(context, rootNavigator: true).pop();
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => MyStatefulWidget()),
+              );
+            },
           );
         }
-      } else {
-        showDialog<void>(
-          context: context,
-          barrierDismissible: false, // user must tap button!
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('warning message'),
-              content: SingleChildScrollView(
-                child: ListBody(
-                  children: const <Widget>[
-                    Text('no Qrcode found'),
-                  ],
-                ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: const Text('ok'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ],
-            );
-          },
-        );
       }
-      controller.resumeCamera();
     });
-    controller.resumeCamera();
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {

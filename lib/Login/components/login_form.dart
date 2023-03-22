@@ -1,5 +1,6 @@
+import 'dart:async';
 import 'dart:developer';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../components/already_have_an_account_acheck.dart';
@@ -7,8 +8,9 @@ import '../../../constants.dart';
 import '../../../main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cool_alert/cool_alert.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import '/Signup/signup_screen.dart';
+import 'package:email_validator/email_validator.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({super.key});
@@ -76,8 +78,11 @@ class _LoginFormState extends State<LoginForm> {
             validator: (String? controllerEmail) {
               if (controllerEmail == null || controllerEmail.isEmpty) {
                 return 'Email is required';
+              } else if (EmailValidator.validate(controllerEmail) == false) {
+                return "Please enter a valid email";
+              } else {
+                return null;
               }
-              return null;
             },
             decoration: const InputDecoration(
               hintText: "Your email",
@@ -97,8 +102,11 @@ class _LoginFormState extends State<LoginForm> {
               validator: (String? controllerPassword) {
                 if (controllerPassword == null || controllerPassword.isEmpty) {
                   return 'password is required';
+                } else if (controllerPassword.length <= 5) {
+                  return "Please enter at least 6 characters for your password";
+                } else {
+                  return null;
                 }
-                return null;
               },
               decoration: const InputDecoration(
                 hintText: "Your password",
@@ -114,49 +122,71 @@ class _LoginFormState extends State<LoginForm> {
             tag: "login_btn",
             child: ElevatedButton(
               onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  // If the form is valid, display a snackbar. In the real world,
-                  // you'd often call a server or save the information in a database.
-                  try {
-                    final credential = await FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: _controllerEmail.text,
-                            password: _controllerPassword.text);
-                  } on FirebaseAuthException catch (e) {
-                    if (e.code == 'user-not-found') {
-                      CoolAlert.show(
-                        context: context,
-                        type: CoolAlertType.error,
-                        title: 'Error when trying to login',
-                        text: "Your email or passward is wrong.",
-                        loopAnimation: false,
-                      );
-                    } else if (e.code == 'wrong-password') {
-                      CoolAlert.show(
-                        context: context,
-                        type: CoolAlertType.error,
-                        title: 'Error when trying to login',
-                        text: "Your email or passward is wrong.",
-                        loopAnimation: false,
-                      );
+                try {
+                  final result = await InternetAddress.lookup('example.com');
+                  if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+                    if (_formKey.currentState!.validate()) {
+                      // If the form is valid, display a snackbar. In the real world,
+                      // you'd often call a server or save the information in a database.
+
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: ((context) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }));
+                      try {
+                        final credential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: _controllerEmail.text,
+                                password: _controllerPassword.text);
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          Navigator.of(context, rootNavigator: true).pop();
+                          print("not found");
+                          CoolAlert.show(
+                            context: context,
+                            type: CoolAlertType.error,
+                            title: 'Error when trying to login',
+                            text: "Your email or passward is wrong.",
+                            loopAnimation: false,
+                          );
+                        } else if (e.code == 'wrong-password') {
+                          Navigator.of(context, rootNavigator: true).pop();
+                          CoolAlert.show(
+                            context: context,
+                            type: CoolAlertType.error,
+                            title: 'Error when trying to login',
+                            text: "Your email or passward is wrong.",
+                            loopAnimation: false,
+                          );
+                        }
+                      }
+
+                      FirebaseAuth.instance
+                          .authStateChanges()
+                          .listen((User? user) async {
+                        if (user != null) {
+                          _saveLogin();
+                          _saveUserId(user.uid);
+                          Navigator.of(context, rootNavigator: true).pop();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MyApp()),
+                          );
+                        }
+                      });
                     }
                   }
-
-                  FirebaseAuth.instance.authStateChanges().listen((User? user) {
-                    if (user != null) {
-                      log("User: " + user.uid);
-
-                      print(user.uid);
-
-                      _saveLogin();
-                      _saveUserId(user.uid);
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const MyApp()),
-                      );
-                    }
-                  });
+                } on SocketException catch (_) {
+                  CoolAlert.show(
+                    context: context,
+                    type: CoolAlertType.warning,
+                    text: "Please connect internet",
+                  );
                 }
               },
               child: Text(

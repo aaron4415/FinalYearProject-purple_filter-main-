@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,7 +8,7 @@ import 'l10n/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'main.dart';
+import 'selectVirusTable.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -42,6 +41,7 @@ class SettingPageState extends State<SettingPage> {
     getNameFromDB();
   }
 
+  @override
   void dispose() {
     super.dispose();
   }
@@ -50,6 +50,7 @@ class SettingPageState extends State<SettingPage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromARGB(255, 3, 1, 36),
       body: Container(
         margin: EdgeInsets.only(top: height * 0.04),
@@ -71,7 +72,7 @@ class SettingPageState extends State<SettingPage> {
             Divider(color: Color(0xffFFFFFF)),
             Icon(
               Icons.account_circle,
-              size: width / 3,
+              size: width / 4,
               color: Colors.white,
             ),
             Padding(
@@ -85,7 +86,7 @@ class SettingPageState extends State<SettingPage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: height / 50,
+                    fontSize: height / 60,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.bold,
                   ),
@@ -105,7 +106,7 @@ class SettingPageState extends State<SettingPage> {
                             borderRadius: BorderRadius.all(Radius.circular(0))),
                         child: Padding(
                           //左边添加8像素补白
-                          padding: EdgeInsets.only(right: width / 1.3),
+                          padding: EdgeInsets.only(right: width / 1.5),
                           child: BorderedText(
                             strokeWidth: 4.0,
                             strokeColor: Colors.black,
@@ -144,6 +145,14 @@ class SettingPageState extends State<SettingPage> {
                         keyboardType: TextInputType.name,
                       ),
                       onConfirmBtnTap: () async {
+                        if (_controllerUsername.text.isEmpty) {
+                          await CoolAlert.show(
+                            context: context,
+                            type: CoolAlertType.error,
+                            text: 'Please input something',
+                          );
+                          return;
+                        }
                         String tempUrl =
                             "https://us-central1-airy-phalanx-323908.cloudfunctions.net/app/api/updateUsername/$uid";
                         final response =
@@ -154,6 +163,13 @@ class SettingPageState extends State<SettingPage> {
                           setState(() {
                             nameFromDB = _controllerUsername.text;
                           });
+                          Navigator.of(context, rootNavigator: true).pop();
+                          await Future.delayed(Duration(milliseconds: 1000));
+                          await CoolAlert.show(
+                            context: context,
+                            type: CoolAlertType.success,
+                            text: "Username '$nameFromDB' has been saved!.",
+                          );
                         }
                       },
                     );
@@ -404,7 +420,7 @@ class SettingPageState extends State<SettingPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => selectLanguagePage()),
+                          builder: (context) => SelectVirusTablePage()),
                     );
                   }, // Handle your callback
                   child: Ink(

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'dart:async';
 
-import 'package:purple_filter/home/upper/upper_part.dart';
-import 'package:purple_filter/home/lower/lower_part.dart';
-
+import 'upper/upper_part.dart';
+import 'lower/lower_part.dart';
 
 int mainTime = 0;
 bool redButtonLogic = false;
@@ -20,13 +19,15 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // Timer.periodic(const Duration(milliseconds: 500), (timer) {
-    //   updateMainTime();
-    // });
+    Timer.periodic(const Duration(milliseconds: 500), (timer) {
+      updateMainTime();
+    });
   }
 
   Future updateMainTime() async {
-    setState(() { mainTime; });
+    setState(() {
+      mainTime;
+    });
   }
 
   @override
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: const Color.fromARGB(255, 3, 1, 36),
         body: Column(
           children: [
-            SizedBox(height: height / 2, child: UpperPart()),
+            SizedBox(height: height / 2.1, child: UpperPart()),
             LowerPart()
           ],
         ));

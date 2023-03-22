@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'dart:async';
@@ -7,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'l10n/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'Login/login_screen.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class selectLanguagePage extends StatefulWidget {
   const selectLanguagePage({Key? key}) : super(key: key);
@@ -25,13 +23,6 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
     super.initState();
     _loadFirstTimeToUse();
     _loadLanguagePage();
-    EasyLoading.addStatusCallback((status) {
-      print('EasyLoading Status $status');
-      if (status == EasyLoadingStatus.dismiss) {
-        _timer?.cancel();
-      }
-    });
-    EasyLoading.dismiss();
   }
 
   _loadFirstTimeToUse() async {

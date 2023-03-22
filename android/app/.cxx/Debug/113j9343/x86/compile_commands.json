@@ -1,0 +1,7 @@
+[
+{
+  "directory": "C:/Users/Cheung King Laam/Documents/GitHub/new_ftp/android/app/.cxx/Debug/113j9343/x86",
+  "command": "C:\\Users\\CHEUNG~1\\AppData\\Local\\Android\\Sdk\\ndk\\211~1.635\\TOOLCH~1\\llvm\\prebuilt\\WINDOW~1\\bin\\CLANG_~1.EXE --target=i686-none-linux-android24 --gcc-toolchain=\"C:/Users/Cheung King Laam/AppData/Local/Android/Sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64\" --sysroot=\"C:/Users/Cheung King Laam/AppData/Local/Android/Sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot\" -DconvertImage_EXPORTS -I../../../../.././app/src/main/include -I../../../../.././app/src/main/boost_1_81_0 -isystem ../../../../../third_sdk/OpenCV-android-sdk/sdk/native/jni/include -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -O0 -fno-limit-debug-info  -fPIC -o CMakeFiles\\convertImage.dir\\C_\\Users\\Cheung_King_Laam\\Documents\\GitHub\\new_ftp\\ios\\Classes\\converter.cpp.o -c \"C:\\Users\\Cheung King Laam\\Documents\\GitHub\\new_ftp\\ios\\Classes\\converter.cpp\"",
+  "file": "C:\\Users\\Cheung King Laam\\Documents\\GitHub\\new_ftp\\ios\\Classes\\converter.cpp"
+}
+]
