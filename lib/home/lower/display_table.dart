@@ -10,6 +10,7 @@ const IconData coronavirusOutlined =
 
 Table displayTable(width, virusList) {
   Container covid19Icon = Container(
+      margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         border: Border.all(width: width / 200, color: Colors.blue),
         color: Colors.blue,
@@ -43,6 +44,7 @@ Table displayTable(width, virusList) {
           )));
 
   Container coilsIcon = Container(
+      margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         border: Border.all(width: width / 200, color: Colors.blue),
         color: Colors.blue,
@@ -77,6 +79,7 @@ Table displayTable(width, virusList) {
           )));
 
   Container bacterialIcon = Container(
+      margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         border: Border.all(width: width / 200, color: Colors.blue),
         color: Colors.blue,
@@ -109,9 +112,9 @@ Table displayTable(width, virusList) {
               fontWeight: FontWeight.bold)));
 
   return Table(columnWidths: {
-    0: FlexColumnWidth(width / 150),
-    1: FlexColumnWidth(width * 0.30),
-    2: FlexColumnWidth(width * 0.20)
+    0: FlexColumnWidth(width / 120),
+    1: FlexColumnWidth(width * 0.35),
+    2: FlexColumnWidth(width * 0.15)
   }, children: [
     TableRow(children: [covid19Icon, covid19Name, covid19Percentage]),
     TableRow(children: [coilsIcon, coilsName, coilsPercentage]),
