@@ -1,0 +1,7 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "0b2d4325fb9ca544e5e5b10341239a00925e8899484d817480f4ebef921b56b7"
+build_start_time: [1679835204, 296591997]
+build_end_time: [1679835213, 249308109]
+inputs:
+  "/Users/eda/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.1.5/ios/Classes/SharedPreferencesPlugin.swift": [1678427177, 834666728]
+  "/Users/eda/.pub-cache/hosted/pub.dev/shared_preferences_foundation-2.1.5/ios/Classes/messages.g.swift": [1678427177, 839306831]
