@@ -19,8 +19,6 @@ import 'package:purple_filter/home/lower/lower_part_second.dart';
 import 'package:purple_filter/home/lower/lower_part_first.dart';
 import 'package:purple_filter/home/upper/upper_part.dart' as globals;
 
-import '../upper/upper_part.dart';
-
 int time = 0;
 int distance = 0;
 
@@ -193,11 +191,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
             actualDistance;
           });
         });
-        setState(() {
-          _hasBeenPressed = !_hasBeenPressed;
-          borderColor = _hasBeenPressed ? Colors.red : Colors.blue;
-          redButtonLogic = true;
-        });
+        setState(() { _hasBeenPressed = !_hasBeenPressed; redButtonLogic = true; });
     },
     onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
       redButtonLogic = false;
@@ -206,7 +200,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
       setState(() {
         cameraController.stopImageStream(); _hasBeenPressed = !_hasBeenPressed;
-        borderColor = _hasBeenPressed ? Colors.red : Colors.blue;
         player.release();
         imgData = 0;
         pixelDifferencePercentage = 0;
