@@ -32,10 +32,6 @@
 		<data>
 		NdAvsGXfgCf0AzFuanVQouXVIwg=
 		</data>
-		<key>flutter_assets/assets/icons/AppIcon.svg</key>
-		<data>
-		sTXrLOyA/W4xq5Umv2n426s9U+8=
-		</data>
 		<key>flutter_assets/assets/icons/chat.svg</key>
 		<data>
 		mrjQz9YZNtmxrpTO9t64FVXUGc4=
@@ -185,13 +181,6 @@
 			<key>hash2</key>
 			<data>
 			F6/OonqTKg9Jp5KEp2tNIE1MwLVPm+28cw1jO/NhydA=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/icons/AppIcon.svg</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			HiQ0GTQbmESnxgekIp838l/RK8fiRqS9BkpgjJvmslo=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/icons/chat.svg</key>
