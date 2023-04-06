@@ -10,7 +10,7 @@
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
 		640D5E2829B5CD000041EF96 /* converter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 640D5E2629B5CCF40041EF96 /* converter.cpp */; };
-		6420319329B5D4470067FCA7 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6420319229B5D4470067FCA7 /* opencv2.framework */; };
+		647AA89429D05ADE00BE2DE9 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 647AA89329D05ADD00BE2DE9 /* opencv2.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
@@ -42,7 +42,7 @@
 		5A9B7D37F2E9D76FDBB15B1E /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		640D5E2629B5CCF40041EF96 /* converter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = converter.cpp; sourceTree = "<group>"; };
 		640D5E2729B5CCF40041EF96 /* converter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = converter.h; sourceTree = "<group>"; };
-		6420319229B5D4470067FCA7 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../../Downloads/OpenCV2/opencv2.framework; sourceTree = "<group>"; };
+		647AA89329D05ADD00BE2DE9 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
@@ -66,8 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				647AA89429D05ADE00BE2DE9 /* opencv2.framework in Frameworks */,
 				C46CC3FD5A50B2467E285FD0 /* Pods_Runner.framework in Frameworks */,
-				6420319329B5D4470067FCA7 /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,8 +149,8 @@
 		F9F85D783408E268FD8231BF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6420319229B5D4470067FCA7 /* opencv2.framework */,
 				82B96776509A272BC9EC1269 /* Pods_Runner.framework */,
+				647AA89329D05ADD00BE2DE9 /* opencv2.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -236,6 +236,7 @@
 			files = (
 			);
 			inputPaths = (
+				"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}",
 			);
 			name = "Thin Binary";
 			outputPaths = (
@@ -275,7 +276,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build";
+			shellScript = "/bin/sh \"$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh\" build\n";
 		};
 		D21F0B6CF392329E58E0A951 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -353,6 +354,7 @@
 /* Begin XCBuildConfiguration section */
 		249021D3217E4FDB00AE95B9 /* Profile-prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -408,7 +410,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 937HQ2BK75;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -431,7 +433,8 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/qr_code_scanner\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/sensors_plus\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/shared_preferences_foundation\"",
-					"\"${PODS_ROOT}/OpenCV2\"",
+					"\"$(SRCROOT)\"",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -457,14 +460,17 @@
 					"$(inherited)",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
 					/usr/local/Cellar/numcpp/2.8.0/include,
-					/usr/local/Cellar/opencv/4.7.0/include/opencv4,
+					"\"$(SRCROOT)\"",
 					/usr/local/Cellar/boost/1.81.0_1/include,
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Smart UVC App";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fantasapp.purpleFilter.prod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -475,6 +481,7 @@
 		};
 		6410224329BC7CDC00387863 /* Debug-dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -530,12 +537,12 @@
 		};
 		6410224429BC7CDC00387863 /* Debug-dev */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 937HQ2BK75;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -558,7 +565,8 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/qr_code_scanner\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/sensors_plus\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/shared_preferences_foundation\"",
-					"\"${PODS_ROOT}/OpenCV2\"",
+					"\"$(SRCROOT)\"",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -584,14 +592,17 @@
 					"$(inherited)",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
 					/usr/local/Cellar/numcpp/2.8.0/include,
-					/usr/local/Cellar/opencv/4.7.0/include/opencv4,
+					"\"$(SRCROOT)\"",
 					/usr/local/Cellar/boost/1.81.0_1/include,
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Smart UVC App";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fantasapp.purpleFilter.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -603,6 +614,7 @@
 		};
 		6410224529BC7CEC00387863 /* Release-dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -660,7 +672,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 937HQ2BK75;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -683,7 +695,8 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/qr_code_scanner\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/sensors_plus\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/shared_preferences_foundation\"",
-					"\"${PODS_ROOT}/OpenCV2\"",
+					"\"$(SRCROOT)\"",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -709,14 +722,17 @@
 					"$(inherited)",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
 					/usr/local/Cellar/numcpp/2.8.0/include,
-					/usr/local/Cellar/opencv/4.7.0/include/opencv4,
+					"\"$(SRCROOT)\"",
 					/usr/local/Cellar/boost/1.81.0_1/include,
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Smart UVC App";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fantasapp.purpleFilter.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -727,6 +743,7 @@
 		};
 		6410224729BC7CF300387863 /* Profile-dev */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -782,7 +799,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 937HQ2BK75;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -805,7 +822,8 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/qr_code_scanner\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/sensors_plus\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/shared_preferences_foundation\"",
-					"\"${PODS_ROOT}/OpenCV2\"",
+					"\"$(SRCROOT)\"",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -831,14 +849,17 @@
 					"$(inherited)",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
 					/usr/local/Cellar/numcpp/2.8.0/include,
-					/usr/local/Cellar/opencv/4.7.0/include/opencv4,
+					"\"$(SRCROOT)\"",
 					/usr/local/Cellar/boost/1.81.0_1/include,
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Smart UVC App";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fantasapp.purpleFilter.dev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -849,6 +870,7 @@
 		};
 		97C147031CF9000F007C117D /* Debug-prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -904,6 +926,7 @@
 		};
 		97C147041CF9000F007C117D /* Release-prod */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -956,12 +979,12 @@
 		};
 		97C147061CF9000F007C117D /* Debug-prod */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9740EEB21CF90195004384FC /* Debug.xcconfig */;
+			baseConfigurationReference = 7AFA3C8E1D35360C0083082E /* Release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 937HQ2BK75;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -984,7 +1007,8 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/qr_code_scanner\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/sensors_plus\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/shared_preferences_foundation\"",
-					"\"${PODS_ROOT}/OpenCV2\"",
+					"\"$(SRCROOT)\"",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1010,14 +1034,17 @@
 					"$(inherited)",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
 					/usr/local/Cellar/numcpp/2.8.0/include,
-					/usr/local/Cellar/opencv/4.7.0/include/opencv4,
+					"\"$(SRCROOT)\"",
 					/usr/local/Cellar/boost/1.81.0_1/include,
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Smart UVC App";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fantasapp.purpleFilter.prod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -1034,7 +1061,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				CURRENT_PROJECT_VERSION = 0.0.1;
 				DEVELOPMENT_TEAM = 937HQ2BK75;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1057,7 +1084,8 @@
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/qr_code_scanner\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/sensors_plus\"",
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/shared_preferences_foundation\"",
-					"\"${PODS_ROOT}/OpenCV2\"",
+					"\"$(SRCROOT)\"",
+					"$(PROJECT_DIR)",
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1083,14 +1111,17 @@
 					"$(inherited)",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
 					/usr/local/Cellar/numcpp/2.8.0/include,
-					/usr/local/Cellar/opencv/4.7.0/include/opencv4,
+					"\"$(SRCROOT)\"",
 					/usr/local/Cellar/boost/1.81.0_1/include,
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Smart UVC App";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fantasapp.purpleFilter.prod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
@@ -1113,7 +1144,7 @@
 				6410224729BC7CF300387863 /* Profile-dev */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Debug-dev";
+			defaultConfigurationName = "Release-prod";
 		};
 		97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */ = {
 			isa = XCConfigurationList;
@@ -1126,7 +1157,7 @@
 				6410224829BC7CF300387863 /* Profile-dev */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = "Debug-dev";
+			defaultConfigurationName = "Release-prod";
 		};
 /* End XCConfigurationList section */
 	};

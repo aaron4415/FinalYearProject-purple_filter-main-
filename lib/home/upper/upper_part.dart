@@ -31,6 +31,7 @@ class _UpperPartState extends State<UpperPart>
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
+    double borderWidth = width / 40;
 
     return Stack(children: [
       const CameraPreviewWidget(),
@@ -41,10 +42,10 @@ class _UpperPartState extends State<UpperPart>
           child: Container(
             decoration: BoxDecoration(
               border: Border(
-                top: BorderSide(width: width / 25, color: borderColor),
-                bottom: BorderSide(width: width / 25, color: borderColor),
-                left: BorderSide(width: width / 25, color: borderColor),
-                right: BorderSide(width: width / 25, color: borderColor),
+                top: BorderSide(width: borderWidth, color: borderColor),
+                bottom: BorderSide(width: borderWidth, color: borderColor),
+                left: BorderSide(width: borderWidth, color: borderColor),
+                right: BorderSide(width: borderWidth, color: borderColor),
               ),
             ),
           ),
