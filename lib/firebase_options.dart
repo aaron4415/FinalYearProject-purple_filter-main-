@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAtInMiOaGWE-huPLAUvt2tWCj4f-ffuqs',
-    appId: '1:14528352544:android:9550ca5d392beffea80745',
-    messagingSenderId: '14528352544',
-    projectId: 'fypqrcode-e4d02',
-    storageBucket: 'fypqrcode-e4d02.appspot.com',
+    apiKey: 'AIzaSyCfW_30eH32shdAm2gZzocSRYVzBamElSA',
+    appId: '1:44694107862:android:47740c898f8b16206dfb77',
+    messagingSenderId: '44694107862',
+    projectId: 'fantahealth-1f00b',
+    storageBucket: 'fantahealth-1f00b.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDSQYnXBrUbuCXVl6QCCCqqeuo0OqW22KA',
-    appId: '1:14528352544:ios:c2b80011f7695073a80745',
-    messagingSenderId: '14528352544',
-    projectId: 'fypqrcode-e4d02',
-    storageBucket: 'fypqrcode-e4d02.appspot.com',
-    iosClientId: '14528352544-urh4cej53mqrp6a6n60paqjnf26g4aq8.apps.googleusercontent.com',
-    iosBundleId: 'com.fantasapp.purpleFilter',
+    apiKey: 'AIzaSyDXjr1U0A8KdYNQ63vZJb1YYE-has2ysCs',
+    appId: '1:44694107862:ios:a0a563bef9d3a28b6dfb77',
+    messagingSenderId: '44694107862',
+    projectId: 'fantahealth-1f00b',
+    storageBucket: 'fantahealth-1f00b.appspot.com',
+    iosClientId: '44694107862-qt0l9qc6f2r33fb4esvq455688b97hj1.apps.googleusercontent.com',
+    iosBundleId: 'com.fantasapp.purpleFilter.prod',
   );
 }

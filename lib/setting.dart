@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,6 +10,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'selectVirusTable.dart';
+import 'SelectModePage.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({Key? key}) : super(key: key);
@@ -24,7 +26,7 @@ Future<void> getNameFromDB() async {
     if (user != null) {
       uid = user.uid;
       final tempUrl =
-          "https://us-central1-airy-phalanx-323908.cloudfunctions.net/app/api/username/$uid";
+          "https://us-central1-fantahealth-1f00b.cloudfunctions.net/app/api/username/$uid";
       final response = await http.get(Uri.parse(tempUrl));
 
       final tempData = jsonDecode(response.body);
@@ -35,6 +37,7 @@ Future<void> getNameFromDB() async {
 
 class SettingPageState extends State<SettingPage> {
   List<String> allItem = [];
+
   @override
   void initState() {
     super.initState();
@@ -46,6 +49,7 @@ class SettingPageState extends State<SettingPage> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -106,7 +110,7 @@ class SettingPageState extends State<SettingPage> {
                             borderRadius: BorderRadius.all(Radius.circular(0))),
                         child: Padding(
                           //左边添加8像素补白
-                          padding: EdgeInsets.only(right: width / 1.5),
+                          padding: EdgeInsets.only(right: width / 1.3),
                           child: BorderedText(
                             strokeWidth: 4.0,
                             strokeColor: Colors.black,
@@ -127,8 +131,77 @@ class SettingPageState extends State<SettingPage> {
             Padding(
                 padding: EdgeInsets.only(top: height / 75),
                 child: InkWell(
-                  onTap: () {
-                    CoolAlert.show(
+                  onTap: () async {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text('Enter Your New Username'),
+                            content: TextField(
+                              onChanged: (value) {},
+                              controller: _controllerUsername,
+                              decoration: InputDecoration(
+                                  hintText: "please enter your new username"),
+                            ),
+                            actions: <Widget>[
+                              MaterialButton(
+                                color: Colors.green,
+                                textColor: Colors.white,
+                                child: Text('Save'),
+                                onPressed: () async {
+                                  try {
+                                    final result = await InternetAddress.lookup(
+                                        'example.com');
+                                    if (result.isNotEmpty &&
+                                        result[0].rawAddress.isNotEmpty) {
+                                      if (_controllerUsername.text.isEmpty) {
+                                        await CoolAlert.show(
+                                          context: context,
+                                          type: CoolAlertType.error,
+                                          text: 'Please input something',
+                                        );
+                                        return;
+                                      } else {
+                                        String tempUrl =
+                                            "https://us-central1-fantahealth-1f00b.cloudfunctions.net/app/api/updateUsername/$uid";
+                                        final response = await http
+                                            .put(Uri.parse(tempUrl), body: {
+                                          'username': _controllerUsername.text,
+                                        });
+                                        if (response.statusCode == 200) {
+                                          setState(() {
+                                            nameFromDB =
+                                                _controllerUsername.text;
+                                          });
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .pop();
+
+                                          await CoolAlert.show(
+                                            context: context,
+                                            type: CoolAlertType.success,
+                                            text:
+                                                "Username '$nameFromDB' has been saved!.",
+                                          );
+                                        }
+                                        setState(() {
+                                          Navigator.pop(context);
+                                        });
+                                      }
+                                    }
+                                  } on SocketException catch (_) {
+                                    CoolAlert.show(
+                                      context: context,
+                                      type: CoolAlertType.warning,
+                                      text: "Please connect internet",
+                                    );
+                                  }
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                    /*   CoolAlert.show(
                       context: context,
                       type: CoolAlertType.custom,
                       showCancelBtn: true,
@@ -145,34 +218,9 @@ class SettingPageState extends State<SettingPage> {
                         keyboardType: TextInputType.name,
                       ),
                       onConfirmBtnTap: () async {
-                        if (_controllerUsername.text.isEmpty) {
-                          await CoolAlert.show(
-                            context: context,
-                            type: CoolAlertType.error,
-                            text: 'Please input something',
-                          );
-                          return;
-                        }
-                        String tempUrl =
-                            "https://us-central1-airy-phalanx-323908.cloudfunctions.net/app/api/updateUsername/$uid";
-                        final response =
-                            await http.put(Uri.parse(tempUrl), body: {
-                          'username': _controllerUsername.text,
-                        });
-                        if (response.statusCode == 200) {
-                          setState(() {
-                            nameFromDB = _controllerUsername.text;
-                          });
-                          Navigator.of(context, rootNavigator: true).pop();
-                          await Future.delayed(Duration(milliseconds: 1000));
-                          await CoolAlert.show(
-                            context: context,
-                            type: CoolAlertType.success,
-                            text: "Username '$nameFromDB' has been saved!.",
-                          );
-                        }
+                      
                       },
-                    );
+                    ); */
                   }, // Handle your callback
                   child: Ink(
                       height: height / 20,
@@ -308,7 +356,12 @@ class SettingPageState extends State<SettingPage> {
             Padding(
                 padding: EdgeInsets.only(top: height / 100),
                 child: InkWell(
-                  onTap: () {}, // Handle your callback
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SelectModePage()),
+                    );
+                  }, // Handle your callback
                   child: Ink(
                       height: height / 20,
                       width: width,

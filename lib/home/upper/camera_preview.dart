@@ -53,6 +53,7 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
                     appBar: AppBar(
                       backgroundColor: const Color(0x44000000),
                       elevation: 0,
+                      automaticallyImplyLeading: false,
                       title: Center(
                           child: BorderedText(
                               strokeWidth: 4.0,

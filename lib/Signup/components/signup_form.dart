@@ -193,7 +193,7 @@ class SignUpForm extends StatelessWidget {
                         _saveLogin();
                         _saveUserId(user.uid);
                         const tempUrl =
-                            "https://us-central1-airy-phalanx-323908.cloudfunctions.net/app/api/createUser";
+                            "https://us-central1-fantahealth-1f00b.cloudfunctions.net/app/api/createUser";
                         final response =
                             await http.post(Uri.parse(tempUrl), body: {
                           'uid': user.uid,

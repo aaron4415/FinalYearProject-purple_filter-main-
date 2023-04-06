@@ -66,6 +66,7 @@ dependencies:
 
   simple_kalman: ^1.0.1
   email_validator: ^2.1.17
+  google_sign_in: ^6.0.2
 
 dev_dependencies:
   flutter_test:

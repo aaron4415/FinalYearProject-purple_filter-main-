@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'l10n/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'Login/login_screen.dart';
+import 'dart:io';
 
 class selectLanguagePage extends StatefulWidget {
   const selectLanguagePage({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
   String _language = "english";
   bool _firstTimeToUse = true;
   Timer? _timer;
+
   @override
   void initState() {
     super.initState();
@@ -64,6 +66,27 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
   }
 
   Widget showReturnButton() {
+    final String defaultLocale = Platform.localeName;
+
+    if (_firstTimeToUse == true) {
+      if (defaultLocale.contains("zh_Hans")) {
+        setState(() {
+          _language = "simplifiedChinese";
+          context.setLocale(Locale('zh', 'Hans'));
+        });
+      } else if (defaultLocale.contains("zh_Hant")) {
+        _language = "traditionalChinese";
+
+        context.setLocale(Locale('zh', 'Hant'));
+      } else if (defaultLocale.contains("ja")) {
+        setState(() {
+          _language = "japanese";
+        });
+        context.setLocale(Locale(
+          'ja',
+        ));
+      }
+    }
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     if (_firstTimeToUse == false) {
@@ -198,6 +221,7 @@ class _selectLanguagePageState extends State<selectLanguagePage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         margin: EdgeInsets.only(top: height * 0.04),
         child: Column(

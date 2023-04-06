@@ -2,19 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'setting.dart';
 
-class SelectUIPage extends StatefulWidget {
-  const SelectUIPage({Key? key}) : super(key: key);
+class SelectModePage extends StatefulWidget {
+  const SelectModePage({Key? key}) : super(key: key);
   @override
-  State<SelectUIPage> createState() => SelectUIPageState();
+  State<SelectModePage> createState() => SelectModePageState();
 }
 
-class SelectUIPageState extends State<SelectUIPage> {
+class SelectModePageState extends State<SelectModePage> {
   // This widget is the home page of your application.
   String mode = "normal";
   List<String> allItem = [];
   @override
   void initState() {
     super.initState();
+    _loadMode();
   }
 
   _loadMode() async {
@@ -62,7 +63,7 @@ class SelectUIPageState extends State<SelectUIPage> {
                   child: Align(
                       alignment: Alignment.center,
                       child: Text(
-                        "請選擇介面",
+                        "請選擇模式",
                         textAlign: TextAlign.center,
                       )),
                 )
@@ -84,7 +85,7 @@ class SelectUIPageState extends State<SelectUIPage> {
                           padding: EdgeInsets.only(
                               left: width / 45, top: height / 100),
                           child: new Text(
-                            "請選擇用於App中的介面，不同的介面所將顯示不同的字體大小",
+                            "請選擇用於App中的模式，不同的模式有不同的功能",
                             style: TextStyle(
                                 fontSize: height / 55, color: Colors.black),
                             textAlign: TextAlign.left,
@@ -104,7 +105,7 @@ class SelectUIPageState extends State<SelectUIPage> {
                         //左边添加8像素补白
                         padding: EdgeInsets.only(top: height / 100),
                         child: new Text(
-                          "長者介面",
+                          "快速模式",
                           textAlign: TextAlign.center,
                         ),
                       )),
@@ -122,7 +123,7 @@ class SelectUIPageState extends State<SelectUIPage> {
                         //左边添加8像素补白
                         padding: EdgeInsets.only(top: height / 100),
                         child: new Text(
-                          "普通介面",
+                          "普通模式",
                           textAlign: TextAlign.center,
                         ),
                       )),
@@ -140,7 +141,7 @@ class SelectUIPageState extends State<SelectUIPage> {
                         //左边添加8像素补白
                         padding: EdgeInsets.only(top: height / 100),
                         child: new Text(
-                          "...介面",
+                          "...模式",
                           textAlign: TextAlign.center,
                         ),
                       )),

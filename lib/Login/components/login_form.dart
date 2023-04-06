@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:developer';
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,9 +8,12 @@ import '../../../constants.dart';
 import '../../../main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cool_alert/cool_alert.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import '/Signup/signup_screen.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
+import '/splashScreen.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({super.key});
@@ -58,6 +61,32 @@ class _LoginFormState extends State<LoginForm> {
 
     //寫入
     await prefs.setString('UID', uID);
+  }
+
+  Future<UserCredential> signInWithGoogle() async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: ((context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }));
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   final _formKey = GlobalKey<FormState>();
@@ -175,7 +204,7 @@ class _LoginFormState extends State<LoginForm> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const MyApp()),
+                                builder: (context) => const SplashScreenPage()),
                           );
                         }
                       });
@@ -207,6 +236,66 @@ class _LoginFormState extends State<LoginForm> {
               );
             },
           ),
+          const SizedBox(height: defaultPadding),
+          OutlinedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.white),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                signInWithGoogle();
+
+                FirebaseAuth.instance
+                    .authStateChanges()
+                    .listen((User? user) async {
+                  if (user != null) {
+                    _saveLogin();
+                    _saveUserId(user.uid);
+                    const tempUrl =
+                        "https://us-central1-fantahealth-1f00b.cloudfunctions.net/app/api/createUser";
+                    final response = await http.post(Uri.parse(tempUrl), body: {
+                      'uid': user.uid,
+                      'username': user.displayName,
+                      'email': user.email
+                    });
+
+                    Navigator.of(context, rootNavigator: true).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SplashScreenPage()),
+                    );
+                  }
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SvgPicture.asset("assets/icons/google-plus.svg",
+                        height: height / 17,
+                        width: width / 17,
+                        fit: BoxFit.scaleDown),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10),
+                      child: Text(
+                        'Sign in with Google',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ))
         ],
       ),
     );
