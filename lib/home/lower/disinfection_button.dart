@@ -25,13 +25,13 @@ int distance = 0;
 bool isPlayingAnimation = false;
 double x = 0;
 
-late Convert conv;
 late CameraImage _savedImage;
 ffi.Allocator allocator = A();
 
 final player = AudioPlayer();
 
 int imgData = 0;
+
 
 class DisinfectionButton extends StatefulWidget {
   const DisinfectionButton({Key? key}) : super(key: key);
@@ -63,13 +63,11 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     globals.controller.dispose();
     super.dispose();
   }
-
+  //
   @override
   void initState() {
     super.initState();
-    conv = convertImageLib
-        .lookup<ffi.NativeFunction<convert_func>>('convertImage')
-        .asFunction<Convert>();
+
     player.setSource(AssetSource('succ.mp3'));
     player.setReleaseMode(ReleaseMode.stop);
   }
@@ -91,23 +89,23 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
       });
     }
 
-    // Future<void> determineReset() async {
-    //   setState(() {
-    //     if (isDeviceMoving) {
-    //       disinfectionPercentage = 0;
-    //       if (timer.isActive) timer.cancel();
-    //       player.release();
-    //       determineEffectiveDisinfection().ignore();
-    //     }
-    //   });
-    // }
+    Future<void> determineReset() async {
+      setState(() {
+        if (isDeviceMoving) {
+          disinfectionPercentage = 0;
+          if (timer.isActive) timer.cancel();
+          player.release();
+          determineEffectiveDisinfection().ignore();
+        }
+      });
+    }
 
     void _processCameraImage(CameraImage image) async {
       setState(() {
         _savedImage = image;
       });
     }
-
+    //
     void actualDistanceCalculation(int pixelDifferencePercentage) {
       if (pixelDifferencePercentage <= 80 &&
           pixelDifferencePercentage >= 70) {
@@ -216,10 +214,21 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         style: ElevatedButton.styleFrom(
           backgroundColor: _hasBeenPressed ? Colors.blue : Colors.red,
           shape: const CircleBorder(),
-          fixedSize: Size(width / 4.5, height / 6.5),
+          fixedSize: Size(width / 5.5, height / 6.5),
           side: const BorderSide(color: Colors.white, width: 5),
         ),
         child: disinfectionButtonListener
     );
+
+    // return ElevatedButton(
+    //     onPressed: () {},
+    //     child: null,
+    //     style: ElevatedButton.styleFrom(
+    //       backgroundColor: Colors.blue,
+    //       shape: const CircleBorder(),
+    //       fixedSize: Size(width / 5.5, height / 6.5),
+    //       side: const BorderSide(color: Colors.white, width: 5)
+    //     )
+    // );
   }
 }

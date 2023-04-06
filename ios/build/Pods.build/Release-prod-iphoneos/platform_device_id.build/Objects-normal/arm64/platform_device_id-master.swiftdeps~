@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "567b5dd4ccb9a91614e5499a68db47033da06a28a2684414a0c0c161aa28c256"
+build_start_time: [1679922580, 845018863]
+build_end_time: [1679922580, 887838840]
+inputs:
+  "/Users/eda/.pub-cache/hosted/pub.dev/platform_device_id-1.0.1/ios/Classes/SwiftPlatformDeviceIdPlugin.swift": !dirty [1675938742, 293791294]

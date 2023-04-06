@@ -18,6 +18,7 @@ class _CustomPercentageIndicatorState extends State<CustomPercentageIndicator> {
     double height = MediaQuery.of(context).size.height;
 
     LinearPercentIndicator progressBar = LinearPercentIndicator(
+        padding: const EdgeInsets.only(top: 5.0),
         width: width / 4 * 3,
         lineHeight: height / 32,
         percent: disinfectionPercentage / 100, /// TODO: Change this to a variable, the value should be identical to the disinfectionPercentage

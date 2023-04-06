@@ -1,0 +1,27 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "d09a47245383bc70837b8146eb5d84c4392c5f9714d0300578d76837a776bbec"
+build_start_time: [1679919798, 770560979]
+build_end_time: [1679919802, 882100105]
+inputs:
+  ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/Heartbeat.swift"
+  : [1679822040, 175976753]
+  ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatController.swift"
+  : [1679822040, 177249431]
+  ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatStorage.swift"
+  : [1679822040, 178347587]
+  ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatsBundle.swift"
+  : [1679822040, 178711414]
+  ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatsPayload.swift"
+  : [1679822040, 179430484]
+  ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/RingBuffer.swift"
+  : [1679822040, 176410675]
+  ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/Storage.swift"
+  : [1679822040, 175503253]
+  ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/StorageFactory.swift"
+  : [1679822040, 179781675]
+  ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/WeakContainer.swift"
+  : [1679822040, 179037570]
+  ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/_ObjC_HeartbeatController.swift"
+  : [1679822040, 176823616]
+  ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/_ObjC_HeartbeatsPayload.swift"
+  : [1679822040, 177736759]

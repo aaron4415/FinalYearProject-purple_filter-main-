@@ -9,7 +9,7 @@ const IconData coronavirusOutlined =
     IconData(0xef88, fontFamily: 'MaterialIcons');
 
 Table displayTable(width, virusList) {
-  Container covid19Icon = Container(
+  Container virus1Icon = Container(
       margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         border: Border.all(width: width / 200, color: Colors.blue),
@@ -21,17 +21,17 @@ Table displayTable(width, virusList) {
         color: Colors.white,
       ));
 
-  BorderedText covid19Name = BorderedText(
+  BorderedText virus1Name = BorderedText(
       strokeWidth: 4.0,
       strokeColor: Colors.blue,
       child: Text(virusList[0],
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.white,
               fontSize: 21.0,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold)));
 
-  BorderedText covid19Percentage = BorderedText(
+  BorderedText virus1Percentage = BorderedText(
       strokeWidth: 4.0,
       strokeColor: Colors.blue,
       child: const Text('<99%',
@@ -43,7 +43,7 @@ Table displayTable(width, virusList) {
             fontWeight: FontWeight.bold,
           )));
 
-  Container coilsIcon = Container(
+  Container virus2Icon = Container(
       margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         border: Border.all(width: width / 200, color: Colors.blue),
@@ -55,18 +55,18 @@ Table displayTable(width, virusList) {
         color: Colors.white,
       ));
 
-  BorderedText coilsName = BorderedText(
+  BorderedText virus2Name = BorderedText(
       strokeWidth: 4.0,
       strokeColor: Colors.blue,
       child: Text(virusList[1],
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 21.0,
             fontStyle: FontStyle.italic,
             fontWeight: FontWeight.bold,
           )));
 
-  BorderedText coilsPercentage = BorderedText(
+  BorderedText virus2Percentage = BorderedText(
       strokeWidth: 4.0,
       strokeColor: Colors.blue,
       child: const Text('<99%',
@@ -78,8 +78,8 @@ Table displayTable(width, virusList) {
             fontWeight: FontWeight.bold,
           )));
 
-  Container bacterialIcon = Container(
-      margin: const EdgeInsets.only(right: 5),
+  Container virus3Icon = Container(
+      //margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
         border: Border.all(width: width / 200, color: Colors.blue),
         color: Colors.blue,
@@ -90,17 +90,17 @@ Table displayTable(width, virusList) {
         color: Colors.white,
       ));
 
-  BorderedText bacterialName = BorderedText(
+  BorderedText virus3Name = BorderedText(
       strokeWidth: 4.0,
       strokeColor: Colors.blue,
       child: Text(virusList[2],
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.white,
               fontSize: 21.0,
               fontStyle: FontStyle.italic,
               fontWeight: FontWeight.bold)));
 
-  BorderedText bacterialPercentage = BorderedText(
+  BorderedText virus3Percentage = BorderedText(
       strokeWidth: 4.0,
       strokeColor: Colors.blue,
       child: const Text('<99%',
@@ -112,12 +112,12 @@ Table displayTable(width, virusList) {
               fontWeight: FontWeight.bold)));
 
   return Table(columnWidths: {
-    0: FlexColumnWidth(width / 120),
+    0: FlexColumnWidth(width * 0.05),
     1: FlexColumnWidth(width * 0.35),
     2: FlexColumnWidth(width * 0.15)
   }, children: [
-    TableRow(children: [covid19Icon, covid19Name, covid19Percentage]),
-    TableRow(children: [coilsIcon, coilsName, coilsPercentage]),
-    TableRow(children: [bacterialIcon, bacterialName, bacterialPercentage])
+    TableRow(children: [virus1Icon, virus1Name, virus1Percentage]),
+    TableRow(children: [virus2Icon, virus2Name, virus2Percentage]),
+    TableRow(children: [virus3Icon, virus3Name, virus3Percentage])
   ]);
 }

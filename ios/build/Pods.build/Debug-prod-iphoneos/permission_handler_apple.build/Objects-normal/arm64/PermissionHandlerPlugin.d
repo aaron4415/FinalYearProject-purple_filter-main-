@@ -1,0 +1,41 @@
+dependencies: \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/PermissionHandlerPlugin.m \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Debug-prod-iphoneos/permission_handler_apple.build/module.modulemap \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/Target\ Support\ Files/permission_handler_apple/permission_handler_apple-prefix.pch \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/PermissionHandlerPlugin.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Modules/module.modulemap \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterViewController.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterPluginAppLifeCycleDelegate.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterHeadlessDartRunner.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterEngineGroup.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterEngine.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterDartProject.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterCallbackCache.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterTexture.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterPlatformViews.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterCodecs.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterChannels.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterBinaryMessenger.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterPlugin.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterMacros.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterAppDelegate.h \
+  /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/Flutter.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/PermissionManager.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/AudioVideoPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/PermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/PermissionHandlerEnums.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/UnknownPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/AppTrackingTransparencyPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/BluetoothPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/ContactPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/EventPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/LocationPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/MediaLibraryPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/PhonePermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/PhotoPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/SensorPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/SpeechPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/StoragePermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/NotificationPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/strategies/CriticalAlertsPermissionStrategy.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/permission_handler_apple-9.0.8/ios/Classes/util/Codec.h

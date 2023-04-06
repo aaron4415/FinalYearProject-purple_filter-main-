@@ -1,0 +1,10 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "9fa3ba9e2cef325d3b53a3c69d33c3ed39bac7415f015d856979118d7e3acdb5"
+build_start_time: [1680598591, 58940887]
+build_end_time: [1680598598, 64938068]
+inputs:
+  "/Users/eda/.pub-cache/hosted/pub.dev/audioplayers_darwin-3.0.1/ios/Classes/AudioContext.swift": [1677856641, 68298816]
+  "/Users/eda/.pub-cache/hosted/pub.dev/audioplayers_darwin-3.0.1/ios/Classes/Logger.swift": [1677856641, 72367668]
+  "/Users/eda/.pub-cache/hosted/pub.dev/audioplayers_darwin-3.0.1/ios/Classes/SwiftAudioplayersDarwinPlugin.swift": [1677856641, 71557044]
+  "/Users/eda/.pub-cache/hosted/pub.dev/audioplayers_darwin-3.0.1/ios/Classes/Utils.swift": [1677856641, 67028522]
+  "/Users/eda/.pub-cache/hosted/pub.dev/audioplayers_darwin-3.0.1/ios/Classes/WrappedMediaPlayer.swift": [1677856641, 70672273]

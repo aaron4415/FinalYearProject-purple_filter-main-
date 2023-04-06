@@ -1,0 +1,7 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "b846ae701d068d955ad0e1a0d9ba72b5a7259f9137e0d5400a28c1d413b6267a"
+build_start_time: [1679922581, 437793016]
+build_end_time: [1679922581, 484802961]
+inputs:
+  "/Users/eda/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.0/ios/Classes/PathProviderPlugin.swift": !dirty [1679464060, 555482864]
+  "/Users/eda/.pub-cache/hosted/pub.dev/path_provider_foundation-2.2.0/ios/Classes/messages.g.swift": !dirty [1679464060, 557366847]

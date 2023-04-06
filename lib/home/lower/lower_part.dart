@@ -1,8 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:sensors_plus/sensors_plus.dart';
-import 'package:simple_kalman/simple_kalman.dart';
 
 import 'lower_part_first.dart';
 import 'lower_part_second.dart';
@@ -18,9 +14,21 @@ class LowerPart extends StatefulWidget {
 class _LowerPartState extends State<LowerPart> {
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
-      children: [LowerPartFirst(), LowerPartSecond(), const LowerPartThird()],
+      children: [LowerPartFirst(), LowerPartSecond(), LowerPartThird()],
+      // children: [const Center(
+      //     child: Text(
+      //         style: TextStyle(
+      //             color: Colors.white
+      //         ),
+      //         "Testing")
+      // ), LowerPartSecond(), LowerPartThird()],
     );
   }
 }

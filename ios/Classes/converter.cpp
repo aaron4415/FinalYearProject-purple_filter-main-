@@ -18,16 +18,17 @@
 extern "C" {
     using namespace std;
 
-    int clamp(int lower, int higher, int val) {
+    __attribute__((visibility("default"))) __attribute__((used)) int clamp(int lower, int higher, int val) {
         if (val < lower) return 0;
         else if (val > higher) return 255;
         else return val;
     }
 
-    int getRotatedImageByteIndex(int x, int y, int rotatedImageWidth) {
+    __attribute__((visibility("default"))) __attribute__((used)) int getRotatedImageByteIndex(int x, int y, int rotatedImageWidth) {
         return rotatedImageWidth * (y+1) - (x+1);
     }
 
+    __attribute__((visibility("default"))) __attribute__((used))
     int *convertImage(uint8_t *plane0, uint8_t *plane12, int size1, int size2, int bytesPerRow, int bytesPerPixel, int width, int height) {
         int bytesPerColumn = size1 / bytesPerRow;
 
@@ -52,7 +53,7 @@ extern "C" {
                 vCount++;
             }
         }
-        
+
         uCount = 0; vCount = 0;
 
         vector<int> data0int0; vector<int> data1int0; vector<int> data2int0;
@@ -157,7 +158,7 @@ extern "C" {
         nc::NdArray<int> columnTotals;
         nc::NdArray<int> data1NdArray(data1int1); data1NdArray.reshape(bytesPerColumn, bytesPerRow);
         columnTotals = nc::sum(data1NdArray, nc::Axis::ROW) / bytesPerColumn;
-        
+
         int columnTotalsMax = columnTotals.max()[0];
         vector<int> columnTotalsVector;
         for (int i = 0; i < columnTotals.size(); i++) {
@@ -266,7 +267,7 @@ extern "C" {
                     secondMaxCoordinateVector.push_back(i);
                 }
             }
-            
+
             /// If Finally Succeed To Get Two Cluster, Calculate The Average Point Of Each Cluster
             int firstMaxCoordinate; int secondMaxCoordinate;
             firstMaxCoordinate = firstMaxCoordinateVector.at(0); secondMaxCoordinate = secondMaxCoordinateVector.at(0);
@@ -288,7 +289,7 @@ extern "C" {
             int projectCoordinate2 = startOfPoint2 + secondMaxCoordinate;
             pixelDifference = abs(projectCoordinate2 - projectCoordinate1);
         }
-        
+
         /// Calculate The Percentage Difference
         int value;
         if (pixelDifference != -1) {
@@ -298,17 +299,17 @@ extern "C" {
         }
         int *valueRef = (int*)malloc(sizeof(int));
         valueRef[0] = value;
-        
+
         data0int0.clear(); data1int0.clear(); data2int0.clear();
         data0int1.clear(); data1int1.clear(); data2int1.clear();
-        
+
         data0uchar0.clear(); data1uchar0.clear(); data2uchar0.clear();
         data0uchar1.clear(); data1uchar1.clear(); data2uchar1.clear();
-        
+
         ch0.release(); ch1.release(); ch2.release(); channels.clear();
 
         columnTotalsVector.clear(); dataPointVector.clear();
-        
+
         free(plane1); free(plane2);
         
         return valueRef;

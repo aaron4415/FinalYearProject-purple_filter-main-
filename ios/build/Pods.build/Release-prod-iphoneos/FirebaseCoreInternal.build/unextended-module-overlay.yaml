@@ -1,0 +1,14 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/FirebaseCoreInternal/FirebaseCoreInternal.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Release-prod-iphoneos/FirebaseCoreInternal.build/unextended-module.modulemap",
+    }]
+  }]
+}

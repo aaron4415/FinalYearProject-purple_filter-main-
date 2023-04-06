@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:bordered_text/bordered_text.dart';
-import 'package:purple_filter/home/lower/lower_part_second.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:simple_kalman/simple_kalman.dart';
 
@@ -89,7 +88,7 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
     Widget upperFirstLeftPart = ConstrainedBox(
         constraints: BoxConstraints(maxWidth: width / 4 * 3),
         child: Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0),
+            padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -99,11 +98,26 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
 
     return Row(
       children: [
-        Column(children: [
-          CustomPercentageIndicator(),
-          upperFirstLeftPart // It contains the progress bar, the target virus and its icon, and the disinfection percentage
-        ]),
+        Padding(
+          padding: const EdgeInsets.only(right: 10.0),
+          child: Column(
+              children: [
+                CustomPercentageIndicator(),
+                upperFirstLeftPart // It contains the progress bar, the target virus and its icon, and the disinfection percentage
+              ]
+          )
+        ),
         DisinfectionButton()
+        // ElevatedButton(
+        //   onPressed: () {},
+        //   style: ElevatedButton.styleFrom(
+        //     backgroundColor:  Colors.blue ,
+        //     shape: const CircleBorder(),
+        //     maximumSize: Size(width / 5.5, height / 6.5),
+        //     side: const BorderSide(color: Colors.white, width: 5),
+        //   ),
+        //   child: null,
+        // )
       ],
     );
   }

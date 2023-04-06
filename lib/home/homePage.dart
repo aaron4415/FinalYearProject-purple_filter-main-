@@ -40,6 +40,7 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: height / 2.1, child: UpperPart()),
             LowerPart()
           ],
-        ));
+        )
+    );
   }
 }

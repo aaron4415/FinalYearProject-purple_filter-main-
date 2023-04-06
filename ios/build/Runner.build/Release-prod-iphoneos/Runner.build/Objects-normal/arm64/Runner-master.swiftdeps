@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "26dc6cacff31747fc763469e93830abfcba2a25ba2e3d907dce4103141f8a528"
+build_start_time: [1680256096, 796660900]
+build_end_time: [1680256102, 763322830]
+inputs:
+  "/Users/eda/Documents/GitHub/purple_filter-main/ios/Runner/AppDelegate.swift": [1677753705, 709290981]
