@@ -320,9 +320,9 @@ class _QRViewExampleState extends State<QRViewPage>
             var result1 = "${keyId.replaceAll("\n", "")}";
 
             final tempUrl =
-                "https://us-central1-airy-phalanx-323908.cloudfunctions.net/app/api/qrcodeKeys/$result1";
+                "https://us-central1-fantahealth-1f00b.cloudfunctions.net/app/api/qrcodeKeys/$result1";
             final putUrl =
-                "https://us-central1-airy-phalanx-323908.cloudfunctions.net/app/api/updateQrCode/$result1";
+                "https://us-central1-fantahealth-1f00b.cloudfunctions.net/app/api/updateQrCode/$result1";
             final response = await http.get(Uri.parse(tempUrl));
             Navigator.of(context).pop();
             if (response.statusCode == 200) {

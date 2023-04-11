@@ -14,7 +14,7 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
 
   List<String> virusList = [];
   static const notChoosedColor = Colors.white;
-  static const choosedColor = Colors.lightBlue;
+  static const choosedColor = Colors.grey;
   Color _color0 = notChoosedColor;
   Color _color1 = notChoosedColor;
   Color _color2 = notChoosedColor;
@@ -22,11 +22,14 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
   Color _color4 = notChoosedColor;
   Color _color5 = notChoosedColor;
   Color _color6 = notChoosedColor;
-  Color _color7 = notChoosedColor;
-  Color _color8 = notChoosedColor;
+
   Widget? displayButton() {
     if (numberOfItem == 3) {
       return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          primary: Colors.grey,
+          onPrimary: Colors.black, // Background color
+        ),
         child: Text('Save'),
         onPressed: () {
           _saveVirusList();
@@ -74,6 +77,7 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         margin: EdgeInsets.only(top: height * 0.04),
         child: Column(
@@ -359,71 +363,6 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                         padding: EdgeInsets.only(top: height / 100),
                         child: new Text(
                           "Junin virus",
-                          textAlign: TextAlign.center,
-                        ),
-                      )),
-                )),
-            Divider(color: Colors.black),
-            Padding(
-                padding: EdgeInsets.only(top: height / 300),
-                child: InkWell(
-                  onTap: () {
-                    if (_color7 == notChoosedColor) {
-                      setState(() {
-                        _color7 = choosedColor;
-                        numberOfItem++;
-                        virusList.add("The Crimea-Congo fever");
-                      });
-                    } else {
-                      setState(() {
-                        _color7 = notChoosedColor;
-                        numberOfItem--;
-                        virusList.remove("The Crimea-Congo fever");
-                        print(virusList);
-                      });
-                    }
-                  }, // Handle your callback
-                  child: Ink(
-                      height: height / 20,
-                      width: width,
-                      color: _color7,
-                      child: Padding(
-                        //左边添加8像素补白
-                        padding: EdgeInsets.only(top: height / 100),
-                        child: new Text(
-                          "The Crimea-Congo fever",
-                          textAlign: TextAlign.center,
-                        ),
-                      )),
-                )),
-            Divider(color: Colors.black),
-            Padding(
-                padding: EdgeInsets.only(top: height / 300),
-                child: InkWell(
-                  onTap: () {
-                    if (_color8 == notChoosedColor) {
-                      setState(() {
-                        _color8 = choosedColor;
-                        numberOfItem++;
-                        virusList.add("The Machupo virus");
-                      });
-                    } else {
-                      setState(() {
-                        _color8 = notChoosedColor;
-                        numberOfItem--;
-                        virusList.remove("The Machupo virus");
-                      });
-                    }
-                  }, // Handle your callback
-                  child: Ink(
-                      height: height / 20,
-                      width: width,
-                      color: _color8,
-                      child: Padding(
-                        //左边添加8像素补白
-                        padding: EdgeInsets.only(top: height / 100),
-                        child: new Text(
-                          "The Machupo virus",
                           textAlign: TextAlign.center,
                         ),
                       )),

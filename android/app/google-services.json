@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "14528352544",
-    "project_id": "fypqrcode-e4d02",
-    "storage_bucket": "fypqrcode-e4d02.appspot.com"
+    "project_number": "44694107862",
+    "project_id": "fantahealth-1f00b",
+    "storage_bucket": "fantahealth-1f00b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:14528352544:android:9550ca5d392beffea80745",
+        "mobilesdk_app_id": "1:44694107862:android:47740c898f8b16206dfb77",
         "android_client_info": {
           "package_name": "com.example.purple_filter"
         }
       },
       "oauth_client": [
         {
-          "client_id": "14528352544-j3biqdp2uh3nj4qmit5e0smmif8il364.apps.googleusercontent.com",
+          "client_id": "44694107862-d4eo0r1cttf2tsdfs1mbl250acrou3sl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAtInMiOaGWE-huPLAUvt2tWCj4f-ffuqs"
+          "current_key": "AIzaSyCfW_30eH32shdAm2gZzocSRYVzBamElSA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "14528352544-j3biqdp2uh3nj4qmit5e0smmif8il364.apps.googleusercontent.com",
+              "client_id": "44694107862-d4eo0r1cttf2tsdfs1mbl250acrou3sl.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "14528352544-jo0qavrshe4jdqh7fm59oui6p1otv6sc.apps.googleusercontent.com",
+              "client_id": "44694107862-aqp24c0a4kgipc5euooao9qd537q8qdj.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.purpleFilter"
