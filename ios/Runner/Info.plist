@@ -34,10 +34,10 @@
 	<array>
 		<string>_dartobservatory._tcp</string>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NSCameraUsageDescription</key>
-	<string>Camera</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Microphone</string>
+	<string>Use The Camera To Scan QR Code for Login And Detect Distance</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIInterfaceOrientation</key>
