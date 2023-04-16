@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,10 +25,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -49,6 +43,16 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCgyGct9M1DLOa1hRAhB-YWA6ilrJA4QKk',
+    appId: '1:44694107862:web:e72034965d9701dd6dfb77',
+    messagingSenderId: '44694107862',
+    projectId: 'fantahealth-1f00b',
+    authDomain: 'fantahealth-1f00b.firebaseapp.com',
+    storageBucket: 'fantahealth-1f00b.appspot.com',
+    measurementId: 'G-QTEK35YRQD',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCfW_30eH32shdAm2gZzocSRYVzBamElSA',
     appId: '1:44694107862:android:47740c898f8b16206dfb77',
@@ -65,5 +69,15 @@ class DefaultFirebaseOptions {
     storageBucket: 'fantahealth-1f00b.appspot.com',
     iosClientId: '44694107862-qt0l9qc6f2r33fb4esvq455688b97hj1.apps.googleusercontent.com',
     iosBundleId: 'com.fantasapp.purpleFilter.prod',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDXjr1U0A8KdYNQ63vZJb1YYE-has2ysCs',
+    appId: '1:44694107862:ios:6a5d2645e7566a956dfb77',
+    messagingSenderId: '44694107862',
+    projectId: 'fantahealth-1f00b',
+    storageBucket: 'fantahealth-1f00b.appspot.com',
+    iosClientId: '44694107862-aqp24c0a4kgipc5euooao9qd537q8qdj.apps.googleusercontent.com',
+    iosBundleId: 'com.example.purpleFilter',
   );
 }
