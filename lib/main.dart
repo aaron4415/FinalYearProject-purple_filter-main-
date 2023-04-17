@@ -267,34 +267,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     }
   }
 
-/*   Widget displayContactPage() {
-    return Container(
-        padding: EdgeInsets.all(8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Contact Us:',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            SizedBox(height: 8),
-            ListTile(
-              leading: Icon(Icons.location_on),
-              title: Text('CityU'),
-              subtitle: Text('83 Tat Chee Ave, Kowloon Tong'),
-            ),
-            ListTile(
-              leading: Icon(Icons.phone),
-              title: Text('(852) 15145211'),
-            ),
-            ListTile(
-              leading: Icon(Icons.email),
-              title: Text('info@cityu.com'),
-            ),
-          ],
-        ));
-  } */
-
   Widget? displayBottomNavigationBar() {
     if (_firstTimeToUse == true || _keyStore == false || _logined == false) {
       return null;
