@@ -99,6 +99,10 @@ dependencies: \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/firebase_auth/firebase_auth.framework/Headers/FLTIdTokenChannelStreamHandler.h \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/firebase_auth/firebase_auth.framework/Headers/FLTAuthStateChannelStreamHandler.h \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/firebase_auth/firebase_auth.framework/Headers/firebase_auth-umbrella.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/google_sign_in_ios/google_sign_in_ios.framework/Headers/FLTGoogleSignInPlugin.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/google_sign_in_ios/google_sign_in_ios.framework/Modules/module.modulemap \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/google_sign_in_ios/google_sign_in_ios.framework/Headers/FLTGoogleSignInPlugin_Test.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/google_sign_in_ios/google_sign_in_ios.framework/Headers/google_sign_in_ios-umbrella.h \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/path_provider_foundation/path_provider_foundation.framework/Modules/module.modulemap \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/path_provider_foundation/path_provider_foundation.framework/Headers/path_provider_foundation-Swift.h \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/path_provider_foundation/path_provider_foundation.framework/Headers/path_provider_foundation-umbrella.h \

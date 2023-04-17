@@ -38,6 +38,8 @@
 	<false/>
 	<key>NSCameraUsageDescription</key>
 	<string>Use The Camera To Scan QR Code for Login And Detect Distance</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This Comes With The Camera. We Do Not Store Any Audio But Purely Use The Camera</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIInterfaceOrientation</key>

@@ -1,8 +1,8 @@
 dependencies: \
-  /Users/eda/.pub-cache/hosted/pub.dev/sensors_plus-1.4.1/ios/Classes/FLTSensorsPlusPlugin.m \
+  /Users/eda/.pub-cache/hosted/pub.dev/sensors_plus-2.0.3/ios/Classes/FLTSensorsPlusPlugin.m \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Debug-dev-iphoneos/sensors_plus.build/module.modulemap \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/Target\ Support\ Files/sensors_plus/sensors_plus-prefix.pch \
-  /Users/eda/.pub-cache/hosted/pub.dev/sensors_plus-1.4.1/ios/Classes/FLTSensorsPlusPlugin.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/sensors_plus-2.0.3/ios/Classes/FLTSensorsPlusPlugin.h \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Modules/module.modulemap \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterViewController.h \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterPluginAppLifeCycleDelegate.h \

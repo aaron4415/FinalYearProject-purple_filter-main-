@@ -1,8 +1,11 @@
 /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/Target Support Files/Pods-Runner/Pods-Runner-frameworks.sh
+/Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/AppAuth/AppAuth.framework
 /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/FirebaseAuth/FirebaseAuth.framework
 /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/FirebaseCore/FirebaseCore.framework
 /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/FirebaseCoreInternal/FirebaseCoreInternal.framework
+/Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/GTMAppAuth/GTMAppAuth.framework
 /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/GTMSessionFetcher/GTMSessionFetcher.framework
+/Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/GoogleSignIn/GoogleSignIn.framework
 /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/GoogleUtilities/GoogleUtilities.framework
 /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/MTBBarcodeScanner/MTBBarcodeScanner.framework
 /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/PromisesObjC/FBLPromises.framework

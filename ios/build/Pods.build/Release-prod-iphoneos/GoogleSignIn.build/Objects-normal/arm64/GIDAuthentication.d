@@ -1,0 +1,61 @@
+dependencies: \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GoogleSignIn/GoogleSignIn/Sources/GIDAuthentication.m \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Release-prod-iphoneos/GoogleSignIn.build/module.modulemap \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GoogleSignIn/GoogleSignIn/Sources/Public/GoogleSignIn/GIDAuthentication.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Release-prod-iphoneos/GTMAppAuth.build/module.modulemap \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Release-prod-iphoneos/GTMSessionFetcher.build/module.modulemap \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GTMSessionFetcher/Sources/Core/Public/GTMSessionFetcher/GTMSessionUploadFetcher.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GTMSessionFetcher/Sources/Core/Public/GTMSessionFetcher/GTMSessionFetcherService.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GTMSessionFetcher/Sources/Core/Public/GTMSessionFetcher/GTMSessionFetcherLogging.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GTMSessionFetcher/Sources/Core/Public/GTMSessionFetcher/GTMSessionFetcher.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/Target\ Support\ Files/GTMSessionFetcher/GTMSessionFetcher-umbrella.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GTMAppAuth/GTMAppAuth/Sources/Public/GTMAppAuth/GTMOAuth2KeychainCompatibility.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GTMAppAuth/GTMAppAuth/Sources/Public/GTMAppAuth/GTMKeychain.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GTMAppAuth/GTMAppAuth/Sources/Public/GTMAppAuth/GTMAppAuthFetcherAuthorization+Keychain.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GTMAppAuth/GTMAppAuth/Sources/Public/GTMAppAuth/GTMAppAuthFetcherAuthorization.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GTMAppAuth/GTMAppAuth/Sources/Public/GTMAppAuth/GTMAppAuth.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/Target\ Support\ Files/GTMAppAuth/GTMAppAuth-umbrella.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GoogleSignIn/GoogleSignIn/Sources/GIDAuthentication_Private.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Release-prod-iphoneos/AppAuth.build/module.modulemap \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuth/iOS/OIDExternalUserAgentCatalyst.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuth/iOS/OIDExternalUserAgentIOSCustomBrowser.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuth/iOS/OIDExternalUserAgentIOS.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuth/iOS/OIDAuthorizationService+IOS.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuth/iOS/OIDAuthState+IOS.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuth.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDURLQueryComponent.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDFieldMapping.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDDefines.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDClientMetadataParameters.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDEndSessionResponse.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDEndSessionRequest.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDURLSessionProvider.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDTokenUtilities.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDTokenResponse.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDTokenRequest.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDServiceDiscovery.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDServiceConfiguration.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDScopeUtilities.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDRegistrationResponse.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDRegistrationRequest.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDIDToken.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDGrantTypes.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDExternalUserAgentSession.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDExternalUserAgent.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDErrorUtilities.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDError.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDAuthorizationService.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDAuthorizationResponse.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDScopes.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDResponseTypes.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDExternalUserAgentRequest.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDAuthorizationRequest.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDAuthStateErrorDelegate.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDAuthStateChangeDelegate.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore/OIDAuthState.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/AppAuth/Source/AppAuthCore.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/Target\ Support\ Files/AppAuth/AppAuth-umbrella.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GoogleSignIn/GoogleSignIn/Sources/GIDSignInPreferences.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GoogleSignIn/GoogleSignIn/Sources/GIDEMMErrorHandler.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GoogleSignIn/GoogleSignIn/Sources/GIDMDMPasscodeState.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/GoogleSignIn/GoogleSignIn/Sources/Public/GoogleSignIn/GIDSignIn.h

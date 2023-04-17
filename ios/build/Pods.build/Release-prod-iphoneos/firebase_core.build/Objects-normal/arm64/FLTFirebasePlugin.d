@@ -1,8 +1,8 @@
 dependencies: \
-  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.8.0/ios/Classes/FLTFirebasePlugin.m \
+  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.9.0/ios/Classes/FLTFirebasePlugin.m \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Release-prod-iphoneos/firebase_core.build/module.modulemap \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/Target\ Support\ Files/firebase_core/firebase_core-prefix.pch \
-  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.8.0/ios/Classes/FLTFirebasePlugin.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.9.0/ios/Classes/FLTFirebasePlugin.h \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Release-prod-iphoneos/FirebaseCore.build/module.modulemap \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCore/FirebaseCore/Sources/Public/FirebaseCore/FIRVersion.h \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCore/FirebaseCore/Sources/Public/FirebaseCore/FIROptions.h \

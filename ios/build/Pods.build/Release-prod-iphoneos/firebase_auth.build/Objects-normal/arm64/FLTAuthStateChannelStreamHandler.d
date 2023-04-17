@@ -1,8 +1,8 @@
 dependencies: \
-  /Users/eda/.pub-cache/hosted/pub.dev/firebase_auth-4.3.0/ios/Classes/FLTAuthStateChannelStreamHandler.m \
+  /Users/eda/.pub-cache/hosted/pub.dev/firebase_auth-4.4.1/ios/Classes/FLTAuthStateChannelStreamHandler.m \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Release-prod-iphoneos/firebase_auth.build/module.modulemap \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/Target\ Support\ Files/firebase_auth/firebase_auth-prefix.pch \
-  /Users/eda/.pub-cache/hosted/pub.dev/firebase_auth-4.3.0/ios/Classes/Private/FLTAuthStateChannelStreamHandler.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/firebase_auth-4.4.1/ios/Classes/Private/FLTAuthStateChannelStreamHandler.h \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Modules/module.modulemap \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterViewController.h \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterPluginAppLifeCycleDelegate.h \
@@ -64,11 +64,11 @@ dependencies: \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseAuth/FirebaseAuth/Sources/Public/FirebaseAuth/FIRAdditionalUserInfo.h \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseAuth/FirebaseAuth/Sources/Public/FirebaseAuth/FIRActionCodeSettings.h \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/Target\ Support\ Files/FirebaseAuth/FirebaseAuth-umbrella.h \
-  /Users/eda/.pub-cache/hosted/pub.dev/firebase_auth-4.3.0/ios/Classes/Public/FLTFirebaseAuthPlugin.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/firebase_auth-4.4.1/ios/Classes/Public/FLTFirebaseAuthPlugin.h \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Release-prod-iphoneos/firebase_core.build/module.modulemap \
-  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.8.0/ios/Classes/FLTFirebasePluginRegistry.h \
-  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.8.0/ios/Classes/messages.g.h \
-  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.8.0/ios/Classes/FLTFirebasePlugin.h \
-  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.8.0/ios/Classes/FLTFirebaseCorePlugin.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.9.0/ios/Classes/FLTFirebasePluginRegistry.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.9.0/ios/Classes/messages.g.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.9.0/ios/Classes/FLTFirebasePlugin.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/firebase_core-2.9.0/ios/Classes/FLTFirebaseCorePlugin.h \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/Target\ Support\ Files/firebase_core/firebase_core-umbrella.h \
-  /Users/eda/.pub-cache/hosted/pub.dev/firebase_auth-4.3.0/ios/Classes/Public/messages.g.h
+  /Users/eda/.pub-cache/hosted/pub.dev/firebase_auth-4.4.1/ios/Classes/Public/messages.g.h

@@ -24,10 +24,11 @@ class _QRViewExampleState extends State<QRViewPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   QRViewController? controller;
+
   @override
   void initState() {
-    _animationController = new AnimationController(
-        duration: new Duration(seconds: 1), vsync: this);
+    _animationController = AnimationController(
+        duration: const Duration(seconds: 1), vsync: this);
 
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -148,20 +149,20 @@ class _QRViewExampleState extends State<QRViewPage>
         children: <Widget>[
           Expanded(
               child: Column(
-            children: [
-              SizedBox(
-                height: height / 45,
-              ),
-              const Center(
-                child: Text(
-                  'Please use the Qrcode to activate your product',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey),
-                ),
-              ),
-            ],
+                children: [
+                  SizedBox(
+                    height: height / 45,
+                  ),
+                  const Center(
+                    child: Text(
+                      'Please use the Qrcode to activate your product',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey),
+                    ),
+                  ),
+                ],
           )),
           Expanded(
               flex: 10,
@@ -173,60 +174,6 @@ class _QRViewExampleState extends State<QRViewPage>
                   animation: _animationController,
                 ),
               ])),
-
-          /*  Expanded(
-            flex: 1,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      if (result != null)
-                        Text(
-                            'Barcode Type: ${describeEnum(result!.format)}  key: ${result!.code}'
-                                    "keyState:" +
-                                _keyStore)
-                      else
-                        Text('Scan a code$_keyStore'),
-                      Container(
-                          margin: const EdgeInsets.all(8),
-                          child: ElevatedButton(
-                              child: Text("Send"), onPressed: fetchAlbum))
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.all(8),
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              await controller?.flipCamera();
-                              setState(() {});
-                            },
-                            child: FutureBuilder(
-                              future: controller?.getCameraInfo(),
-                              builder: (context, snapshot) {
-                                if (snapshot.data != null) {
-                                  return Text(
-                                      'Camera facing ${describeEnum(snapshot.data!)}');
-                                } else {
-                                  return const Text('loading');
-                                }
-                              },
-                            )),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ) */
         ],
       ),
     );
@@ -274,7 +221,8 @@ class _QRViewExampleState extends State<QRViewPage>
               return Center(
                 child: CircularProgressIndicator(),
               );
-            }));
+            })
+        );
         try {
           final networkResult = await InternetAddress.lookup('example.com');
           if (networkResult.isNotEmpty &&
@@ -286,12 +234,15 @@ class _QRViewExampleState extends State<QRViewPage>
                 "https://us-central1-fantahealth-1f00b.cloudfunctions.net/app/api/qrcodeKeys/$result1";
             final putUrl =
                 "https://us-central1-fantahealth-1f00b.cloudfunctions.net/app/api/updateQrCode/$result1";
+
             final response = await http.get(Uri.parse(tempUrl));
 
             if (response.statusCode == 200) {
               // If the server did return a 200 OK response,
               // then parse the JSON.
               final tempCheckState = jsonDecode(response.body);
+              print("displaying the message");
+              print(tempCheckState);
               if (tempCheckState['data'] == null) {
                 return CoolAlert.show(
                     context: context,
@@ -305,31 +256,6 @@ class _QRViewExampleState extends State<QRViewPage>
                             builder: (context) => MyStatefulWidget()),
                       );
                     }));
-                /* showDialog<void>(
-                  context: context,
-                  barrierDismissible: false, // user must tap button!
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('warning message'),
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: const <Widget>[
-                            Text('This key is not valid'),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text('ok'),
-                          onPressed: () {
-                            Navigator.of(context, rootNavigator: true)
-                                .pop('dialog');
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                ); */
               } else if (tempCheckState['data']["deviceId"] == _deviceId &&
                   tempCheckState['data']["used"] == "true") {
                 _saveKeyStore();
@@ -348,46 +274,14 @@ class _QRViewExampleState extends State<QRViewPage>
                       );
                       dispose();
                     });
-
-                /*  showDialog<void>(
-                  context: context,
-                  barrierDismissible: false, // user must tap button!
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Congratulation'),
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: const <Widget>[
-                            Text(
-                                'this key is used on same device, Your application has been successfully activated'),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text('ok'),
-                          onPressed: () {
-                            dispose();
-                            Navigator.of(context).pop();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MyStatefulWidget()),
-                            );
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                ); */
-              } else if (tempCheckState['data']["used"] == false) {
+              } else /*if (tempCheckState['data']["used"] == false)*/ {
                 //state change
                 _saveKeyStore();
                 _saveMode(tempCheckState['data']["mode"]);
                 final putResponse = await http.put(Uri.parse(putUrl),
                     body: {'used': 'true', 'deviceId': _deviceId});
-                //print('Response status: ${putResponse.statusCode}');
-                //print('Response body: ${putResponse.body}');
+                print('Response status: ${putResponse.statusCode}');
+                print('Response body: ${putResponse.body}');
                 CoolAlert.show(
                     context: context,
                     type: CoolAlertType.success,
@@ -401,82 +295,25 @@ class _QRViewExampleState extends State<QRViewPage>
                       );
                       dispose();
                     });
-
-                /*  showDialog<void>(
-                  context: context,
-                  barrierDismissible: false, // user must tap button!
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Congratulation'),
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: const <Widget>[
-                            Text(
-                                'Your application has been successfully activated'),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text('ok'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            dispose();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MyStatefulWidget()),
-                            );
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                ); */
-              } else {
-                /*  showDialog<void>(
-                  context: context,
-                  barrierDismissible: false, // user must tap button!
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('warning message'),
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: const <Widget>[
-                            Text(
-                                'This key has been used, you need to use same device to activate'),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text('ok'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                ); */
-                CoolAlert.show(
-                    context: context,
-                    type: CoolAlertType.warning,
-                    text:
-                        "This key has been used, you need to use same device to activate",
-                    onConfirmBtnTap: (() {
-                      controller.resumeCamera();
-                      Navigator.of(context, rootNavigator: true).pop();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) => MyStatefulWidget()),
-                      );
-                    }));
               }
+              // else {
+              //   CoolAlert.show(
+              //       context: context,
+              //       type: CoolAlertType.warning,
+              //       text:
+              //           "This key has been used, you need to use same device to activate",
+              //       onConfirmBtnTap: (() {
+              //         controller.resumeCamera();
+              //         Navigator.of(context, rootNavigator: true).pop();
+              //         Navigator.of(context).push(
+              //           MaterialPageRoute(
+              //               builder: (context) => MyStatefulWidget()),
+              //         );
+              //       }));
+              // }
             } else {
               // If the server did not return a 200 OK response,
               // then throw an exception.
-
               return CoolAlert.show(
                   context: context,
                   type: CoolAlertType.warning,
@@ -489,59 +326,9 @@ class _QRViewExampleState extends State<QRViewPage>
                           builder: (context) => MyStatefulWidget()),
                     );
                   }));
-              /* showDialog<void>(
-                context: context,
-                barrierDismissible: false, // user must tap button!
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text('warning message'),
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: const <Widget>[
-                          Text('This key is not valid'),
-                        ],
-                      ),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: const Text('ok'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Phoenix.rebirth(context);
-                        },
-                      ),
-                    ],
-                  );
-                },
-              ); */
             }
           }
         } on SocketException catch (_) {
-          /*   showDialog<void>(
-            context: context,
-            barrierDismissible: false, // user must tap button!
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('warning message'),
-                content: SingleChildScrollView(
-                  child: ListBody(
-                    children: const <Widget>[
-                      Text('Please connect internet'),
-                    ],
-                  ),
-                ),
-                actions: <Widget>[
-                  TextButton(
-                    child: const Text('ok'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
-          ); */
-
           CoolAlert.show(
             context: context,
             type: CoolAlertType.warning,

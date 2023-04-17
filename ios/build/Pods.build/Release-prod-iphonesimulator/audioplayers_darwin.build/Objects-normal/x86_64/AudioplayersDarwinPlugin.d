@@ -1,8 +1,8 @@
 dependencies: \
-  /Users/eda/.pub-cache/hosted/pub.dev/audioplayers_darwin-3.0.1/ios/Classes/AudioplayersDarwinPlugin.m \
+  /Users/eda/.pub-cache/hosted/pub.dev/audioplayers_darwin-4.0.1/ios/Classes/AudioplayersDarwinPlugin.m \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Pods.build/Release-prod-iphonesimulator/audioplayers_darwin.build/module.modulemap \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/Target\ Support\ Files/audioplayers_darwin/audioplayers_darwin-prefix.pch \
-  /Users/eda/.pub-cache/hosted/pub.dev/audioplayers_darwin-3.0.1/ios/Classes/AudioplayersDarwinPlugin.h \
+  /Users/eda/.pub-cache/hosted/pub.dev/audioplayers_darwin-4.0.1/ios/Classes/AudioplayersDarwinPlugin.h \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64_x86_64-simulator/Flutter.framework/Modules/module.modulemap \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64_x86_64-simulator/Flutter.framework/Headers/FlutterViewController.h \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64_x86_64-simulator/Flutter.framework/Headers/FlutterPluginAppLifeCycleDelegate.h \

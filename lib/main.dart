@@ -111,7 +111,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   void initState() {
     super.initState();
     _loadFirstTimeToUse();
-    _loadsaveKeyStore();
+    _loadSaveKeyStore();
     _loadIsLogin();
     _loadUserId();
     conv = convertImageLib
@@ -131,7 +131,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     });
   }
 
-  _loadsaveKeyStore() async {
+  _loadSaveKeyStore() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _keyStore = prefs.getBool("keyStore") ?? false;
@@ -171,7 +171,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     //_firstTimeToUse = (prefs.getBool('firstTime') ?? true);
 
     //寫入
-    await prefs.setString('UID', "noUser");
+    await prefs.setString('UID', "noUser"); /// TODO: check if this actually memorize the user info, or just logout only
   }
 
   List<Widget> returnPage() {
