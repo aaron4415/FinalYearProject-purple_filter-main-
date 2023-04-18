@@ -99,7 +99,7 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  bool _keyStore = false;
+  bool _keyStore = true;
   bool _firstTimeToUse = true;
   bool _logined = false;
   // bool _keyStore = true;

@@ -212,13 +212,12 @@ class _QRViewExampleState extends State<QRViewPage>
 
       if (result != null) {
         controller.pauseCamera();
-
         bool showProgress = true;
         showDialog(
             context: context,
             barrierDismissible: false,
             builder: ((BuildContext context) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             })
@@ -228,7 +227,7 @@ class _QRViewExampleState extends State<QRViewPage>
           if (networkResult.isNotEmpty &&
               networkResult[0].rawAddress.isNotEmpty) {
             final keyId = "${result?.code}";
-            var result1 = "${keyId.replaceAll("\n", "")}";
+            var result1 = keyId.replaceAll("\n", "");
 
             final tempUrl =
                 "https://us-central1-fantahealth-1f00b.cloudfunctions.net/app/api/qrcodeKeys/$result1";
@@ -244,6 +243,7 @@ class _QRViewExampleState extends State<QRViewPage>
               print("displaying the message");
               print(tempCheckState);
               if (tempCheckState['data'] == null) {
+                print("response code = 200");
                 return CoolAlert.show(
                     context: context,
                     type: CoolAlertType.warning,
@@ -266,15 +266,19 @@ class _QRViewExampleState extends State<QRViewPage>
                     text:
                         "This key is used on same device, Your application has been successfully activated!",
                     onConfirmBtnTap: () {
+                      print("step 1");
                       controller.resumeCamera();
+                      print("step 2");
                       Navigator.of(context, rootNavigator: true).pop();
+                      print("sstep 3");
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => MyStatefulWidget()),
                       );
+                      print("step 4");
                       dispose();
                     });
-              } else /*if (tempCheckState['data']["used"] == false)*/ {
+              } else if (tempCheckState['data']["used"] == false) {
                 //state change
                 _saveKeyStore();
                 _saveMode(tempCheckState['data']["mode"]);
@@ -282,38 +286,45 @@ class _QRViewExampleState extends State<QRViewPage>
                     body: {'used': 'true', 'deviceId': _deviceId});
                 print('Response status: ${putResponse.statusCode}');
                 print('Response body: ${putResponse.body}');
+                print('Now Disposing Data');
                 CoolAlert.show(
                     context: context,
                     type: CoolAlertType.success,
                     text: "Your application has been successfully activated!",
-                    onConfirmBtnTap: () {
+                    onConfirmBtnTap: () async {
+                      print("step 1");
+                      controller.resumeCamera();
+                      print("step 2");
+                      Navigator.of(context, rootNavigator: true).pop();
+                      print("step 3");
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => MyStatefulWidget()),
+                      ).then((_) => print("step 4"));
+                      SharedPreferences sp = await SharedPreferences.getInstance();
+                      print(sp.getBool('keyStore'));
+                      dispose();
+                    });
+              }
+              else {
+                CoolAlert.show(
+                    context: context,
+                    type: CoolAlertType.warning,
+                    text:
+                        "This key has been used, you need to use same device to activate",
+                    onConfirmBtnTap: (() {
                       controller.resumeCamera();
                       Navigator.of(context, rootNavigator: true).pop();
                       Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) => MyStatefulWidget()),
                       );
-                      dispose();
-                    });
+                    }));
               }
-              // else {
-              //   CoolAlert.show(
-              //       context: context,
-              //       type: CoolAlertType.warning,
-              //       text:
-              //           "This key has been used, you need to use same device to activate",
-              //       onConfirmBtnTap: (() {
-              //         controller.resumeCamera();
-              //         Navigator.of(context, rootNavigator: true).pop();
-              //         Navigator.of(context).push(
-              //           MaterialPageRoute(
-              //               builder: (context) => MyStatefulWidget()),
-              //         );
-              //       }));
-              // }
             } else {
               // If the server did not return a 200 OK response,
               // then throw an exception.
+              print("response code != 200");
               return CoolAlert.show(
                   context: context,
                   type: CoolAlertType.warning,
