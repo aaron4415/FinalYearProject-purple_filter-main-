@@ -257,7 +257,7 @@ class _QRViewExampleState extends State<QRViewPage>
                       );
                     }));
               } else if (tempCheckState['data']["deviceId"] == _deviceId &&
-                  tempCheckState['data']["used"] == "true") {
+                  tempCheckState['data']["used"] == true) {
                 _saveKeyStore();
                 _saveMode(tempCheckState['data']["mode"]);
                 CoolAlert.show(
@@ -283,7 +283,7 @@ class _QRViewExampleState extends State<QRViewPage>
                 _saveKeyStore();
                 _saveMode(tempCheckState['data']["mode"]);
                 final putResponse = await http.put(Uri.parse(putUrl),
-                    body: {'used': 'true', 'deviceId': _deviceId});
+                    body: {'used': true, 'deviceId': _deviceId});
                 print('Response status: ${putResponse.statusCode}');
                 print('Response body: ${putResponse.body}');
                 print('Now Disposing Data');

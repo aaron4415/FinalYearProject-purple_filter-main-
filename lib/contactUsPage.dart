@@ -40,7 +40,7 @@ class AboutUsPage extends StatelessWidget {
             buildDivider(),
             SizedBox(height: height / 30),
             Text(
-              'We are a team of Fanta-Health.',
+              'Small Team Of Researchers And Developers From FantaHealth.',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[600],
@@ -60,7 +60,7 @@ class AboutUsPage extends StatelessWidget {
             buildDivider(),
             SizedBox(height: height / 50),
             Text(
-              'The COVID-19 pandemic has raised concerns about the safety of public spaces, with the virus easily transmitted through the air via droplets and small particles. To mitigate this risk, a smart disinfection device system is proposed in this project, I would develop a featured UVC light technology controlled by a user-friendly Android app developed using Flutter.',
+              'We Dedicated To Provide A Cheap And Portable Disinfection Method To General Public.',
               style: TextStyle(
                 fontSize: 16,
                 color: Colors.grey[600],
@@ -88,7 +88,7 @@ class AboutUsPage extends StatelessWidget {
                 ),
                 SizedBox(width: 10),
                 Text(
-                  'info@cityu.com',
+                  'mgwfantasapp@gmail.com',
                   style: TextStyle(
                     fontSize: 16,
                     color: Colors.grey[600],
