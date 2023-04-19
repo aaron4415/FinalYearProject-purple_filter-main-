@@ -299,7 +299,11 @@ class _QRViewExampleState extends State<QRViewPage>
                       print("step 3");
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                            builder: (context) => MyStatefulWidget()),
+                            builder: (context) => MyStatefulWidget(),
+                            settings: RouteSettings(
+                                arguments: 'jump_to_key'
+                            )
+                        ),
                       ).then((_) => print("step 4"));
                       SharedPreferences sp = await SharedPreferences.getInstance();
                       print(sp.getBool('keyStore'));

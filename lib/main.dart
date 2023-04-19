@@ -57,7 +57,7 @@ Future<void> main() async {
     runApp(
       /// 1. Wrap your App widget in the Phoenix widget
       EasyLocalization(
-        supportedLocales: [
+        supportedLocales: const [
           Locale('en'), // English
           Locale('zh', 'Hans'), // simplified Chinese
           Locale('zh', 'Hant'), // traditional Chinese
@@ -99,7 +99,7 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  bool _keyStore = true;
+  bool _keyStore = false;
   bool _firstTimeToUse = true;
   bool _logined = false;
   // bool _keyStore = true;
@@ -304,11 +304,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: displayFirstTimePage(),
-         bottomNavigationBar: (displayBottomNavigationBar() != null) ? SafeArea(
-          bottom: true,
-          child: displayBottomNavigationBar()!
-        ) : null);
+      key: GlobalKey(),
+      resizeToAvoidBottomInset: false,
+      body: displayFirstTimePage(),
+       bottomNavigationBar: (displayBottomNavigationBar() != null) ? SafeArea(
+        bottom: true,
+        child: displayBottomNavigationBar()!
+      ) : null);
   }
 }
