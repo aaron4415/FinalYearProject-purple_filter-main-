@@ -17,10 +17,10 @@ import 'main.dart';
 class QRViewPage extends StatefulWidget {
   const QRViewPage({Key? key}) : super(key: key);
   @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
+  State<StatefulWidget> createState() => QRViewPageState();
 }
 
-class _QRViewExampleState extends State<QRViewPage>
+class QRViewPageState extends State<QRViewPage>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   QRViewController? controller;
