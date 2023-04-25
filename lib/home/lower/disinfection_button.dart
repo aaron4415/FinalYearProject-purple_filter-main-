@@ -219,16 +219,5 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         ),
         child: disinfectionButtonListener
     );
-
-    // return ElevatedButton(
-    //     onPressed: () {},
-    //     child: null,
-    //     style: ElevatedButton.styleFrom(
-    //       backgroundColor: Colors.blue,
-    //       shape: const CircleBorder(),
-    //       fixedSize: Size(width / 5.5, height / 6.5),
-    //       side: const BorderSide(color: Colors.white, width: 5)
-    //     )
-    // );
   }
 }

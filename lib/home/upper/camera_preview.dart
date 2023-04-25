@@ -38,7 +38,6 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
   @override
   void dispose() {
     super.dispose();
-    cameraController.dispose();
   }
 
   @override

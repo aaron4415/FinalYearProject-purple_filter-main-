@@ -55,26 +55,60 @@ Future<void> main() async {
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(
-      /// 1. Wrap your App widget in the Phoenix widget
-      EasyLocalization(
-        supportedLocales: const [
-          Locale('en'), // English
-          Locale('zh', 'Hans'), // simplified Chinese
-          Locale('zh', 'Hant'), // traditional Chinese
-          Locale('ja'), // Japanese
-        ],
-        path: 'lib/l10n',
-        assetLoader: CodegenLoader(),
-        child: MyApp(),
-      ),
+      RestartWidget(
+        /// 1. Wrap your App widget in the Phoenix widget
+        child: EasyLocalization(
+          supportedLocales: const [
+            Locale('en'), // English
+            Locale('zh', 'Hans'), // simplified Chinese
+            Locale('zh', 'Hant'), // traditional Chinese
+            Locale('ja'), // Japanese
+          ],
+          path: 'lib/l10n',
+          assetLoader: CodegenLoader(),
+          child: MyApp(),
+        )
+      )
     );
   });
 }
 
+class RestartWidget extends StatefulWidget {
+  RestartWidget({super.key, required this.child});
+
+  final Widget child;
+
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_RestartWidgetState>()?.restartApp();
+  }
+
+  @override
+  State<RestartWidget> createState() => _RestartWidgetState();
+}
+
+class _RestartWidgetState extends State<RestartWidget> {
+  Key key = UniqueKey();
+
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return KeyedSubtree(
+      key: key,
+      child: widget.child
+    );
+  }
+}
+
+
 late Convert conv;
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+   const MyApp({super.key});
 
   static const String _title = 'Flutter Code Sample';
 
@@ -129,6 +163,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     setState(() {
       _firstTimeToUse = prefs.getBool("firstTime") ?? true;
     });
+    print("loadFirstTimeToUse is called");
   }
 
   _loadSaveKeyStore() async {
@@ -136,6 +171,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     setState(() {
       _keyStore = prefs.getBool("keyStore") ?? false;
     });
+    print("loadSaveKeyStore is called");
   }
 
   _loadIsLogin() async {
@@ -143,6 +179,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     setState(() {
       _logined = prefs.getBool("logined") ?? false;
     });
+    print("loadIsLogin is called");
   }
 
   _loadUserId() async {
@@ -150,6 +187,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     setState(() {
       _UID = prefs.getString("UID") ?? "noUser";
     });
+    print("loadUserId is called");
   }
 
   _saveLogin() async {
@@ -161,6 +199,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
     //寫入
     await prefs.setBool('logined', false);
+    print("saveLogin is called");
   }
 
   _saveUserId() async {
@@ -172,6 +211,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
     //寫入
     await prefs.setString('UID', "noUser"); /// TODO: check if this actually memorize the user info, or just logout only
+    print("saveUserId is called");
   }
 
   List<Widget> returnPage() {
@@ -236,6 +276,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           },
           cancelBtnText: 'No',
           onCancelBtnTap: () {
+            setState(() {
+              _selectedIndex = 0;
+            });
             Navigator.of(context, rootNavigator: true).pop();
             Navigator.push(
               context,
@@ -251,11 +294,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   Widget displayFirstTimePage() {
     if (_firstTimeToUse == true) {
-      return (Center(
+      return (const Center(
         child: selectLanguagePage(),
       ));
     } else if (_logined == false) {
-      return (Center(
+      return (const Center(
         child: LoginScreen(),
       ));
     } else {
@@ -277,19 +320,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           iconSize: 20,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Colors.black),
+              icon: const Icon(Icons.home, color: Colors.black),
               label: LocaleKeys.home.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.app_settings_alt, color: Colors.black),
+              icon: const Icon(Icons.app_settings_alt, color: Colors.black),
               label: LocaleKeys.setting.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.contact_support, color: Colors.black),
+              icon: const Icon(Icons.contact_support, color: Colors.black),
               label: LocaleKeys.contactUs.tr(),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_rounded, color: Colors.black),
+              icon: const Icon(Icons.account_circle_rounded, color: Colors.black),
               label: LocaleKeys.signOut.tr(),
             ),
           ],
