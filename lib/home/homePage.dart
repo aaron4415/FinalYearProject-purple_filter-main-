@@ -19,9 +19,12 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(milliseconds: 500), (timer) {
-      updateMainTime();
-    });
+    if (mounted) {
+      Timer.periodic(const Duration(milliseconds: 500), (timer) {
+        updateMainTime();
+      });
+    }
+
   }
 
   Future updateMainTime() async {

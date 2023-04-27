@@ -22,13 +22,6 @@ class _LowerPartState extends State<LowerPart> {
   Widget build(BuildContext context) {
     return Column(
       children: [LowerPartFirst(), LowerPartSecond(), LowerPartThird()],
-      // children: [const Center(
-      //     child: Text(
-      //         style: TextStyle(
-      //             color: Colors.white
-      //         ),
-      //         "Testing")
-      // ), LowerPartSecond(), LowerPartThird()],
     );
   }
 }

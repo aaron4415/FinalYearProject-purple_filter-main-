@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:purple_filter/home/homePage.dart';
 
 import 'camera_preview.dart';
-import 'empty_container.dart';
 import 'purple_filter.dart';
 
 List<PurpleFilter> list = [];

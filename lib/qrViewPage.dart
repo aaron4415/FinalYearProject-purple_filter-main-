@@ -94,6 +94,7 @@ class QRViewPageState extends State<QRViewPage>
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       deviceId = await PlatformDeviceId.getDeviceId;
+      print("DeviceId is: $deviceId}");
     } on PlatformException {
       deviceId = 'Failed to get deviceId.';
     }

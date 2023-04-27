@@ -29,19 +29,21 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
   @override
   void initState() {
     super.initState();
-    listener = sensor.gyroscopeEvents.listen((GyroscopeEvent event) {
-      double combinedXYZ =
-          event.z * event.z + event.y * event.y + event.x * event.x;
-      final gyroscopeFilter =
-          SimpleKalman(errorMeasure: 512, errorEstimate: 120, q: 0.5);
-      double gyroscopeData = gyroscopeFilter.filtered(combinedXYZ);
-      gyroscopeData = gyroscopeData < 0.0005 ? 0 : gyroscopeData;
-      setState(() {
-        if (gyroscopeData != 0) {
-          disinfectionPercentage = 0;
-        }
+    if (mounted) {
+      listener = sensor.gyroscopeEvents.listen((GyroscopeEvent event) {
+        double combinedXYZ =
+            event.z * event.z + event.y * event.y + event.x * event.x;
+        final gyroscopeFilter =
+        SimpleKalman(errorMeasure: 512, errorEstimate: 120, q: 0.5);
+        double gyroscopeData = gyroscopeFilter.filtered(combinedXYZ);
+        gyroscopeData = gyroscopeData < 0.0005 ? 0 : gyroscopeData;
+        setState(() {
+          if (gyroscopeData != 0) {
+            disinfectionPercentage = 0;
+          }
+        });
       });
-    });
+    }
   }
 
   @override

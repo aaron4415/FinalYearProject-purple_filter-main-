@@ -104,7 +104,6 @@ class _RestartWidgetState extends State<RestartWidget> {
   }
 }
 
-
 late Convert conv;
 
 class MyApp extends StatelessWidget {
@@ -279,11 +278,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             setState(() {
               _selectedIndex = 0;
             });
-            Navigator.of(context, rootNavigator: true).pop();
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MyApp()),
-            );
+            // Navigator.of(context, rootNavigator: true).pop();
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const MyApp()),
+            // );
           },
           confirmBtnColor: Colors.green,
           barrierDismissible: false,
