@@ -61,18 +61,18 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
 
     Widget virusType = SizedBox(
         child: BorderedText(
-      strokeWidth: 4.0,
-      strokeColor: Colors.blue,
-      child: const Text(
-        'SARS-COV-2',
+          strokeWidth: 4.0,
+          strokeColor: Colors.blue,
+          child: const Text(
+            'SARS-COV-2',
 
-        /// TODO: Change this to a variable that allows users to choose which target virus to disinfect
-        style: TextStyle(
-            color: Colors.white,
-            fontSize: 21.0,
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold),
-      ),
+            /// TODO: Change this to a variable that allows users to choose which target virus to disinfect
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 21.0,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold),
+          ),
     ));
 
     Widget disinfectPercentage = BorderedText(
@@ -105,7 +105,7 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
           child: Column(
               children: [
                 CustomPercentageIndicator(),
-                upperFirstLeftPart // It contains the progress bar, the target virus and its icon, and the disinfection percentage
+                upperFirstLeftPart // It contains the target virus and its icon, and the disinfection percentage
               ]
           )
         ),

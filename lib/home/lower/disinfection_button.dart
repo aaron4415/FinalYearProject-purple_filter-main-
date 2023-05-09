@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ffi' as ffi;
 import 'dart:typed_data';
+import 'dart:math' as math;
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
@@ -69,16 +70,21 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
   }
 
   Future<void> determineEffectiveDisinfection() async{
-    setState(() {
-      timer = Timer.periodic(
-          Duration(milliseconds: actualDistance.ceil() * 5 + 5), (timer) {
-        setState(() {
-          if (disinfectionPercentage < 100) { disinfectionPercentage += 1; }
-          else { player.resume(); timer.cancel(); }
+    if (actualDistance != 0) {
+      int d90Dose = (67 * 4  * math.pi * math.pow(actualDistance / 100, 2) / 0.325). ceil();
+      setState(() {
+        timer = Timer.periodic(
+            Duration(milliseconds: d90Dose), (timer) {
+          print("This Timer Triggered By d90Dose of $d90Dose");
+          setState(() {
+            if (disinfectionPercentage < 100) { disinfectionPercentage += 1; }
+            else { player.resume(); timer.cancel(); }
+          });
         });
       });
-    });
+    }
   }
+
   Future<void> determineReset() async {
     setState(() {
       if (isDeviceMoving) {
@@ -173,33 +179,38 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
     GestureDetector disinfectionButtonListener = GestureDetector(
         onLongPressStart: (LongPressStartDetails longPressStartDetails) async {
+          print("Long Press Started");
           await cameraController.startImageStream((CameraImage image) async {
             _processCameraImage(image);
             calculateDifference(_savedImage);
           });
-          // await determineReset();
-          subscription = sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) {
+
+          subscription = sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) async {
+            // await determineReset();
             setState(() {
               determineEffectiveDisinfection();
               actualDistance;
             });
           });
+
           setState(() { _hasBeenPressed = !_hasBeenPressed; redButtonLogic = true; });
         },
         onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
+          print("Long Presss Ended");
           redButtonLogic = false;
           count = 0;
           distance = 0;
 
           setState(() {
-            cameraController.stopImageStream(); _hasBeenPressed = !_hasBeenPressed;
-            player.release();
+            cameraController.stopImageStream().then((_) => print("Image Stream Stoppped"));
+            _hasBeenPressed = !_hasBeenPressed;
+            player.release().then((_) => print("Player Is Released"));
             imgData = 0;
             pixelDifferencePercentage = 0;
             actualDistance = 0;
             progressBarPercentage = 0;
             disinfectionPercentage = 0;
-            subscription.cancel();
+            subscription.cancel().then((_) => print("Sensor Subscription Is Canceled"));
             timer.cancel();
           });
         });
