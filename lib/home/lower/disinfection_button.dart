@@ -19,6 +19,8 @@ import 'package:purple_filter/home/upper/upper_part.dart' as globals;
 
 int time = 0;
 int distance = 0;
+late Timer timer;
+bool timerFinished = true;
 
 bool isPlayingAnimation = false;
 double x = 0;
@@ -50,7 +52,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
   bool isRealSpeedChange = false;
 
-  late Timer timer;
+
   var img = const AssetImage("images/button_icon.jpg");
 
   Sensors sensor = Sensors();
@@ -73,28 +75,32 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     if (actualDistance != 0) {
       int d90Dose = (67 * 4  * math.pi * math.pow(actualDistance / 100, 2) / 0.325). ceil();
       setState(() {
-        timer = Timer.periodic(
-            Duration(milliseconds: d90Dose), (timer) {
+        if (timerFinished == true) {
+          timerFinished = false;
           print("This Timer Triggered By d90Dose of $d90Dose");
-          setState(() {
-            if (disinfectionPercentage < 100) { disinfectionPercentage += 1; }
-            else { player.resume(); timer.cancel(); }
+          timer = Timer.periodic(
+              Duration(milliseconds: d90Dose * 10), (timer) {
+                setState(() {
+                  if (disinfectionPercentage < 100) { disinfectionPercentage += 1; }
+                  else { player.resume(); timer.cancel(); timerFinished = true;}
+                });
           });
-        });
+        }
       });
     }
   }
 
-  Future<void> determineReset() async {
-    setState(() {
-      if (isDeviceMoving) {
-        disinfectionPercentage = 0;
-        if (timer.isActive) timer.cancel();
-        player.release();
-        determineEffectiveDisinfection().ignore();
-      }
-    });
-  }
+  /// This function has a similar replacement implementd in lower_part_first initstate
+  // Future<void> determineReset() async {
+  //   setState(() {
+  //     if (isDeviceMoving) {
+  //       disinfectionPercentage = 0;
+  //       if (timer.isActive) timer.cancel();
+  //       player.release();
+  //       determineEffectiveDisinfection().ignore();
+  //     }
+  //   });
+  // }
 
   void _processCameraImage(CameraImage image) async {
     setState(() {
@@ -186,7 +192,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           });
 
           subscription = sensor.userAccelerometerEvents.listen((UserAccelerometerEvent event) async {
-            // await determineReset();
             setState(() {
               determineEffectiveDisinfection();
               actualDistance;

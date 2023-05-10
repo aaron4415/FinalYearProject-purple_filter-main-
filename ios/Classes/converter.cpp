@@ -172,44 +172,171 @@ extern "C" {
         /// This Will Store All Possible Clusters Of Points.
         vector<vector<int>> dataPointVector;
         bool clusterStart = false;
-        int index1 = 0; int index2 = 0;
         int startIndex; int endIndex;
         for (int i = 0; i < columnTotalsVector.size(); i++) {
             if (columnTotalsVector.at(i) != 0 && clusterStart == false) {
                 clusterStart = true;
-                startIndex = index1;
-                index2 += 1;
+                startIndex = i;
             } else if (columnTotalsVector.at(i) != 0 && clusterStart == true) {
-                index2 += 1;
-                if (index1 == columnTotalsVector.size() - 1) {
-                    endIndex = index1;
+                if (i == columnTotalsVector.size() - 1) {
+                    endIndex = i;
                     if (endIndex - startIndex > 5) {
                         dataPointVector.push_back({startIndex, endIndex});
-                        index2 = 0;
                     }
                 }
             } else if (columnTotalsVector.at(i) == 0 && clusterStart == true) {
                 clusterStart = false;
-                if (index2 > 5) {
-                    endIndex = startIndex + index2;
-                    dataPointVector.push_back({startIndex, endIndex});
-                    index2 = 0;
+                endIndex = i;
+                dataPointVector.push_back({startIndex, endIndex});
                 }
-            }
-            index1 += 1;
         }
 
-        /// If Detet=ct More Than Two Clusters, This Is The Finally Filter To Merge Very Close Clusters Into One.
-        if (dataPointVector.size() == 2) {
-            vector<int> pt1 = dataPointVector.at(0);
-            vector<int> pt2 = dataPointVector.at(1);
-
-            int startOfPt1 = pt1.at(0); int endOfPt1 = pt1.at(1);
-            int startOfPt2 = pt2.at(0); int endOfPt2 = pt2.at(1);
-
-            if (startOfPt2 - endOfPt1 < 20) {
+        bool merge = false;
+        if (dataPointVector.size() >= 2) {
+            vector<vector<int>> dataPointVectorCopy;
+            for (int i = 0; i < dataPointVector.size(); i++) {
+                dataPointVectorCopy.push_back(dataPointVector.at(i));
+            }
+            dataPointVector.clear();
+            for (int i = 0; i < dataPointVectorCopy.size(); i++) {
+                if (i != dataPointVectorCopy.size() - 1) {
+                    if (merge == false) {
+                        vector<int> point1 = dataPointVectorCopy.at(i);
+                        vector<int> point2 = dataPointVectorCopy.at(i+1);
+                        int startOfPoint1 = point1.at(0);
+                        int endOfPoint1 = point1.at(1);
+                        int startOfPoint2 = point2.at(0);
+                        int endOfPoint2 = point2.at(1);
+                        if (startOfPoint2 - endOfPoint1 < 50) {
+                            dataPointVector.push_back({startOfPoint1, endOfPoint2});
+                            merge = true;
+                        } else {
+                            dataPointVector.push_back({startOfPoint1, endOfPoint1});
+                        }
+                    } else {
+                        vector<int> point1 = dataPointVector.back();
+                        vector<int> point2 = dataPointVectorCopy.at(i+1);
+                        int startOfPoint1 = point1.at(0);
+                        int endOfPoint1 = point1.at(1);
+                        int startOfPoint2 = point2.at(0);
+                        int endOfPoint2 = point2.at(1);
+                        if (startOfPoint2 - endOfPoint1 < 50) {
+                            dataPointVector.pop_back();
+                            dataPointVector.push_back({startOfPoint1, endOfPoint2});
+                        } else {
+                            merge = false;
+                        }
+                    }
+                } else {
+                    if (dataPointVector.size() > 0) {
+                        vector<int> point1 = dataPointVector.back();
+                        vector<int> point2 = dataPointVectorCopy.at(i);
+                        int startOfPoint1 = point1.at(0);
+                        int endOfPoint1 = point1.at(1);
+                        int startOfPoint2 = point2.at(0);
+                        int endOfPoint2 = point2.at(1);
+                        if (startOfPoint2 - endOfPoint1 < 50) {
+                            dataPointVector.pop_back();
+                            dataPointVector.push_back({startOfPoint1, endOfPoint2});
+                        } else {
+                            dataPointVector.push_back({startOfPoint2, endOfPoint2});
+                        }
+                        merge = false;
+                    }
+                }
+            }
+        }
+        
+        if (dataPointVector.size() == 1) {
+            vector<vector<int>> secondDataPointVector;
+            bool clusterStart = false;
+            int startIndex = 0; int endIndex = 0;
+            
+            vector<int> secondColumnTotalsVector;
+            for (int i = 0; i < columnTotals.size(); i++) {
+                secondColumnTotalsVector.push_back(columnTotals[i]);
+            }
+            
+            for (int i = 0; i < secondColumnTotalsVector.size(); i++) {
+                if (secondColumnTotalsVector.at(i) != 0 && clusterStart == false) {
+                    clusterStart = true;
+                    startIndex = i;
+                } else if (secondColumnTotalsVector.at(i) != 0 && clusterStart == true) {
+                    if (i == secondColumnTotalsVector.size() - 1) {
+                        endIndex = i;
+                        if (endIndex - startIndex > 5) {
+                            secondDataPointVector.push_back({startIndex, endIndex});
+                        }
+                        startIndex = 0; endIndex = 0;
+                    }
+                } else if (secondColumnTotalsVector.at(i) == 0 && clusterStart == true) {
+                    clusterStart = false;
+                    endIndex = i;
+                    secondDataPointVector.push_back({startIndex, endIndex});
+                    startIndex = 0; endIndex = 0;
+                }
+            }
+            
+            bool merge = false;
+            if (secondDataPointVector.size() >= 2) {
+                vector<vector<int>> secondDataPointVectorCopy;
+                for (int i = 0; i < secondDataPointVector.size(); i++) {
+                    secondDataPointVectorCopy.push_back(secondDataPointVector.at(i));
+                }
+                secondDataPointVector.clear();
+                for (int i = 0; i < secondDataPointVectorCopy.size(); i++) {
+                    if (i != secondDataPointVectorCopy.size() - 1) {
+                        if (merge == false) {
+                            vector<int> point1 = secondDataPointVectorCopy.at(i);
+                            vector<int> point2 = secondDataPointVectorCopy.at(i+1);
+                            int startOfPoint1 = point1.at(0);
+                            int endOfPoint1 = point1.at(1);
+                            int startOfPoint2 = point2.at(0);
+                            int endOfPoint2 = point2.at(1);
+                            if (startOfPoint2 - endOfPoint1 < 50) {
+                                secondDataPointVector.push_back({startOfPoint1, endOfPoint2});
+                                merge = true;
+                            } else {
+                                secondDataPointVector.push_back({startOfPoint1, endOfPoint2});
+                            }
+                        } else {
+                            vector<int> point1 = secondDataPointVector.back();
+                            vector<int> point2 = secondDataPointVectorCopy.at(i+1);
+                            int startOfPoint1 = point1.at(0);
+                            int endOfPoint1 = point1.at(1);
+                            int startOfPoint2 = point2.at(0);
+                            int endOfPoint2 = point2.at(1);
+                            if (startOfPoint2 - endOfPoint1 < 50) {
+                                secondDataPointVector.pop_back();
+                                secondDataPointVector.push_back({startOfPoint1, endOfPoint2});
+                            } else {
+                                merge = false;
+                            }
+                        }
+                    } else {
+                        if (secondDataPointVector.size() > 0) {
+                            vector<int> point1 = secondDataPointVector.back();
+                            vector<int> point2 = secondDataPointVectorCopy.at(i);
+                            int startOfPoint1 = point1.at(0);
+                            int endOfPoint1 = point1.at(1);
+                            int startOfPoint2 = point2.at(0);
+                            int endOfPoint2 = point2.at(1);
+                            if (startOfPoint2 - endOfPoint1 < 50) {
+                                secondDataPointVector.pop_back();
+                                secondDataPointVector.push_back({startOfPoint1, endOfPoint2});
+                            } else {
+                                secondDataPointVector.push_back({startOfPoint2, endOfPoint2});
+                            }
+                            merge = false;
+                        }
+                    }
+                }
+            }
+            if (secondDataPointVector.size() == 2) {
                 dataPointVector.clear();
-                dataPointVector.push_back({startOfPt1, endOfPt2});
+                for (int i = 0; i < secondDataPointVector.size(); i++) {
+                    dataPointVector.push_back(secondDataPointVector.at(i));
+                }
             }
         }
 

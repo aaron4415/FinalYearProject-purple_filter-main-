@@ -40,6 +40,8 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
         setState(() {
           if (gyroscopeData != 0) {
             disinfectionPercentage = 0;
+            if (timer.isActive) timer.cancel();
+            timerFinished = true;
           }
         });
       });
