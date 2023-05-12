@@ -407,7 +407,7 @@ extern "C" {
             }
             if (secondMaxCoordinateVector.size() > 1) {
                 int sumOfSecondCoordinate = 0;
-                for (int i = 0; i < secondMaxCoordinateVector.size(); i++) {
+                for (int i = 0; i < secondMaxCoordinateVector.size(); i++) {    
                     sumOfSecondCoordinate += secondMaxCoordinateVector.at(i);
                 }
                 secondMaxCoordinate = sumOfSecondCoordinate / secondMaxCoordinateVector.size();

@@ -17,10 +17,13 @@ import 'package:purple_filter/home/lower/lower_part_second.dart';
 import 'package:purple_filter/home/lower/lower_part_first.dart';
 import 'package:purple_filter/home/upper/upper_part.dart' as globals;
 
+import '../upper/upper_part.dart';
+
 int time = 0;
 int distance = 0;
 late Timer timer;
 bool timerFinished = true;
+bool hasBeenPressed = false;
 
 bool isPlayingAnimation = false;
 double x = 0;
@@ -41,7 +44,6 @@ class DisinfectionButton extends StatefulWidget {
 
 class _DisinfectionButtonState extends State<DisinfectionButton> {
   late StreamSubscription<UserAccelerometerEvent> subscription;
-  bool _hasBeenPressed = true;
   double count = 0;
 
   List<double> filteredVelocity = [];
@@ -72,8 +74,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
   }
 
   Future<void> determineEffectiveDisinfection() async{
-    if (actualDistance != 0) {
-      int d90Dose = (67 * 4  * math.pi * math.pow(actualDistance / 100, 2) / 0.325). ceil();
+    if (actualDistance != 0 && actualDistance != -1) {
+      int d90Dose = (67 * 4  * math.pi * math.pow(actualDistance / 100, 2) / 1.3). ceil();
       setState(() {
         if (timerFinished == true) {
           timerFinished = false;
@@ -81,8 +83,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           timer = Timer.periodic(
               Duration(milliseconds: d90Dose * 10), (timer) {
                 setState(() {
-                  if (disinfectionPercentage < 100) { disinfectionPercentage += 1; }
-                  else { player.resume(); timer.cancel(); timerFinished = true;}
+                  if (disinfectionPercentage < 100) { disinfectionPercentage += 1; borderColor = Colors.blue;}
+                  else { player.resume(); timer.cancel(); timerFinished = true; borderColor = Colors.red;}
                 });
           });
         }
@@ -109,36 +111,106 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
   }
 
   void actualDistanceCalculation(int pixelDifferencePercentage) {
-    if (pixelDifferencePercentage <= 80 &&
-        pixelDifferencePercentage >= 70) {
-      double firstDigit = pixelDifferencePercentage - 70;
-      double secondDigit = 0.5;
-      actualDistance = secondDigit + firstDigit / 10;
-    } else if (pixelDifferencePercentage < 70 &&
-        pixelDifferencePercentage >= 55) {
-      double firstDigit = pixelDifferencePercentage - 55;
-      double secondDigit = 1.5;
-      actualDistance = secondDigit + firstDigit / 10;
-    } else if (pixelDifferencePercentage < 55 &&
-        pixelDifferencePercentage >= 45) {
-      double firstDigit = pixelDifferencePercentage - 45;
-      double secondDigit = 3;
-      actualDistance = secondDigit + firstDigit / 10;
-    } else if (pixelDifferencePercentage < 45 &&
-        pixelDifferencePercentage >= 35) {
-      double firstDigit = pixelDifferencePercentage - 35;
-      double secondDigit = 4;
-      actualDistance = secondDigit + firstDigit / 10;
-    } else if (pixelDifferencePercentage < 35 &&
+    if (pixelDifferencePercentage >= 90) {
+      actualDistance = 0.5;
+    } else if (pixelDifferencePercentage < 90 &&
+        pixelDifferencePercentage >= 87) {
+      actualDistance = 0.6;
+    } else if (pixelDifferencePercentage < 87 &&
+        pixelDifferencePercentage >= 75) {
+      actualDistance = 0.7;
+    } else if (pixelDifferencePercentage < 75 &&
+        pixelDifferencePercentage >= 68) {
+      actualDistance = 0.8;
+    } else if (pixelDifferencePercentage < 68 &&
+        pixelDifferencePercentage >= 63) {
+      actualDistance = 0.9;
+    } else if (pixelDifferencePercentage < 63 &&
+        pixelDifferencePercentage >= 57) {
+      actualDistance = 1.0;
+    } else if (pixelDifferencePercentage < 57 &&
+        pixelDifferencePercentage >= 53) {
+      actualDistance = 1.1;
+    } else if (pixelDifferencePercentage < 53 &&
+        pixelDifferencePercentage >= 47) {
+      actualDistance = 1.2;
+    } else if (pixelDifferencePercentage < 47 &&
+        pixelDifferencePercentage >= 43) {
+      actualDistance = 1.3;
+    } else if (pixelDifferencePercentage < 43 &&
+        pixelDifferencePercentage >= 40) {
+      actualDistance = 1.4;
+    } else if (pixelDifferencePercentage < 40 &&
+        pixelDifferencePercentage >= 38) {
+      actualDistance = 1.5;
+    } else if (pixelDifferencePercentage < 38 &&
+        pixelDifferencePercentage >= 36) {
+      actualDistance = 1.6;
+    } else if (pixelDifferencePercentage < 36 &&
+        pixelDifferencePercentage >= 33) {
+      actualDistance = 1.7;
+    } else if (pixelDifferencePercentage < 33 &&
+        pixelDifferencePercentage >= 31) {
+      actualDistance = 1.8;
+    } else if (pixelDifferencePercentage < 31 &&
+        pixelDifferencePercentage >= 30) {
+      actualDistance = 1.9;
+    } else if (pixelDifferencePercentage < 30 &&
+        pixelDifferencePercentage >= 29) {
+      actualDistance = 2.0;
+    } else if (pixelDifferencePercentage < 29 &&
+        pixelDifferencePercentage >= 27) {
+      actualDistance = 2.2;
+    } else if (pixelDifferencePercentage < 27 &&
+        pixelDifferencePercentage >= 26) {
+      actualDistance = 2.4;
+    } else if (pixelDifferencePercentage < 26 &&
         pixelDifferencePercentage >= 25) {
-      double firstDigit = pixelDifferencePercentage - 25;
-      double secondDigit = 5;
-      actualDistance = secondDigit + firstDigit / 10;
+      actualDistance = 2.5;
     } else if (pixelDifferencePercentage < 25 &&
+        pixelDifferencePercentage >= 24) {
+      actualDistance = 2.6;
+    } else if (pixelDifferencePercentage < 24 &&
+        pixelDifferencePercentage >= 23) {
+      actualDistance = 2.7;
+    }else if (pixelDifferencePercentage < 23 &&
+        pixelDifferencePercentage >= 22) {
+      actualDistance = 2.9;
+    } else if (pixelDifferencePercentage < 22 &&
+        pixelDifferencePercentage >= 20) {
+      actualDistance = 3.0;
+    } else if (pixelDifferencePercentage < 20 &&
+        pixelDifferencePercentage >= 19) {
+      actualDistance = 3.2;
+    } else if (pixelDifferencePercentage < 19 &&
+        pixelDifferencePercentage >= 18) {
+      actualDistance = 3.4;
+    } else if (pixelDifferencePercentage < 18 &&
+        pixelDifferencePercentage >= 17) {
+      actualDistance = 3.5;
+    } else if (pixelDifferencePercentage < 17 &&
+        pixelDifferencePercentage >= 16) {
+      actualDistance = 3.6;
+    } else if (pixelDifferencePercentage < 16 &&
+        pixelDifferencePercentage >= 15) {
+      actualDistance = 3.7;
+    } else if (pixelDifferencePercentage < 15 &&
+        pixelDifferencePercentage >= 14) {
+      actualDistance = 3.9;
+    } else if (pixelDifferencePercentage < 14 &&
+        pixelDifferencePercentage >= 13) {
+      actualDistance = 4.0;
+    } else if (pixelDifferencePercentage < 13 &&
+        pixelDifferencePercentage >= 12) {
+      actualDistance = 4.4;
+    } else if (pixelDifferencePercentage < 12 &&
+        pixelDifferencePercentage >= 11) {
+      actualDistance = 4.8;
+    } else if (pixelDifferencePercentage < 11 &&
         pixelDifferencePercentage >= 10) {
-      double firstDigit = pixelDifferencePercentage - 10;
-      double secondDigit = 6;
-      actualDistance = secondDigit + firstDigit / 10;
+      actualDistance = 5.0;
+    } else if (pixelDifferencePercentage < 10) {
+      actualDistance = 5.0;
     } else {
       actualDistance = 0;
     }
@@ -198,7 +270,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
             });
           });
 
-          setState(() { _hasBeenPressed = !_hasBeenPressed; redButtonLogic = true; });
+          setState(() { hasBeenPressed = true; redButtonLogic = true; });
         },
         onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
           print("Long Presss Ended");
@@ -208,8 +280,9 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
           setState(() {
             cameraController.stopImageStream().then((_) => print("Image Stream Stoppped"));
-            _hasBeenPressed = !_hasBeenPressed;
+            hasBeenPressed = false;
             player.release().then((_) => print("Player Is Released"));
+            timerFinished = true;
             imgData = 0;
             pixelDifferencePercentage = 0;
             actualDistance = 0;
@@ -223,7 +296,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     return ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
-          backgroundColor: _hasBeenPressed ? Colors.blue : Colors.red,
+          backgroundColor: hasBeenPressed ? Colors.red : Colors.blue,
           shape: const CircleBorder(),
           fixedSize: Size(width / 5.5, height / 6.5),
           side: const BorderSide(color: Colors.white, width: 5),

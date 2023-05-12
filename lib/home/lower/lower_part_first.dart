@@ -26,6 +26,8 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
   List<double> filteredGyroscope = [];
   double nonZeroGyroscopeDataPercentage = 0;
 
+  int _count = 0;
+
   @override
   void initState() {
     super.initState();
@@ -37,12 +39,28 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
         SimpleKalman(errorMeasure: 512, errorEstimate: 120, q: 0.5);
         double gyroscopeData = gyroscopeFilter.filtered(combinedXYZ);
         gyroscopeData = gyroscopeData < 0.0005 ? 0 : gyroscopeData;
+
         setState(() {
           if (gyroscopeData != 0) {
             disinfectionPercentage = 0;
-            if (timer.isActive) timer.cancel();
-            timerFinished = true;
+                if (hasBeenPressed) {
+                  timer.cancel();
+                  timerFinished = true;
+                }
           }
+          // if (gyroscopeData != 0) {
+          //   _count += 1;
+          //   if (_count > 10) {
+          //     print("Count > 10");
+          //     disinfectionPercentage = 0;
+          //     if (hasBeenPressed) {
+          //       timer.cancel();
+          //       timerFinished = true;
+          //     }
+          //   }
+          // } else {
+          //   _count = 0;
+          // }
         });
       });
     }
