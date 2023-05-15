@@ -46,7 +46,7 @@
 		</data>
 		<key>Frameworks/App.framework/App</key>
 		<data>
-		MHS7nQUyQ/43DVoNG8JdPhhL3Gc=
+		HFF7JGP8sLuvqs/0d5fN8nRpWuY=
 		</data>
 		<key>Frameworks/App.framework/Info.plist</key>
 		<data>
@@ -182,7 +182,7 @@
 		</data>
 		<key>Frameworks/AppAuth.framework/AppAuth</key>
 		<data>
-		+7cSusW7OZHrpfiaEovSQOQi1XY=
+		Xvho651WBatjNmhsoXf6E4hkeK0=
 		</data>
 		<key>Frameworks/AppAuth.framework/Info.plist</key>
 		<data>
@@ -194,7 +194,7 @@
 		</data>
 		<key>Frameworks/FBLPromises.framework/FBLPromises</key>
 		<data>
-		JHeRc8be1oXb9CYZIt4hvHmAdec=
+		j9kzGcxTaDbIBrYn/AxNCd+Ik3I=
 		</data>
 		<key>Frameworks/FBLPromises.framework/Info.plist</key>
 		<data>
@@ -206,7 +206,7 @@
 		</data>
 		<key>Frameworks/FirebaseAuth.framework/FirebaseAuth</key>
 		<data>
-		eWqOaXM9MLl7utGl14QR7fILKsM=
+		dN5HQBuo2DkKywfea8JbSbhvDKU=
 		</data>
 		<key>Frameworks/FirebaseAuth.framework/Info.plist</key>
 		<data>
@@ -218,7 +218,7 @@
 		</data>
 		<key>Frameworks/FirebaseCore.framework/FirebaseCore</key>
 		<data>
-		PnTsUE+mqBFKvhjZb7q9dnNt+F8=
+		tKwffYWGxKn06OalWYyonMz5LdM=
 		</data>
 		<key>Frameworks/FirebaseCore.framework/Info.plist</key>
 		<data>
@@ -230,7 +230,7 @@
 		</data>
 		<key>Frameworks/FirebaseCoreInternal.framework/FirebaseCoreInternal</key>
 		<data>
-		WylxjOucsGH8n/Z9ZgRpQop+DxQ=
+		3QMkJmfkcT6ei4fUA+oT0RDTi5Q=
 		</data>
 		<key>Frameworks/FirebaseCoreInternal.framework/Info.plist</key>
 		<data>
@@ -326,7 +326,7 @@
 		</data>
 		<key>Frameworks/GTMAppAuth.framework/GTMAppAuth</key>
 		<data>
-		8RHVGkH/WOVbydm0FNorkUKBOuE=
+		5JN7451zWjQMWt8qeJOec9MbeMg=
 		</data>
 		<key>Frameworks/GTMAppAuth.framework/Info.plist</key>
 		<data>
@@ -338,7 +338,7 @@
 		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/GTMSessionFetcher</key>
 		<data>
-		bRCKP61zDWcVzWOLVu7r6FFCaGQ=
+		d+d3UHx6Rb0MZ/1GX+e8wjH2dwE=
 		</data>
 		<key>Frameworks/GTMSessionFetcher.framework/Info.plist</key>
 		<data>
@@ -350,7 +350,7 @@
 		</data>
 		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn</key>
 		<data>
-		deLfTxXwYZyf6vNizU+mcjXCpsk=
+		bMfJfqQste9rLeWgdFJtOt7Dp00=
 		</data>
 		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/Info.plist</key>
 		<data>
@@ -724,7 +724,7 @@
 		</data>
 		<key>Frameworks/GoogleUtilities.framework/GoogleUtilities</key>
 		<data>
-		H+ouAskdDyRL1cPuo9s2LP2efBY=
+		gMbqU05q3JV8h6EH2CgTnre5xd0=
 		</data>
 		<key>Frameworks/GoogleUtilities.framework/Info.plist</key>
 		<data>
@@ -740,7 +740,7 @@
 		</data>
 		<key>Frameworks/MTBBarcodeScanner.framework/MTBBarcodeScanner</key>
 		<data>
-		IvGbevgrsbOIl7v5a+1GUpxZZh8=
+		Ux8uZoTrnSD+3oGkA2aIa5YSoKA=
 		</data>
 		<key>Frameworks/MTBBarcodeScanner.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -756,7 +756,7 @@
 		</data>
 		<key>Frameworks/audioplayers_darwin.framework/audioplayers_darwin</key>
 		<data>
-		e6bW9RuboYLwTbiDO1R5AJjjjL8=
+		6AqxuwMEskgJl7FUZtv67Z99hQs=
 		</data>
 		<key>Frameworks/camera_avfoundation.framework/Info.plist</key>
 		<data>
@@ -768,7 +768,7 @@
 		</data>
 		<key>Frameworks/camera_avfoundation.framework/camera_avfoundation</key>
 		<data>
-		rFymka7ZIlfLrQopcyRBFxJpoAQ=
+		eCNoWKY4pBLzrlnFHlK9aHVojvc=
 		</data>
 		<key>Frameworks/device_info.framework/Info.plist</key>
 		<data>
@@ -780,7 +780,7 @@
 		</data>
 		<key>Frameworks/device_info.framework/device_info</key>
 		<data>
-		bhkm+xApXEYiZQgeZ7SBqfm8pvI=
+		qACOZM+ZUDOPlYX5gCnemekog5Q=
 		</data>
 		<key>Frameworks/path_provider_foundation.framework/Info.plist</key>
 		<data>
@@ -792,7 +792,7 @@
 		</data>
 		<key>Frameworks/path_provider_foundation.framework/path_provider_foundation</key>
 		<data>
-		iS7/f/TDG13+e6VR5+4NekSONY8=
+		toM9xQtobUnMxOhrBJ+PdiKR0Aw=
 		</data>
 		<key>Frameworks/platform_device_id.framework/Info.plist</key>
 		<data>
@@ -804,7 +804,7 @@
 		</data>
 		<key>Frameworks/platform_device_id.framework/platform_device_id</key>
 		<data>
-		lJppC6jpl+Wmfgedo8Tqb6TDsnY=
+		vH07JiItSTj4akBpYAHo07tIa6g=
 		</data>
 		<key>Frameworks/qr_code_scanner.framework/Info.plist</key>
 		<data>
@@ -816,7 +816,7 @@
 		</data>
 		<key>Frameworks/qr_code_scanner.framework/qr_code_scanner</key>
 		<data>
-		hvTUU7LrfQfJjSyULsj/JcfGfbw=
+		Wp1aAy7ixKjaPmmyUhbQ1pzlVbE=
 		</data>
 		<key>Frameworks/sensors_plus.framework/Info.plist</key>
 		<data>
@@ -828,7 +828,7 @@
 		</data>
 		<key>Frameworks/sensors_plus.framework/sensors_plus</key>
 		<data>
-		vqN4ogJA8xUPzpiFhcU7fDZ9kLI=
+		8DFdRr+AhceMEj37H/5OzDVgu5E=
 		</data>
 		<key>Frameworks/shared_preferences_foundation.framework/Info.plist</key>
 		<data>
@@ -840,7 +840,7 @@
 		</data>
 		<key>Frameworks/shared_preferences_foundation.framework/shared_preferences_foundation</key>
 		<data>
-		SCQwkwPiGRk4yz+SI6he5G+59Jw=
+		RN6g44QQ93gRbkiAefczQDvlHoo=
 		</data>
 		<key>GoogleService-Info.plist</key>
 		<data>
@@ -935,7 +935,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			VW+uD4R6zw5iQTRHKRKRxSzqo53nm8jGKD575gB6chQ=
+			buC9mqE7iH0VSnfFw/QbJ2PLtQjpRuwoFt8gNH9qVvY=
 			</data>
 		</dict>
 		<key>Frameworks/App.framework/Info.plist</key>
@@ -1173,7 +1173,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			OPwfe5UjJ9M6f/juKs0RPn12ga3++4KTG79qN87QCWY=
+			Nrn3dn9uzyxaEwVjVkcAqAj7hCL3y+FT9SYTE/EblmI=
 			</data>
 		</dict>
 		<key>Frameworks/AppAuth.framework/Info.plist</key>
@@ -1194,7 +1194,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			wRjb7Ds1hdLdSiOdiS18CmKtuEm2gJsvZpG2HO//TDY=
+			BA9Zb6qfEnstt7VTtx5OdfabMn7ptuDvnBjMGV2OrG8=
 			</data>
 		</dict>
 		<key>Frameworks/FBLPromises.framework/Info.plist</key>
@@ -1215,7 +1215,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			xha6rMtxIrMOI4Tydxr9Q25XuJgzlGpUHAlK/cHfLeg=
+			jSsXTaVMuG7yxKh8FwHEpT0zkcb1LRZXKycCB7EOlm4=
 			</data>
 		</dict>
 		<key>Frameworks/FirebaseAuth.framework/Info.plist</key>
@@ -1236,7 +1236,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			DfpYFtDMcEmiaRUYrdLTNxvtRRoFAexlWdPd4NJhQVY=
+			CE8FwueV24Wa14d6+zEOLW3ErOb/dEbNBcmAUYT8zoA=
 			</data>
 		</dict>
 		<key>Frameworks/FirebaseCore.framework/Info.plist</key>
@@ -1257,7 +1257,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qfdgQlUEO2xZ2vOeKCG+xr47F9urGwFivgewC/vlkxg=
+			RGF5bmGqrFLbDRoJkEcoxDfRSs+YtAjZsO+L52PfT8o=
 			</data>
 		</dict>
 		<key>Frameworks/FirebaseCoreInternal.framework/Info.plist</key>
@@ -1425,7 +1425,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Bt9lOPUKDY8jR2fdC9x+9LtXi6/UjCC7QsiX53/fcec=
+			7asxYVpMg+oACm+GHRA/+Zf0NOULdeukAKan9C8WelA=
 			</data>
 		</dict>
 		<key>Frameworks/GTMAppAuth.framework/Info.plist</key>
@@ -1446,7 +1446,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			f6A2pHASq9j+7rm8Fd1Q1DVTjHDfnM2aff1RlALwbBg=
+			PlZa0NA75Nil1vVWS46U/XIf328eZPzkuotjbvX2x7U=
 			</data>
 		</dict>
 		<key>Frameworks/GTMSessionFetcher.framework/Info.plist</key>
@@ -1467,7 +1467,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			4ZifEzGq9HTLCCNWQacebygmEtGiDS3rOJBjA+3jGLI=
+			+UpYOi3/3ZHZvhZA8/g8s0RsI2M4T64iauOb7+NEDps=
 			</data>
 		</dict>
 		<key>Frameworks/GoogleSignIn.framework/GoogleSignIn.bundle/Info.plist</key>
@@ -1865,7 +1865,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			x43BfmncZCozKMnr+Sfj80uyCQycli6lgBatc4lHEDE=
+			bDjLhuokuOMdjhI2LzYyD2g9xhX42JZR2lLP2F4/k0A=
 			</data>
 		</dict>
 		<key>Frameworks/GoogleUtilities.framework/Info.plist</key>
@@ -1893,7 +1893,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8iWIbnqX7AwXBsBiyAjsvnP/GpZKTyFDpg41OvnTqyM=
+			J74iRhdugDsHatXNFodcuIrFCTBU7xvDLw2Vo1veBWM=
 			</data>
 		</dict>
 		<key>Frameworks/MTBBarcodeScanner.framework/_CodeSignature/CodeResources</key>
@@ -1921,7 +1921,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			v6TRnabsKaklM3P16GBjtwdg+ra0vpCGZEZPSyYNg14=
+			q0MEm6YCvFz35vWsIqZAgi12UYJlt/WinPfC9Utte2s=
 			</data>
 		</dict>
 		<key>Frameworks/camera_avfoundation.framework/Info.plist</key>
@@ -1942,7 +1942,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GXud96mrfg/0V2M68lNibt2XaaurmsrYQLLtEmfri5g=
+			UOy0H1udg14siEKAskjdKV580ZvpDm60NfqQC1yFY7g=
 			</data>
 		</dict>
 		<key>Frameworks/device_info.framework/Info.plist</key>
@@ -1963,7 +1963,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			9INZRl8I2TmgsKcAv/sVwMDX3NupZnu+8hdvzvli5ig=
+			PtobdTCUJa2A9yVawN5iqv+Uuu7EEFnNBIqYwyWnS3M=
 			</data>
 		</dict>
 		<key>Frameworks/path_provider_foundation.framework/Info.plist</key>
@@ -1984,7 +1984,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			APUrG+FdSipcaHIbU8yGmk5Dtv4yNkoJggczZnH//bU=
+			ysJW5+glsE83UNgnFbI9eJNfZIwIqeCfBN0v8mfmdWY=
 			</data>
 		</dict>
 		<key>Frameworks/platform_device_id.framework/Info.plist</key>
@@ -2005,7 +2005,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bBm27RczFdG4U74y4O3yPVCmyMqF56tHxfmDUubrvF0=
+			gZbPzsSNuZ4zQ+YXZagcsq+vp60iOh/y4GGwLCHL5DE=
 			</data>
 		</dict>
 		<key>Frameworks/qr_code_scanner.framework/Info.plist</key>
@@ -2026,7 +2026,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			gL86SYVk1ISDJglnuzhQV/B4RW6L8MX6zygwgYoW3xY=
+			ltIvf8QtemeFbdW4GlVLBLmGZ7c89SQPSfU8n7o7xWY=
 			</data>
 		</dict>
 		<key>Frameworks/sensors_plus.framework/Info.plist</key>
@@ -2047,7 +2047,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			X5w63/fVWekYYuJ1TJwCsuEmJJsZbdTF9an0oIrB56g=
+			WwOM3+XMEAelfz/L4uqw5lcrDsN89CcaJfqIj0Tr5jc=
 			</data>
 		</dict>
 		<key>Frameworks/shared_preferences_foundation.framework/Info.plist</key>
@@ -2068,7 +2068,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			i7CvhbkkAzEYnreABZpJxIB5g9QCD5R5ep0H0Uv7Enk=
+			vaB1rRwdrntX1gM0tC56THqQXmQPawxrVcJBO1unoGo=
 			</data>
 		</dict>
 		<key>GoogleService-Info.plist</key>

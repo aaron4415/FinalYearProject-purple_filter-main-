@@ -10,11 +10,12 @@ const IconData coronavirusOutlined =
 
 Table displayTable(width, virusList) {
   Container virus1Icon = Container(
-      margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
-        border: Border.all(width: width / 200, color: Colors.blue),
-        color: Colors.blue,
+        color: Colors.blue.shade400,
         shape: BoxShape.circle,
+        boxShadow: const [
+          BoxShadow()
+        ]
       ),
       child: const Icon(
         coronavirus,
@@ -44,9 +45,7 @@ Table displayTable(width, virusList) {
           )));
 
   Container virus2Icon = Container(
-      margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
-        border: Border.all(width: width / 200, color: Colors.blue),
         color: Colors.blue,
         shape: BoxShape.circle,
       ),
@@ -79,9 +78,7 @@ Table displayTable(width, virusList) {
           )));
 
   Container virus3Icon = Container(
-      //margin: const EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
-        border: Border.all(width: width / 200, color: Colors.blue),
         color: Colors.blue,
         shape: BoxShape.circle,
       ),
