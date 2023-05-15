@@ -90,7 +90,7 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
     );
 
     return Padding(
-        padding: const EdgeInsets.only(top: 0.0, bottom: 0.0),
+        padding: const EdgeInsets.only(left: 5),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

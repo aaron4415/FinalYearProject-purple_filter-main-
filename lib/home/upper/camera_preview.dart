@@ -48,22 +48,22 @@ class _CameraPreviewWidgetState extends State<CameraPreviewWidget> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 return Scaffold(
-                    extendBodyBehindAppBar: true,
-                    appBar: AppBar(
-                      backgroundColor: const Color(0x44000000),
-                      elevation: 0,
-                      automaticallyImplyLeading: false,
-                      title: Center(
-                          child: BorderedText(
-                              strokeWidth: 4.0,
-                              strokeColor: Colors.blue,
-                              child: const Text('Fanta-Health',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 21.0,
-                                      fontStyle: FontStyle.italic,
-                                      fontWeight: FontWeight.bold)))),
-                    ),
+                    // extendBodyBehindAppBar: true,
+                    // appBar: AppBar(
+                    //   backgroundColor: const Color(0x44000000),
+                    //   elevation: 0,
+                    //   automaticallyImplyLeading: false,
+                    //   title: Center(
+                    //       child: BorderedText(
+                    //           strokeWidth: 4.0,
+                    //           strokeColor: Colors.blue,
+                    //           child: const Text('Fanta-Health',
+                    //               style: TextStyle(
+                    //                   color: Colors.white,
+                    //                   fontSize: 21.0,
+                    //                   fontStyle: FontStyle.italic,
+                    //                   fontWeight: FontWeight.bold)))),
+                    // ),
                     body: FutureBuilder<void>(
                         future: lockCaptureOrientationFuture,
                         builder: (context, snapshot) {

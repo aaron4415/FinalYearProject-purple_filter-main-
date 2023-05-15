@@ -31,16 +31,16 @@ class _LowerPartThirdState extends State<LowerPartThird> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
-    Widget tableTitleText = const Text('Prediction disinfection level',
-        style: TextStyle(color: Colors.blue));
-
-    Widget tableTitleIcon = Icon(barChartSharp, color: Colors.blue);
-
-    Widget tableTitle = Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [tableTitleText, tableTitleIcon]));
+    // Widget tableTitleText = const Text('Prediction disinfection level',
+    //     style: TextStyle(color: Colors.blue));
+    //
+    // Widget tableTitleIcon = Icon(barChartSharp, color: Colors.blue);
+    //
+    // Widget tableTitle = Padding(
+    //     padding: const EdgeInsets.all(4.0),
+    //     child: Row(
+    //         mainAxisAlignment: MainAxisAlignment.center,
+    //         children: [tableTitleText, tableTitleIcon]));
 
     Widget displayTableBox = Center(
             child: ConstrainedBox(
@@ -53,6 +53,9 @@ class _LowerPartThirdState extends State<LowerPartThird> {
             decoration: BoxDecoration(
                 border: Border.all(color: Colors.white),
                 shape: BoxShape.rectangle),
-            child: Column(children: [tableTitle, displayTableBox])));
+            // child: Column(children: [tableTitle, displayTableBox]))
+            child: Center(child: displayTableBox)
+        )
+    );
   }
 }

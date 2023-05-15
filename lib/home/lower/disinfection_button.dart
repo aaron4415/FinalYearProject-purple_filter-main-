@@ -83,8 +83,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           timer = Timer.periodic(
               Duration(milliseconds: d90Dose * 10), (timer) {
                 setState(() {
-                  if (disinfectionPercentage < 100) { disinfectionPercentage += 1; borderColor = Colors.blue;}
-                  else { player.resume(); timer.cancel(); timerFinished = true; borderColor = Colors.red;}
+                  if (disinfectionPercentage < 100) { disinfectionPercentage += 1; borderColor = blueColor;}
+                  else { player.resume(); timer.cancel(); timerFinished = true; borderColor = redColor;}
                 });
           });
         }
@@ -279,6 +279,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           distance = 0;
 
           setState(() {
+            borderColor = blueColor;
             cameraController.stopImageStream().then((_) => print("Image Stream Stoppped"));
             hasBeenPressed = false;
             player.release().then((_) => print("Player Is Released"));
@@ -296,10 +297,13 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     return ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
-          backgroundColor: hasBeenPressed ? Colors.red : Colors.blue,
+          elevation: 10,
+          shadowColor: hasBeenPressed ? Colors.red.shade200 : Colors.lightBlue.shade300,
+          // backgroundColor: hasBeenPressed ? Colors.red : Colors.blue,
+          backgroundColor: hasBeenPressed ? Colors.red.shade300 : Colors.lightBlue.shade400,
           shape: const CircleBorder(),
           fixedSize: Size(width / 5.5, height / 6.5),
-          side: const BorderSide(color: Colors.white, width: 5),
+          side: const BorderSide(color: Color.fromARGB(130, 234, 237, 236), width: 3),
         ),
         child: disinfectionButtonListener
     );

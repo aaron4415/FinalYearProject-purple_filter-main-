@@ -20,4 +20,4 @@ dependencies: \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterMacros.h \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterAppDelegate.h \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/Flutter.h \
-  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Debug-dev-iphoneos/platform_device_id/platform_device_id.framework/Headers/platform_device_id-Swift.h
+  /Users/eda/Documents/GitHub/purple_filter-main/build/ios/Debug-dev-iphoneos/platform_device_id/platform_device_id.framework/Headers/platform_device_id-Swift.h

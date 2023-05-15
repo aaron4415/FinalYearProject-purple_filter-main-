@@ -37,10 +37,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 3, 1, 36),
+        // backgroundColor: const Color.fromARGB(255, 3, 1, 36),
+      backgroundColor: const Color.fromARGB(255,255,255,255),
         body: Column(
           children: [
-            Container(padding: EdgeInsets.all(5), height: height / 2.1, child: UpperPart()),
+            Container(padding: EdgeInsets.all(10), height: height / 2.1, child: UpperPart()),
             LowerPart()
           ],
         )

@@ -69,7 +69,6 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
 
     Widget coronaVirusIcon = Container(
         decoration: BoxDecoration(
@@ -110,7 +109,7 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
     Widget upperFirstLeftPart = ConstrainedBox(
         constraints: BoxConstraints(maxWidth: width / 4 * 3),
         child: Padding(
-            padding: const EdgeInsets.only(top: 5.0, bottom: 5.0),
+            padding: const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0),
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -121,7 +120,7 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
     return Row(
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 10.0),
+          padding: const EdgeInsets.only(right: 10.0, left: 5.0),
           child: Column(
               children: [
                 CustomPercentageIndicator(),

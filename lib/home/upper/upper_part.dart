@@ -5,7 +5,9 @@ import 'purple_filter.dart';
 
 List<PurpleFilter> list = [];
 late AnimationController controller;
-Color borderColor = Colors.blue;
+Color borderColor = Color.fromARGB(200, 50, 50, 237);
+Color blueColor = Color.fromARGB(200, 50, 50, 237);
+Color redColor = Color.fromARGB(200, 237, 50, 50);
 
 class UpperPart extends StatefulWidget {
   const UpperPart({Key? key}) : super(key: key);
@@ -36,10 +38,11 @@ class _UpperPartState extends State<UpperPart>
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-            // color: Color.fromARGB(130, 125, 50, 237),
-            color: Color.fromARGB(130, 50, 50, 237),
-            spreadRadius: 2,
-            blurRadius: 6
+            color: borderColor,
+            // color: Color.fromARGB(200, 237, 50, 50), // previously a = 130
+            // color: Color.fromARGB(200, 50, 50, 237),
+            spreadRadius: 6,
+            blurRadius: 12
           )
         ]
       ),

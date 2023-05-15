@@ -4,7 +4,7 @@
   'case-sensitive': 'false',
   'roots': [{
     'type': 'directory',
-    'name': "/Users/eda/Documents/GitHub/purple_filter-main/ios/build/Debug-dev-iphoneos/platform_device_id/platform_device_id.framework/Modules"
+    'name': "/Users/eda/Documents/GitHub/purple_filter-main/build/ios/Debug-dev-iphoneos/platform_device_id/platform_device_id.framework/Modules"
     'contents': [{
       'type': 'file',
       'name': "module.modulemap",

@@ -20,4 +20,4 @@ dependencies: \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterMacros.h \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/FlutterAppDelegate.h \
   /Users/eda/Downloads/flutter/bin/cache/artifacts/engine/ios-release/Flutter.xcframework/ios-arm64/Flutter.framework/Headers/Flutter.h \
-  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Debug-dev-iphoneos/audioplayers_darwin/audioplayers_darwin.framework/Headers/audioplayers_darwin-Swift.h
+  /Users/eda/Documents/GitHub/purple_filter-main/build/ios/Debug-dev-iphoneos/audioplayers_darwin/audioplayers_darwin.framework/Headers/audioplayers_darwin-Swift.h

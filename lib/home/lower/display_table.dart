@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:bordered_text/bordered_text.dart';
 
 const IconData coronavirus = IconData(0xe199, fontFamily: 'MaterialIcons');
-const IconData brightnessHighOutlined =
-    IconData(0xeefc, fontFamily: 'MaterialIcons');
-const IconData coronavirusOutlined =
-    IconData(0xef88, fontFamily: 'MaterialIcons');
+const IconData brightnessHighOutlined = IconData(0xeefc, fontFamily: 'MaterialIcons');
+const IconData coronavirusOutlined = IconData(0xef88, fontFamily: 'MaterialIcons');
 
 Table displayTable(width, virusList) {
   Container virus1Icon = Container(

@@ -62,7 +62,7 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       virusList = prefs.getStringList("virusList") ??
-          ["Covid-19", "Coils", "Bacterial"];
+          ["Ebola", "Coils", "Bacterial"];
     });
   }
 
@@ -149,17 +149,17 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                       setState(() {
                         _color0 = choosedColor;
                         numberOfItem++;
-                        virusList.add("Covid-19");
+                        virusList.add("Ebola");
                       });
                     } else {
                       setState(() {
                         _color0 = notChoosedColor;
                         numberOfItem--;
-                        virusList.remove("Covid-19");
+                        virusList.remove("Ebola");
                       });
                     }
 
-                    /* virusList.add("Covid-19"); */
+                    /* virusList.add("Ebola"); */
                   }, // Handle your callback
 
                   child: Ink(
@@ -170,7 +170,7 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                         //左边添加8像素补白
                         padding: EdgeInsets.only(top: height / 100),
                         child: new Text(
-                          "Covid-19",
+                          "Ebola",
                           textAlign: TextAlign.center,
                         ),
                       )),
