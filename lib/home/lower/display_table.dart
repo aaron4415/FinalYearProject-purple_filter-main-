@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:bordered_text/bordered_text.dart';
 
-const IconData coronavirus = IconData(0xe199, fontFamily: 'MaterialIcons');
-const IconData brightnessHighOutlined = IconData(0xeefc, fontFamily: 'MaterialIcons');
-const IconData coronavirusOutlined = IconData(0xef88, fontFamily: 'MaterialIcons');
+import 'lower_part.dart';
+
+const IconData virus1IconData = IconData(0xe199, fontFamily: 'MaterialIcons');
+const IconData virus2IconData = IconData(0xeefc, fontFamily: 'MaterialIcons');
+const IconData virus3IconData = IconData(0xef88, fontFamily: 'MaterialIcons');
+
+int virus1Percentage = 0;
+int virus2Percentage = 0;
+int virus3Percentage = 0;
 
 Table displayTable(width, virusList) {
+
   Container virus1Icon = Container(
+    padding: const EdgeInsets.symmetric(vertical: 6.0),
       decoration: BoxDecoration(
         color: Colors.blue.shade400,
         shape: BoxShape.circle,
@@ -15,103 +23,99 @@ Table displayTable(width, virusList) {
         ]
       ),
       child: const Icon(
-        coronavirus,
+        virus1IconData,
         color: Colors.white,
       ));
 
-  BorderedText virus1Name = BorderedText(
-      strokeWidth: 4.0,
-      strokeColor: Colors.blue,
-      child: Text(virusList[0],
-          style: const TextStyle(
-              color: Colors.white,
-              fontSize: 21.0,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold)));
+  Container virus1Name = Container(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: BorderedText(
+        strokeWidth: 4.0,
+        strokeColor: Colors.blue,
+        child: Text(virusList[0],
+          style: textStyle))
+  );
 
-  BorderedText virus1Percentage = BorderedText(
-      strokeWidth: 4.0,
-      strokeColor: Colors.blue,
-      child: const Text('<99%',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 21.0,
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold,
-          )));
+  Container virus1PercentageContainer = Container(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: BorderedText(
+        strokeWidth: 4.0,
+        strokeColor: Colors.blue,
+        child: virus1Percentage == 100 ?Text("Done", style: textStyle) : Text('$virus1Percentage%', textAlign: TextAlign.center, style: textStyle)
+      )
+  );
 
   Container virus2Icon = Container(
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        shape: BoxShape.circle,
-      ),
-      child: const Icon(
-        brightnessHighOutlined,
-        color: Colors.white,
-      ));
+    padding: const EdgeInsets.symmetric(vertical: 6.0),
+    decoration: BoxDecoration(
+      color: Colors.blue,
+      shape: BoxShape.circle,
+    ),
+    child: const Icon(
+      virus2IconData,
+      color: Colors.white,
+    ));
 
-  BorderedText virus2Name = BorderedText(
+  Container virus2Name = Container(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: BorderedText(
+        strokeWidth: 4.0,
+        strokeColor: Colors.blue,
+        child: Text(virusList[1],
+          style: textStyle))
+  );
+
+  Container virus2PercentageContainer = Container(
+    padding: const EdgeInsets.symmetric(vertical: 6.0),
+    child: BorderedText(
       strokeWidth: 4.0,
       strokeColor: Colors.blue,
-      child: Text(virusList[1],
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 21.0,
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold,
-          )));
+      child: virus2Percentage == 100 ? Text("Done", style: textStyle) : Text('$virus2Percentage%', textAlign: TextAlign.center, style: textStyle)
+    )
+  );
 
-  BorderedText virus2Percentage = BorderedText(
-      strokeWidth: 4.0,
-      strokeColor: Colors.blue,
-      child: const Text('<99%',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 21.0,
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold,
-          )));
 
   Container virus3Icon = Container(
-      decoration: BoxDecoration(
-        color: Colors.blue,
-        shape: BoxShape.circle,
-      ),
-      child: const Icon(
-        coronavirusOutlined,
-        color: Colors.white,
-      ));
+    padding: const EdgeInsets.symmetric(vertical: 6.0),
+    decoration: BoxDecoration(
+      color: Colors.blue,
+      shape: BoxShape.circle,
+    ),
+    child: const Icon(
+      virus3IconData,
+      color: Colors.white,
+    )
+  );
 
-  BorderedText virus3Name = BorderedText(
+  Container virus3Name = Container(
+    padding: const EdgeInsets.symmetric(vertical: 6.0),
+    child: BorderedText(
       strokeWidth: 4.0,
       strokeColor: Colors.blue,
-      child: Text(virusList[2],
-          style: const TextStyle(
-              color: Colors.white,
-              fontSize: 21.0,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold)));
+      child: Text(
+        virusList[2],
+        style: textStyle))
+  );
 
-  BorderedText virus3Percentage = BorderedText(
-      strokeWidth: 4.0,
-      strokeColor: Colors.blue,
-      child: const Text('<99%',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 21.0,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold)));
+  Container virus3PercentageContainer = Container(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      child: BorderedText(
+        strokeWidth: 4.0,
+        strokeColor: Colors.blue,
+        child: virus3Percentage == 100 ? Text("Done", style: textStyle) : Text('$virus3Percentage%', textAlign: TextAlign.center, style: textStyle)
+      )
+  );
 
-  return Table(columnWidths: {
-    0: FlexColumnWidth(width * 0.05),
-    1: FlexColumnWidth(width * 0.35),
-    2: FlexColumnWidth(width * 0.15)
-  }, children: [
-    TableRow(children: [virus1Icon, virus1Name, virus1Percentage]),
-    TableRow(children: [virus2Icon, virus2Name, virus2Percentage]),
-    TableRow(children: [virus3Icon, virus3Name, virus3Percentage])
-  ]);
+  return Table(
+    columnWidths: {
+      0: FlexColumnWidth(width * 0.05),
+      1: FlexColumnWidth(width * 0.35),
+      2: FlexColumnWidth(width * 0.15)
+    },
+    children: [
+      TableRow(children: [virus1Icon, virus1Name, virus1PercentageContainer]),
+      TableRow(children: [virus2Icon, virus2Name, virus2PercentageContainer]),
+      TableRow(children: [virus3Icon, virus3Name, virus3PercentageContainer])
+    ]
+  );
 }

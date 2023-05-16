@@ -4,6 +4,8 @@ import 'lower_part_first.dart';
 import 'lower_part_second.dart';
 import 'lower_part_third.dart';
 
+TextStyle textStyle = const TextStyle( color: Colors.white, fontSize: 21.0, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold);
+
 class LowerPart extends StatefulWidget {
   LowerPart({Key? key}) : super(key: key);
 

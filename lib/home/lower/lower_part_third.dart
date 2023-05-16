@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../upper/upper_part.dart';
 import 'display_table.dart';
 
 class LowerPartThird extends StatefulWidget {
@@ -11,13 +12,13 @@ class LowerPartThird extends StatefulWidget {
 
 class _LowerPartThirdState extends State<LowerPartThird> {
   IconData barChartSharp = const IconData(0xe7ca, fontFamily: 'MaterialIcons');
-  List<String> virusList = ["Covid-19", "Coils", "Bacterial"];
+  List<String> virusList = ["Ebola", "Bacterial", "H1N1"];
 
   _loadVirusList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       virusList = prefs.getStringList("virusList") ??
-          ["Covid-19", "Coils", "Bacterial"];
+          ["Ebola", "Bacterial", "H1N1"];
     });
   }
 
@@ -31,17 +32,6 @@ class _LowerPartThirdState extends State<LowerPartThird> {
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
 
-    // Widget tableTitleText = const Text('Prediction disinfection level',
-    //     style: TextStyle(color: Colors.blue));
-    //
-    // Widget tableTitleIcon = Icon(barChartSharp, color: Colors.blue);
-    //
-    // Widget tableTitle = Padding(
-    //     padding: const EdgeInsets.all(4.0),
-    //     child: Row(
-    //         mainAxisAlignment: MainAxisAlignment.center,
-    //         children: [tableTitleText, tableTitleIcon]));
-
     Widget displayTableBox = Center(
             child: ConstrainedBox(
                 constraints: BoxConstraints(maxWidth: width / 3 * 2),
@@ -49,12 +39,12 @@ class _LowerPartThirdState extends State<LowerPartThird> {
 
     return Center(
         child: Container(
-            margin: const EdgeInsets.only(top: 10.0),
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.white),
-                shape: BoxShape.rectangle),
-            // child: Column(children: [tableTitle, displayTableBox]))
-            child: Center(child: displayTableBox)
+          width: width * 0.7,
+          margin: const EdgeInsets.only(top: 20.0),
+          decoration: BoxDecoration(
+              border: Border.all(width: 5.0, color: Color.fromARGB(245, 245, 245, 255)),
+              shape: BoxShape.rectangle),
+          child: Center(child: displayTableBox)
         )
     );
   }

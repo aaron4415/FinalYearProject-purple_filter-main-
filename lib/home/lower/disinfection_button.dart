@@ -6,23 +6,29 @@ import 'dart:math' as math;
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:purple_filter/home/lower/display_table.dart';
 import 'package:sensors_plus/sensors_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../detect_distance/allocator.dart';
-import '../../main.dart';
-import '../homePage.dart';
-import '../upper/camera_preview.dart';
+
+import 'package:purple_filter/main.dart';
+
+import 'package:purple_filter/detect_distance/allocator.dart';
 
 import 'package:purple_filter/home/lower/lower_part_second.dart';
 import 'package:purple_filter/home/lower/lower_part_first.dart';
-import 'package:purple_filter/home/upper/upper_part.dart' as globals;
 
-import '../upper/upper_part.dart';
+import 'package:purple_filter/home/upper/upper_part.dart' as globals;
+import 'package:purple_filter/home/upper/camera_preview.dart';
+import 'package:purple_filter/home/homePage.dart';
+
 
 int time = 0;
 int distance = 0;
 late Timer timer;
+late Timer timer1; late Timer timer2; late Timer timer3; // Timers for virus 1,2,3
 bool timerFinished = true;
+bool timer1Finished = true; bool timer2Finished = true; bool timer3Finished = true;
 bool hasBeenPressed = false;
 
 bool isPlayingAnimation = false;
@@ -43,6 +49,8 @@ class DisinfectionButton extends StatefulWidget {
 }
 
 class _DisinfectionButtonState extends State<DisinfectionButton> {
+
+  List<String> virusList = [];
   late StreamSubscription<UserAccelerometerEvent> subscription;
   double count = 0;
 
@@ -54,38 +62,97 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
   bool isRealSpeedChange = false;
 
-
   var img = const AssetImage("images/button_icon.jpg");
 
   Sensors sensor = Sensors();
+
+  _loadVirusList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      virusList = prefs.getStringList("virusList") ??
+          ["Ebola", "Bacterial", "H1N1"];
+    });
+  }
 
   @override
   void dispose() {
     globals.controller.dispose();
     super.dispose();
   }
-  //
+
   @override
   void initState() {
     super.initState();
+
+    _loadVirusList();
 
     player.setSource(AssetSource('succ.mp3'));
     player.setReleaseMode(ReleaseMode.stop);
   }
 
+  double determineD90Dose(String virus) {
+    double d90Dose = 0;
+    switch (virus) {
+      case'Ebola':
+        d90Dose = 8.6; break;
+      case 'Bacterial':
+        d90Dose = 70; break;
+      case 'H1N1':
+        d90Dose = 13; break;
+      case 'H2N3':
+        d90Dose = 12; break;
+      case 'Adeno-Virus':
+        d90Dose = 390; break;
+      case 'Hepatitis-Virus':
+        d90Dose = 40; break;
+    }
+    return d90Dose;
+  }
+
   Future<void> determineEffectiveDisinfection() async{
     if (actualDistance != 0 && actualDistance != -1) {
-      int d90Dose = (67 * 4  * math.pi * math.pow(actualDistance / 100, 2) / 1.3). ceil();
+      int virus0d90Dose = (67 * 4  * math.pi * math.pow(actualDistance / 100, 2) / 1.3). ceil();
+      int virus1d90Dose = determineD90Dose(virusList[0]).ceil();
+      int virus2d90Dose = determineD90Dose(virusList[1]).ceil();
+      int virus3d90Dose = determineD90Dose(virusList[2]).ceil();
+
       setState(() {
         if (timerFinished == true) {
           timerFinished = false;
-          print("This Timer Triggered By d90Dose of $d90Dose");
+          print("This Timer Triggered By virus0d90Dose of $virus0d90Dose");
           timer = Timer.periodic(
-              Duration(milliseconds: d90Dose * 10), (timer) {
+              Duration(milliseconds: virus0d90Dose * 10), (timer) {
                 setState(() {
-                  if (disinfectionPercentage < 100) { disinfectionPercentage += 1; borderColor = blueColor;}
-                  else { player.resume(); timer.cancel(); timerFinished = true; borderColor = redColor;}
+                  if (disinfectionPercentage < 100) { disinfectionPercentage += 1; globals.borderColor = globals.blueColor; }
+                  else { player.resume(); timer.cancel(); timerFinished = true; globals.borderColor = globals.redColor; }
                 });
+          });
+        }
+        if (timer1Finished == true) {
+          timer1Finished = false;
+          timer1 = Timer.periodic(Duration(milliseconds: virus1d90Dose * 10), (timer) {
+            setState(() {
+              if (virus1Percentage < 100) { virus1Percentage += 1; }
+              else { timer1.cancel(); }
+            });
+          });
+        }
+        if (timer2Finished == true) {
+          timer2Finished = false;
+          timer2 = Timer.periodic(Duration(milliseconds: virus2d90Dose * 10), (timer) {
+            setState(() {
+              if (virus2Percentage < 100) { virus2Percentage += 1; }
+              else { timer2.cancel(); }
+            });
+          });
+        }
+        if (timer3Finished == true) {
+          timer3Finished = false;
+          timer3 = Timer.periodic(Duration(milliseconds: virus3d90Dose * 10), (timer) {
+            setState(() {
+              if (virus3Percentage < 100) { virus3Percentage += 1; }
+              else { timer3.cancel(); }
+            });
           });
         }
       });
@@ -279,7 +346,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           distance = 0;
 
           setState(() {
-            borderColor = blueColor;
+            globals.borderColor = globals.blueColor;
             cameraController.stopImageStream().then((_) => print("Image Stream Stoppped"));
             hasBeenPressed = false;
             player.release().then((_) => print("Player Is Released"));
@@ -289,8 +356,11 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
             actualDistance = 0;
             progressBarPercentage = 0;
             disinfectionPercentage = 0;
-            subscription.cancel().then((_) => print("Sensor Subscription Is Canceled"));
+            virus1Percentage = 0; virus2Percentage = 0; virus3Percentage = 0;
             timer.cancel();
+            timer1.cancel(); timer2.cancel(); timer3.cancel();
+            subscription.cancel().then((_) => print("Sensor Subscription Is Canceled"));
+
           });
         });
 

@@ -62,7 +62,7 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       virusList = prefs.getStringList("virusList") ??
-          ["Ebola", "Coils", "Bacterial"];
+          ["Ebola", "Bacterial", "H1N1"];
     });
   }
 
@@ -176,38 +176,38 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                       )),
                 )),
             Divider(color: Colors.black),
-            Padding(
-                padding: EdgeInsets.only(top: height / 300),
-                child: InkWell(
-                  onTap: () {
-                    if (_color1 == notChoosedColor) {
-                      setState(() {
-                        _color1 = choosedColor;
-                        numberOfItem++;
-                        virusList.add("Coils");
-                      });
-                    } else {
-                      setState(() {
-                        _color1 = notChoosedColor;
-                        numberOfItem--;
-                        virusList.remove("Coils");
-                      });
-                    }
-                  }, // Handle your callback
-                  child: Ink(
-                      height: height / 20,
-                      width: width,
-                      color: _color1,
-                      child: Padding(
-                        //左边添加8像素补白
-                        padding: EdgeInsets.only(top: height / 100),
-                        child: new Text(
-                          "Coils",
-                          textAlign: TextAlign.center,
-                        ),
-                      )),
-                )),
-            Divider(color: Colors.black),
+            // Padding(
+            //     padding: EdgeInsets.only(top: height / 300),
+            //     child: InkWell(
+            //       onTap: () {
+            //         if (_color1 == notChoosedColor) {
+            //           setState(() {
+            //             _color1 = choosedColor;
+            //             numberOfItem++;
+            //             virusList.add("Coils");
+            //           });
+            //         } else {
+            //           setState(() {
+            //             _color1 = notChoosedColor;
+            //             numberOfItem--;
+            //             virusList.remove("Coils");
+            //           });
+            //         }
+            //       }, // Handle your callback
+            //       child: Ink(
+            //           height: height / 20,
+            //           width: width,
+            //           color: _color1,
+            //           child: Padding(
+            //             //左边添加8像素补白
+            //             padding: EdgeInsets.only(top: height / 100),
+            //             child: new Text(
+            //               "Coils",
+            //               textAlign: TextAlign.center,
+            //             ),
+            //           )),
+            //     )),
+            // Divider(color: Colors.black),
             Padding(
                 padding: EdgeInsets.only(top: height / 300),
                 child: InkWell(
@@ -248,13 +248,13 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                       setState(() {
                         _color3 = choosedColor;
                         numberOfItem++;
-                        virusList.add("Hantavirus");
+                        virusList.add("H1N1");
                       });
                     } else {
                       setState(() {
                         _color3 = notChoosedColor;
                         numberOfItem--;
-                        virusList.remove("Hantavirus");
+                        virusList.remove("H1N1");
                       });
                     }
                   }, // Handle your callback
@@ -266,7 +266,7 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                         //左边添加8像素补白
                         padding: EdgeInsets.only(top: height / 100),
                         child: new Text(
-                          "Hantavirus",
+                          "H1N1",
                           textAlign: TextAlign.center,
                         ),
                       )),
@@ -280,13 +280,13 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                       setState(() {
                         _color4 = choosedColor;
                         numberOfItem++;
-                        virusList.add("Bird flu virus");
+                        virusList.add("H2N3");
                       });
                     } else {
                       setState(() {
                         _color4 = notChoosedColor;
                         numberOfItem--;
-                        virusList.remove("Bird flu virus");
+                        virusList.remove("H2N3");
                       });
                     }
                   }, // Handle your callback
@@ -298,7 +298,7 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                         //左边添加8像素补白
                         padding: EdgeInsets.only(top: height / 100),
                         child: new Text(
-                          "Bird flu virus",
+                          "H2N3",
                           textAlign: TextAlign.center,
                         ),
                       )),
@@ -312,13 +312,13 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                       setState(() {
                         _color5 = choosedColor;
                         numberOfItem++;
-                        virusList.add("Lassa virus");
+                        virusList.add("Adeno-Virus");
                       });
                     } else {
                       setState(() {
                         _color5 = notChoosedColor;
                         numberOfItem--;
-                        virusList.remove("Lassa virus");
+                        virusList.remove("Adeno-Virus");
                       });
                     }
                   }, // Handle your callback
@@ -330,7 +330,7 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                         //左边添加8像素补白
                         padding: EdgeInsets.only(top: height / 100),
                         child: new Text(
-                          "Lassa virus",
+                          "Adeno-Virus",
                           textAlign: TextAlign.center,
                         ),
                       )),
@@ -344,13 +344,13 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                       setState(() {
                         _color6 = choosedColor;
                         numberOfItem++;
-                        virusList.add("Junin virus");
+                        virusList.add("Hepatitis-Virus");
                       });
                     } else {
                       setState(() {
                         _color6 = notChoosedColor;
                         numberOfItem--;
-                        virusList.remove("Junin virus");
+                        virusList.remove("Hepatitis-Virus");
                       });
                     }
                   }, // Handle your callback
@@ -362,7 +362,7 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                         //左边添加8像素补白
                         padding: EdgeInsets.only(top: height / 100),
                         child: new Text(
-                          "Junin virus",
+                          "Hepatitis-Virus",
                           textAlign: TextAlign.center,
                         ),
                       )),

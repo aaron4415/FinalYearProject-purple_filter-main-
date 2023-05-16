@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:bordered_text/bordered_text.dart';
+import 'package:purple_filter/home/lower/display_table.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:simple_kalman/simple_kalman.dart';
 
 import 'package:purple_filter/home/lower/disinfection_button.dart';
 import 'package:purple_filter/home/lower/custom_percentage_indicator.dart';
+
+import 'lower_part.dart';
 
 int disinfectionPercentage = 0;
 late StreamSubscription<GyroscopeEvent> listener;
@@ -26,8 +29,6 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
   List<double> filteredGyroscope = [];
   double nonZeroGyroscopeDataPercentage = 0;
 
-  int _count = 0;
-
   @override
   void initState() {
     super.initState();
@@ -43,10 +44,17 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
         setState(() {
           if (gyroscopeData != 0) {
             disinfectionPercentage = 0;
-                if (hasBeenPressed) {
-                  timer.cancel();
-                  timerFinished = true;
-                }
+            virus1Percentage = 0;
+            virus2Percentage = 0;
+            virus3Percentage = 0;
+            if (hasBeenPressed) {
+              timer.cancel();
+              timer1.cancel();
+              timer2.cancel();
+              timer3.cancel();
+              timerFinished = true;
+              timer1Finished = true; timer2Finished = true; timer3Finished = true;
+            }
           }
           // if (gyroscopeData != 0) {
           //   _count += 1;
@@ -97,14 +105,8 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
     Widget disinfectPercentage = BorderedText(
         strokeWidth: 4.0,
         strokeColor: Colors.blue,
-        child: Text(
-            '$disinfectionPercentage %', // TODO: Change this to a double variable that changes the number as progress continues
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 21.0,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold,
-            )));
+        child: disinfectionPercentage == 100 ? Text('Done', style: textStyle) : Text('$disinfectionPercentage %', style: textStyle)
+    );
 
     Widget upperFirstLeftPart = ConstrainedBox(
         constraints: BoxConstraints(maxWidth: width / 4 * 3),
@@ -129,16 +131,6 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
           )
         ),
         DisinfectionButton()
-        // ElevatedButton(
-        //   onPressed: () {},
-        //   style: ElevatedButton.styleFrom(
-        //     backgroundColor:  Colors.blue ,
-        //     shape: const CircleBorder(),
-        //     maximumSize: Size(width / 5.5, height / 6.5),
-        //     side: const BorderSide(color: Colors.white, width: 5),
-        //   ),
-        //   child: null,
-        // )
       ],
     );
   }
