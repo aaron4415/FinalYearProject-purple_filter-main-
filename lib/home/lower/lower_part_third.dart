@@ -41,6 +41,7 @@ class _LowerPartThirdState extends State<LowerPartThird> {
         child: Container(
           width: width * 0.7,
           margin: const EdgeInsets.only(top: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),
           decoration: BoxDecoration(
               border: Border.all(width: 5.0, color: Color.fromARGB(245, 245, 245, 255)),
               shape: BoxShape.rectangle),

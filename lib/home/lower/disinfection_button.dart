@@ -26,9 +26,7 @@ import 'package:purple_filter/home/homePage.dart';
 int time = 0;
 int distance = 0;
 late Timer timer;
-late Timer timer1; late Timer timer2; late Timer timer3; // Timers for virus 1,2,3
 bool timerFinished = true;
-bool timer1Finished = true; bool timer2Finished = true; bool timer3Finished = true;
 bool hasBeenPressed = false;
 
 bool isPlayingAnimation = false;
@@ -91,70 +89,93 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
   }
 
   double determineD90Dose(String virus) {
-    double d90Dose = 0;
+    double exposure = 0;
     switch (virus) {
       case'Ebola':
-        d90Dose = 8.6; break;
+        exposure = 8.6; break;
       case 'Bacterial':
-        d90Dose = 70; break;
+        exposure = 70; break;
       case 'H1N1':
-        d90Dose = 13; break;
+        exposure = 13; break;
       case 'H2N3':
-        d90Dose = 12; break;
+        exposure = 12; break;
       case 'Adeno-Virus':
-        d90Dose = 390; break;
+        exposure = 390; break;
       case 'Hepatitis-Virus':
-        d90Dose = 40; break;
+        exposure = 40; break;
     }
+    double hypotenuse = math.sqrt(math.pow(0.75, 2) + math.pow(actualDistance, 2));
+    double d90Dose = (exposure * 4  * math.pi * math.pow(hypotenuse / 100, 2) / 1.3);
     return d90Dose;
   }
 
   Future<void> determineEffectiveDisinfection() async{
     if (actualDistance != 0 && actualDistance != -1) {
-      int virus0d90Dose = (67 * 4  * math.pi * math.pow(actualDistance / 100, 2) / 1.3). ceil();
-      int virus1d90Dose = determineD90Dose(virusList[0]).ceil();
-      int virus2d90Dose = determineD90Dose(virusList[1]).ceil();
-      int virus3d90Dose = determineD90Dose(virusList[2]).ceil();
+      double hypotenuse = math.sqrt(math.pow(0.75, 2) + math.pow(actualDistance, 2));
+      double virus0d90Dose = (67 * 4  * math.pi * math.pow(hypotenuse / 100, 2) / 1.3);
+      double virus1d90Dose = determineD90Dose(virusList[0]);
+      double virus2d90Dose = determineD90Dose(virusList[1]);
+      double virus3d90Dose = determineD90Dose(virusList[2]);
+
+      double virus1gap = virus0d90Dose / virus1d90Dose;
+      double virus2gap = virus0d90Dose / virus2d90Dose;
+      double virus3gap = virus0d90Dose / virus3d90Dose;
+
+      print("virus1gap: $virus1gap");
+      print("virus2gap: $virus2gap");
+      print("virus3gap: $virus3gap");
 
       setState(() {
         if (timerFinished == true) {
           timerFinished = false;
           print("This Timer Triggered By virus0d90Dose of $virus0d90Dose");
           timer = Timer.periodic(
-              Duration(milliseconds: virus0d90Dose * 10), (timer) {
+              Duration(microseconds: (virus0d90Dose * 10000).ceil()), (timer) {
                 setState(() {
-                  if (disinfectionPercentage < 100) { disinfectionPercentage += 1; globals.borderColor = globals.blueColor; }
-                  else { player.resume(); timer.cancel(); timerFinished = true; globals.borderColor = globals.redColor; }
+                  if (disinfectionPercentage < 100) {
+                    disinfectionPercentage += 1;
+                    if (virus1Percentage < 100) {virus1Percentage += virus1gap;} else {virus1Percentage = 100;}
+                    if (virus2Percentage < 100) {virus2Percentage += virus2gap;} else {virus2Percentage = 100;}
+                    if (virus3Percentage < 100) {virus3Percentage += virus3gap;} else {virus3Percentage = 100;}
+                    globals.borderColor = globals.blueColor;
+                  }
+                  else if (disinfectionPercentage == 100 && (virus1Percentage < 100 || virus2Percentage < 100 || virus3Percentage < 100)) {
+                    if (virus1Percentage < 100) {virus1Percentage += virus1gap;} else {virus1Percentage = 100;}
+                    if (virus2Percentage < 100) {virus2Percentage += virus2gap;} else {virus2Percentage = 100;}
+                    if (virus3Percentage < 100) {virus3Percentage += virus3gap;} else {virus3Percentage = 100;}
+                    globals.borderColor = globals.redColor;
+                  }
+                  else { /*player.resume();*/ timer.cancel(); timerFinished = true; globals.borderColor = globals.redColor; }
                 });
           });
         }
-        if (timer1Finished == true) {
-          timer1Finished = false;
-          timer1 = Timer.periodic(Duration(milliseconds: virus1d90Dose * 10), (timer) {
-            setState(() {
-              if (virus1Percentage < 100) { virus1Percentage += 1; }
-              else { timer1.cancel(); }
-            });
-          });
-        }
-        if (timer2Finished == true) {
-          timer2Finished = false;
-          timer2 = Timer.periodic(Duration(milliseconds: virus2d90Dose * 10), (timer) {
-            setState(() {
-              if (virus2Percentage < 100) { virus2Percentage += 1; }
-              else { timer2.cancel(); }
-            });
-          });
-        }
-        if (timer3Finished == true) {
-          timer3Finished = false;
-          timer3 = Timer.periodic(Duration(milliseconds: virus3d90Dose * 10), (timer) {
-            setState(() {
-              if (virus3Percentage < 100) { virus3Percentage += 1; }
-              else { timer3.cancel(); }
-            });
-          });
-        }
+        // if (timer1Finished == true) {
+        //   timer1Finished = false;
+        //   timer1 = Timer.periodic(Duration(milliseconds: virus1d90Dose * 10), (timer) {
+        //     setState(() {
+        //       if (virus1Percentage < 100) { virus1Percentage += 1; }
+        //       else { timer1.cancel(); }
+        //     });
+        //   });
+        // }
+        // if (timer2Finished == true) {
+        //   timer2Finished = false;
+        //   timer2 = Timer.periodic(Duration(milliseconds: virus2d90Dose * 10), (timer) {
+        //     setState(() {
+        //       if (virus2Percentage < 100) { virus2Percentage += 1; }
+        //       else { timer2.cancel(); }
+        //     });
+        //   });
+        // }
+        // if (timer3Finished == true) {
+        //   timer3Finished = false;
+        //   timer3 = Timer.periodic(Duration(milliseconds: virus3d90Dose * 10), (timer) {
+        //     setState(() {
+        //       if (virus3Percentage < 100) { virus3Percentage += 1; }
+        //       else { timer3.cancel(); }
+        //     });
+        //   });
+        // }
       });
     }
   }
@@ -358,7 +379,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
             disinfectionPercentage = 0;
             virus1Percentage = 0; virus2Percentage = 0; virus3Percentage = 0;
             timer.cancel();
-            timer1.cancel(); timer2.cancel(); timer3.cancel();
             subscription.cancel().then((_) => print("Sensor Subscription Is Canceled"));
 
           });

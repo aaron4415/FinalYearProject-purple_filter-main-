@@ -7,9 +7,9 @@ const IconData virus1IconData = IconData(0xe199, fontFamily: 'MaterialIcons');
 const IconData virus2IconData = IconData(0xeefc, fontFamily: 'MaterialIcons');
 const IconData virus3IconData = IconData(0xef88, fontFamily: 'MaterialIcons');
 
-int virus1Percentage = 0;
-int virus2Percentage = 0;
-int virus3Percentage = 0;
+double virus1Percentage = 0;
+double virus2Percentage = 0;
+double virus3Percentage = 0;
 
 Table displayTable(width, virusList) {
 
@@ -41,7 +41,7 @@ Table displayTable(width, virusList) {
       child: BorderedText(
         strokeWidth: 4.0,
         strokeColor: Colors.blue,
-        child: virus1Percentage == 100 ?Text("Done", style: textStyle) : Text('$virus1Percentage%', textAlign: TextAlign.center, style: textStyle)
+        child: virus1Percentage >= 100 ?Text("Done", style: textStyle) : Text('${virus1Percentage.ceil()}%', textAlign: TextAlign.center, style: textStyle)
       )
   );
 
@@ -70,7 +70,7 @@ Table displayTable(width, virusList) {
     child: BorderedText(
       strokeWidth: 4.0,
       strokeColor: Colors.blue,
-      child: virus2Percentage == 100 ? Text("Done", style: textStyle) : Text('$virus2Percentage%', textAlign: TextAlign.center, style: textStyle)
+      child: virus2Percentage >= 100 ? Text("Done", style: textStyle) : Text('${virus2Percentage.ceil()}%', textAlign: TextAlign.center, style: textStyle)
     )
   );
 
@@ -102,7 +102,7 @@ Table displayTable(width, virusList) {
       child: BorderedText(
         strokeWidth: 4.0,
         strokeColor: Colors.blue,
-        child: virus3Percentage == 100 ? Text("Done", style: textStyle) : Text('$virus3Percentage%', textAlign: TextAlign.center, style: textStyle)
+        child: virus3Percentage >= 100 ? Text("Done", style: textStyle) : Text('${virus3Percentage.ceil()}%', textAlign: TextAlign.center, style: textStyle)
       )
   );
 

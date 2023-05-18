@@ -49,11 +49,7 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
             virus3Percentage = 0;
             if (hasBeenPressed) {
               timer.cancel();
-              timer1.cancel();
-              timer2.cancel();
-              timer3.cancel();
               timerFinished = true;
-              timer1Finished = true; timer2Finished = true; timer3Finished = true;
             }
           }
           // if (gyroscopeData != 0) {
