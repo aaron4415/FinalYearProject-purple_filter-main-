@@ -24,8 +24,6 @@ class _UpperPartState extends State<UpperPart> with SingleTickerProviderStateMix
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
 
@@ -33,59 +31,96 @@ class _UpperPartState extends State<UpperPart> with SingleTickerProviderStateMix
 
     return Stack(
       children: [
-        Container(
-            clipBehavior: Clip.hardEdge,
+        Positioned.fill(
+          child: Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                boxShadow: [
-                  const BoxShadow(
-                    color: Colors.white,
-                    spreadRadius: 3,
-                    blurRadius: 4,
-                    blurStyle: BlurStyle.normal,
-                  ),
-                  // BoxShadow(
-                  //   color: borderColor,
-                  //   spreadRadius: 5,
-                  //   blurRadius: 3,
-                  //   blurStyle: BlurStyle.normal,
-                  // ),
-                  BoxShadow(
-                      color: borderColor,
-                      spreadRadius: 4.5,
-                      blurRadius: 6.5,
-                      blurStyle: BlurStyle.outer
-                  )
-                ]
+                image: DecorationImage(
+                  image: AssetImage('assets/images/blue-square3.jpg'),
+                  fit: BoxFit.fill
+                )
             ),
-            child: const CameraPreviewWidget()
-        ),
-        Container(
-          margin: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            border: Border.all(color: borderColor, width: 1.0),
-            borderRadius: BorderRadius.all(Radius.circular((10.0)))
-          ),
-        ),
-        Container(
-          margin: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-              border: Border.all(color: borderColor, width: 5.0),
-              borderRadius: BorderRadius.all(Radius.circular(10.0)),
-          ),
-        ),
-        if (disinfectionPercentage >= 100) Align(
-            alignment: Alignment.center,
-            child: Container(
-              //margin: EdgeInsets.all(width / 4),
-              width: width/4,
-              height: width/4,
-              decoration: BoxDecoration(
-                  border: Border.all(color: borderColor, width: 3.0),
-                  borderRadius: BorderRadius.all(Radius.circular(10.0))
-              ),
+            child: Center(
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 32),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: [
+                    BoxShadow(
+                      color: blueColor,
+                      spreadRadius: 2.0,
+                      blurRadius: 3.0,
+                      blurStyle: BlurStyle.inner
+                    )
+                  ]
+                ),
+                child: const CameraPreviewWidget()
+              )
             )
+          )
         ),
+        
+        // Container(
+        //     decoration: ShapeDecoration(
+        //         shape: RoundedRectangleBorder(
+        //           borderRadius: BorderRadius.all(Radius.circular(10.0))
+        //         ),
+        //         image: DecorationImage(
+        //           image: ExactAssetImage('assets/images/blue-square.jpg'),
+        //           fit: BoxFit.fill
+        //         ),
+        //         //borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        //         // shadows: [
+        //         //   const BoxShadow(
+        //         //     color: Colors.white,
+        //         //     spreadRadius: 3,
+        //         //     blurRadius: 4,
+        //         //     blurStyle: BlurStyle.normal,
+        //         //   ),
+        //         //   // BoxShadow(
+        //         //   //   color: borderColor,
+        //         //   //   spreadRadius: 5,
+        //         //   //   blurRadius: 3,
+        //         //   //   blurStyle: BlurStyle.normal,
+        //         //   // ),
+        //         //   BoxShadow(
+        //         //       color: borderColor,
+        //         //       spreadRadius: 4.5,
+        //         //       blurRadius: 6.5,
+        //         //       blurStyle: BlurStyle.outer
+        //         //   )
+        //         // ]
+        //     ),
+        //     child: Container(
+        //       padding: const EdgeInsets.all(10.0),
+        //       child: const CameraPreviewWidget()
+        //     )
+        // ),
+        // Container(
+        //   margin: const EdgeInsets.all(4),
+        //   decoration: BoxDecoration(
+        //     border: Border.all(color: borderColor, width: 1.0),
+        //     borderRadius: BorderRadius.all(Radius.circular((10.0)))
+        //   ),
+        // ),
+        // Container(
+        //   margin: const EdgeInsets.all(12),
+        //   decoration: BoxDecoration(
+        //       border: Border.all(color: borderColor, width: 5.0),
+        //       borderRadius: BorderRadius.all(Radius.circular(10.0)),
+        //   ),
+        // ),
+        // if (disinfectionPercentage >= 100) Align(
+        //     alignment: Alignment.center,
+        //     child: Container(
+        //       //margin: EdgeInsets.all(width / 4),
+        //       width: width/4,
+        //       height: width/4,
+        //       decoration: BoxDecoration(
+        //           border: Border.all(color: borderColor, width: 3.0),
+        //           borderRadius: BorderRadius.all(Radius.circular(10.0))
+        //       ),
+        //     )
+        // ),
         Align(
           alignment: Alignment.center,
           child: CustomPaint(
