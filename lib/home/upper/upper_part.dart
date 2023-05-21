@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:purple_filter/home/lower/lower_part.dart';
+import 'package:purple_filter/home/lower/lower_part_first.dart';
 
 import 'camera_preview.dart';
-import 'purple_filter.dart';
 
-List<PurpleFilter> list = [];
 late AnimationController controller;
+
 Color borderColor = Color.fromARGB(200, 50, 50, 237);
 Color blueColor = Color.fromARGB(200, 50, 50, 237);
-Color redColor = Color.fromARGB(255, 237, 50, 50);
+Color redColor = Color.fromARGB(255, 0, 255, 0);
 
 class UpperPart extends StatefulWidget {
   const UpperPart({Key? key}) : super(key: key);
@@ -18,56 +19,103 @@ class UpperPart extends StatefulWidget {
 
 class _UpperPartState extends State<UpperPart> with SingleTickerProviderStateMixin {
 
-  late AnimationController _animationController;
-  late Animation _animation;
-
   @override
   void initState() {
-    _animationController = AnimationController(vsync: this, duration: Duration(seconds: 2));
-    _animationController.repeat(reverse: true);
-    _animation = Tween(begin: 2.0, end: 15.0).animate(_animationController)..addListener((){
-      setState(() {
-
-      });
-    });
     super.initState();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 5.0, style: BorderStyle.none),
-          borderRadius: BorderRadius.all(Radius.circular(5.0)),
-          boxShadow: [
-            BoxShadow(
-                color: borderColor,
-                // spreadRadius: _animation.value,
-                // blurRadius: _animation.value,
-                spreadRadius: 10.0,
-                blurRadius: 15.0,
-                blurStyle: BlurStyle.normal
+    double width = MediaQuery.of(context).size.width;
+
+    return Stack(
+      children: [
+        Container(
+            clipBehavior: Clip.hardEdge,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                boxShadow: [
+                  const BoxShadow(
+                    color: Colors.white,
+                    spreadRadius: 3,
+                    blurRadius: 4,
+                    blurStyle: BlurStyle.normal,
+                  ),
+                  // BoxShadow(
+                  //   color: borderColor,
+                  //   spreadRadius: 5,
+                  //   blurRadius: 3,
+                  //   blurStyle: BlurStyle.normal,
+                  // ),
+                  BoxShadow(
+                      color: borderColor,
+                      spreadRadius: 4.5,
+                      blurRadius: 6.5,
+                      blurStyle: BlurStyle.outer
+                  )
+                ]
             ),
-            BoxShadow(
-                color: Colors.white,
-                // spreadRadius: _animation.value * 0.7,
-                // blurRadius: _animation.value * 0.7,
-                spreadRadius: 6.0,
-                blurRadius: 9.0,
-                blurStyle: BlurStyle.outer
-            ),
-            const BoxShadow(
-              color: Colors.black12,
-              spreadRadius: 1.0,
-              blurRadius: 1.0,
-              blurStyle: BlurStyle.inner,
-              offset: Offset(1.0, 2.0)
-            )
-          ]
+            child: const CameraPreviewWidget()
         ),
-        child: const CameraPreviewWidget()
+        Container(
+          margin: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            border: Border.all(color: borderColor, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular((10.0)))
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+              border: Border.all(color: borderColor, width: 5.0),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+        ),
+        if (disinfectionPercentage >= 100) Align(
+            alignment: Alignment.center,
+            child: Container(
+              //margin: EdgeInsets.all(width / 4),
+              width: width/4,
+              height: width/4,
+              decoration: BoxDecoration(
+                  border: Border.all(color: borderColor, width: 3.0),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))
+              ),
+            )
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: CustomPaint(
+              painter: Cross()
+          )
+        )
+      ],
     );
 
+  }
+}
+
+class Cross extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size){
+
+    Paint paint = Paint();
+    paint.color = borderColor;
+    paint.strokeWidth = 2.0;
+    canvas.drawLine(Offset(8, 0), Offset(-8, 0), paint);
+    canvas.drawLine(Offset(0, 8), Offset(0, -8), paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    Color currentColor = borderColor;
+    if (currentColor != borderColor ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

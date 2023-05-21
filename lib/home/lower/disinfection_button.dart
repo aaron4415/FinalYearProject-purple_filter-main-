@@ -384,18 +384,36 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           });
         });
 
-    return ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          elevation: 10,
-          shadowColor: hasBeenPressed ? Colors.red.shade200 : Colors.lightBlue.shade300,
-          // backgroundColor: hasBeenPressed ? Colors.red : Colors.blue,
-          backgroundColor: hasBeenPressed ? Colors.red.shade300 : Colors.lightBlue.shade400,
-          shape: const CircleBorder(),
-          fixedSize: Size(width / 5.5, height / 6.5),
-          side: const BorderSide(color: Color.fromARGB(130, 234, 237, 236), width: 3),
+    return Container(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.white,
+              spreadRadius: 5,
+              blurRadius: 6,
+              blurStyle: BlurStyle.normal
+            ),
+            BoxShadow(
+              color: globals.borderColor,
+              spreadRadius: 6,
+              blurRadius: 6,
+              blurStyle: BlurStyle.outer
+            )
+          ]
         ),
-        child: disinfectionButtonListener
+        child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              elevation: 10,
+              //shadowColor: hasBeenPressed ? Colors.red.shade200 : Colors.lightBlue.shade300,
+              backgroundColor: hasBeenPressed ? Colors.red.shade300 : Colors.lightBlue.shade400,
+              shape: const CircleBorder(),
+              fixedSize: Size(width / 5.5, height / 6.5),
+              side: const BorderSide(color: Color.fromARGB(130, 234, 237, 236), width: 3),
+            ),
+            child: disinfectionButtonListener
+        )
     );
   }
 }

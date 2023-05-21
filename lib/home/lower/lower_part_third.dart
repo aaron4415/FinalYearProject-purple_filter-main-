@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../upper/upper_part.dart';
 import 'display_table.dart';
 
 class LowerPartThird extends StatefulWidget {

@@ -106,6 +106,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/images/background.png
     - images/button_icon.jpg
     - assets/
     - assets/images/
