@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:purple_filter/home/lower/lower_part_first.dart';
+import 'package:purple_filter/home/upper/upper_part.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'display_table.dart';
 
@@ -42,8 +44,26 @@ class _LowerPartThirdState extends State<LowerPartThird> {
           margin: const EdgeInsets.only(top: 20.0),
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           decoration: BoxDecoration(
-              border: Border.all(width: 5.0, color: Color.fromARGB(245, 245, 245, 255)),
-              shape: BoxShape.rectangle),
+              border: Border.all(width: 2.0, color: Color.fromARGB(255, 135, 206, 250)),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+              shape: BoxShape.rectangle,
+              color: const Color.fromARGB(255, 3, 1, 36),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.white,
+                  blurStyle: BlurStyle.outer,
+                  spreadRadius: 0.0,
+                  blurRadius: 10.0
+                ),
+                if (disinfectionPercentage >= 100)
+                BoxShadow(
+                  color: redColor,
+                  blurStyle: BlurStyle.outer,
+                  spreadRadius: 0.0,
+                  blurRadius: 13.0
+                )
+              ]
+          ),
           child: Center(child: displayTableBox)
         )
     );

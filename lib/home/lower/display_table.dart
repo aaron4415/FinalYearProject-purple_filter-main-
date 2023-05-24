@@ -19,10 +19,15 @@ Table displayTable(width, virusList) {
         color: Colors.blue.shade400,
         shape: BoxShape.circle,
         boxShadow: const [
-          BoxShadow()
+          BoxShadow(
+            color: Colors.white,
+            blurStyle: BlurStyle.outer,
+            spreadRadius: 0.0,
+            blurRadius: 5.0
+          )
         ]
       ),
-      child: const Icon(
+      child: Icon(
         virus1IconData,
         color: Colors.white,
       ));
@@ -48,8 +53,16 @@ Table displayTable(width, virusList) {
   Container virus2Icon = Container(
     padding: const EdgeInsets.symmetric(vertical: 6.0),
     decoration: BoxDecoration(
-      color: Colors.blue,
+      color: Colors.blue.shade400,
       shape: BoxShape.circle,
+        boxShadow: const [
+          BoxShadow(
+              color: Colors.white,
+              blurStyle: BlurStyle.outer,
+              spreadRadius: 0.0,
+              blurRadius: 5.0
+          )
+        ]
     ),
     child: const Icon(
       virus2IconData,
@@ -78,8 +91,16 @@ Table displayTable(width, virusList) {
   Container virus3Icon = Container(
     padding: const EdgeInsets.symmetric(vertical: 6.0),
     decoration: BoxDecoration(
-      color: Colors.blue,
+      color: Colors.blue.shade400,
       shape: BoxShape.circle,
+        boxShadow: const [
+          BoxShadow(
+              color: Colors.white,
+              blurStyle: BlurStyle.outer,
+              spreadRadius: 0.0,
+              blurRadius: 5.0
+          )
+        ]
     ),
     child: const Icon(
       virus3IconData,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:purple_filter/home/lower/lower_part.dart';
 import 'package:purple_filter/home/lower/lower_part_first.dart';
 
 import 'camera_preview.dart';
@@ -8,7 +7,12 @@ late AnimationController controller;
 
 Color borderColor = Color.fromARGB(200, 50, 50, 237);
 Color blueColor = Color.fromARGB(200, 50, 50, 237);
-Color redColor = Color.fromARGB(255, 0, 255, 0);
+Color redColor = Color.fromARGB(255, 183, 0 ,255);
+
+AssetImage backgroundImage = AssetImage("assets/images/blue-square2.png");
+AssetImage blueImage = AssetImage("assets/images/blue-square2.png");
+AssetImage redImage = AssetImage("assets/images/purple-square.png");
+
 
 class UpperPart extends StatefulWidget {
   const UpperPart({Key? key}) : super(key: key);
@@ -35,21 +39,21 @@ class _UpperPartState extends State<UpperPart> with SingleTickerProviderStateMix
           child: Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/blue-square3.jpg'),
+                  image: backgroundImage,
                   fit: BoxFit.fill
                 )
             ),
             child: Center(
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 32),
+                margin: const EdgeInsets.symmetric(horizontal: 34) + const EdgeInsets.only(top: 3) + const EdgeInsets.only(bottom: 1),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                      color: blueColor,
+                      color: borderColor,
                       spreadRadius: 2.0,
                       blurRadius: 3.0,
-                      blurStyle: BlurStyle.inner
+                      blurStyle: BlurStyle.outer
                     )
                   ]
                 ),
@@ -58,69 +62,32 @@ class _UpperPartState extends State<UpperPart> with SingleTickerProviderStateMix
             )
           )
         ),
-        
-        // Container(
-        //     decoration: ShapeDecoration(
-        //         shape: RoundedRectangleBorder(
-        //           borderRadius: BorderRadius.all(Radius.circular(10.0))
-        //         ),
-        //         image: DecorationImage(
-        //           image: ExactAssetImage('assets/images/blue-square.jpg'),
-        //           fit: BoxFit.fill
-        //         ),
-        //         //borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        //         // shadows: [
-        //         //   const BoxShadow(
-        //         //     color: Colors.white,
-        //         //     spreadRadius: 3,
-        //         //     blurRadius: 4,
-        //         //     blurStyle: BlurStyle.normal,
-        //         //   ),
-        //         //   // BoxShadow(
-        //         //   //   color: borderColor,
-        //         //   //   spreadRadius: 5,
-        //         //   //   blurRadius: 3,
-        //         //   //   blurStyle: BlurStyle.normal,
-        //         //   // ),
-        //         //   BoxShadow(
-        //         //       color: borderColor,
-        //         //       spreadRadius: 4.5,
-        //         //       blurRadius: 6.5,
-        //         //       blurStyle: BlurStyle.outer
-        //         //   )
-        //         // ]
-        //     ),
-        //     child: Container(
-        //       padding: const EdgeInsets.all(10.0),
-        //       child: const CameraPreviewWidget()
-        //     )
-        // ),
-        // Container(
-        //   margin: const EdgeInsets.all(4),
-        //   decoration: BoxDecoration(
-        //     border: Border.all(color: borderColor, width: 1.0),
-        //     borderRadius: BorderRadius.all(Radius.circular((10.0)))
-        //   ),
-        // ),
-        // Container(
-        //   margin: const EdgeInsets.all(12),
-        //   decoration: BoxDecoration(
-        //       border: Border.all(color: borderColor, width: 5.0),
-        //       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-        //   ),
-        // ),
-        // if (disinfectionPercentage >= 100) Align(
-        //     alignment: Alignment.center,
-        //     child: Container(
-        //       //margin: EdgeInsets.all(width / 4),
-        //       width: width/4,
-        //       height: width/4,
-        //       decoration: BoxDecoration(
-        //           border: Border.all(color: borderColor, width: 3.0),
-        //           borderRadius: BorderRadius.all(Radius.circular(10.0))
-        //       ),
-        //     )
-        // ),
+        Container(
+          margin: const EdgeInsets.all(4) + const EdgeInsets.symmetric(horizontal: 34) + const EdgeInsets.only(top: 3) + const EdgeInsets.only(bottom: 1),
+          decoration: BoxDecoration(
+            border: Border.all(color: borderColor, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular((10.0)))
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.all(12) + const EdgeInsets.symmetric(horizontal: 34) + const EdgeInsets.only(top: 3) + const EdgeInsets.only(bottom: 1),
+          decoration: BoxDecoration(
+              border: Border.all(color: borderColor, width: 5.0),
+              borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
+        ),
+        if (disinfectionPercentage >= 100) Align(
+            alignment: Alignment.center,
+            child: Container(
+              //margin: EdgeInsets.all(width / 4),
+              width: width/4,
+              height: width/4,
+              decoration: BoxDecoration(
+                  border: Border.all(color: borderColor, width: 3.0),
+                  borderRadius: BorderRadius.all(Radius.circular(10.0))
+              ),
+            )
+        ),
         Align(
           alignment: Alignment.center,
           child: CustomPaint(

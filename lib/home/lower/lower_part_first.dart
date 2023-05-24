@@ -75,6 +75,7 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
     final width = MediaQuery.of(context).size.width;
 
     Widget coronaVirusIcon = Container(
+        margin: const EdgeInsets.only(right: 3.0),
         decoration: BoxDecoration(
           border: Border.all(width: width / 220, color: Colors.blue),
           color: Colors.blue,

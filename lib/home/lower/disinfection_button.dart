@@ -138,14 +138,16 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
                     if (virus2Percentage < 100) {virus2Percentage += virus2gap;} else {virus2Percentage = 100;}
                     if (virus3Percentage < 100) {virus3Percentage += virus3gap;} else {virus3Percentage = 100;}
                     globals.borderColor = globals.blueColor;
+                    globals.backgroundImage = globals.blueImage;
                   }
                   else if (disinfectionPercentage == 100 && (virus1Percentage < 100 || virus2Percentage < 100 || virus3Percentage < 100)) {
                     if (virus1Percentage < 100) {virus1Percentage += virus1gap;} else {virus1Percentage = 100;}
                     if (virus2Percentage < 100) {virus2Percentage += virus2gap;} else {virus2Percentage = 100;}
                     if (virus3Percentage < 100) {virus3Percentage += virus3gap;} else {virus3Percentage = 100;}
                     globals.borderColor = globals.redColor;
+                    globals.backgroundImage = globals.redImage;
                   }
-                  else { /*player.resume();*/ timer.cancel(); timerFinished = true; globals.borderColor = globals.redColor; }
+                  else {timer.cancel(); timerFinished = true; globals.borderColor = globals.redColor; globals.backgroundImage = globals.redImage; }
                 });
           });
         }
@@ -368,6 +370,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
           setState(() {
             globals.borderColor = globals.blueColor;
+            globals.backgroundImage = globals.blueImage;
             cameraController.stopImageStream().then((_) => print("Image Stream Stoppped"));
             hasBeenPressed = false;
             player.release().then((_) => print("Player Is Released"));

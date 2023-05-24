@@ -5,6 +5,9 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
+import 'package:purple_filter/home/upper/upper_part.dart';
+
+
 int pixelDifferencePercentage = 0;
 double progressBarPercentage = 0.0;
 double actualDistance = 0.0;
@@ -36,7 +39,6 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
   @override
   void dispose() {
     super.dispose();
-
     streamSubscription.cancel();
   }
 
@@ -69,9 +71,12 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
             )));
 
     Widget distanceIndicator = LinearPercentIndicator(
+      padding: const EdgeInsets.symmetric(horizontal: 0.0),
+      barRadius: Radius.circular(10.0),
       width: width / 2.1,
-      lineHeight: height / 32,
+      lineHeight: height / 50,
       percent: progressBarPercentage,
+      backgroundColor: Colors.lightBlueAccent,
       progressColor: Colors.purpleAccent,
     );
 
@@ -79,7 +84,7 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
         strokeWidth: 4.0,
         strokeColor: Colors.blue,
         child: Text(
-            '$actualDistance cm',
+            '${actualDistance}cm',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 20.0,
@@ -92,11 +97,30 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
     return Padding(
         padding: const EdgeInsets.only(left: 5),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             pinchSharpIcon,
             distanceText, // It does nothing but to display the word "distance"
-            distanceIndicator, // Progress bar to show distance in graphic
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white,
+                    blurStyle: BlurStyle.outer,
+                    spreadRadius: 0.0,
+                    blurRadius: 10.0
+                  ),
+                  BoxShadow(
+                    color: borderColor,
+                    blurStyle: BlurStyle.outer,
+                    spreadRadius: 0.0,
+                    blurRadius: 9.0
+                  )
+                ]
+              ),
+              child: distanceIndicator
+            ), // Progress bar to show distance in graphic
             distanceDisplay // Text to display the realtime distance
           ],
         ));

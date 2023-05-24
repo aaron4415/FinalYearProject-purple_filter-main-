@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
       // backgroundColor: const Color.fromARGB(255,255,255,255),
         body: Column(
           children: [
-            Container(padding: EdgeInsets.all(10), height: height / 2.1, child: UpperPart()),
+            Container( height: height / 2.1, child: UpperPart()),
             LowerPart()
           ],
         )
