@@ -308,6 +308,38 @@ class SelectVirusTablePageState extends State<SelectVirusTablePage> {
                 padding: EdgeInsets.only(top: height / 300),
                 child: InkWell(
                   onTap: () {
+                    if (_color1 == notChoosedColor) {
+                      setState(() {
+                        _color1 = choosedColor;
+                        numberOfItem++;
+                        virusList.add("Influenza A");
+                      });
+                    } else {
+                      setState(() {
+                        _color1 = notChoosedColor;
+                        numberOfItem--;
+                        virusList.remove("Influenza A");
+                      });
+                    }
+                  }, // Handle your callback
+                  child: Ink(
+                      height: height / 20,
+                      width: width,
+                      color: _color1,
+                      child: Padding(
+                        //左边添加8像素补白
+                        padding: EdgeInsets.only(top: height / 100),
+                        child: new Text(
+                          "Influenza A",
+                          textAlign: TextAlign.center,
+                        ),
+                      )),
+                )),
+            Divider(color: Colors.black),
+            Padding(
+                padding: EdgeInsets.only(top: height / 300),
+                child: InkWell(
+                  onTap: () {
                     if (_color5 == notChoosedColor) {
                       setState(() {
                         _color5 = choosedColor;

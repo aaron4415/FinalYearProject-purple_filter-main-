@@ -99,6 +99,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
         exposure = 13; break;
       case 'H2N3':
         exposure = 12; break;
+      case 'Influenza A':
+        exposure = 19; break; /// One source states It has m square / J of 0.1187, which is 9 J / m square, we use the higher one (19) here
       case 'Adeno-Virus':
         exposure = 390; break;
       case 'Hepatitis-Virus':
@@ -151,33 +153,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
                 });
           });
         }
-        // if (timer1Finished == true) {
-        //   timer1Finished = false;
-        //   timer1 = Timer.periodic(Duration(milliseconds: virus1d90Dose * 10), (timer) {
-        //     setState(() {
-        //       if (virus1Percentage < 100) { virus1Percentage += 1; }
-        //       else { timer1.cancel(); }
-        //     });
-        //   });
-        // }
-        // if (timer2Finished == true) {
-        //   timer2Finished = false;
-        //   timer2 = Timer.periodic(Duration(milliseconds: virus2d90Dose * 10), (timer) {
-        //     setState(() {
-        //       if (virus2Percentage < 100) { virus2Percentage += 1; }
-        //       else { timer2.cancel(); }
-        //     });
-        //   });
-        // }
-        // if (timer3Finished == true) {
-        //   timer3Finished = false;
-        //   timer3 = Timer.periodic(Duration(milliseconds: virus3d90Dose * 10), (timer) {
-        //     setState(() {
-        //       if (virus3Percentage < 100) { virus3Percentage += 1; }
-        //       else { timer3.cancel(); }
-        //     });
-        //   });
-        // }
       });
     }
   }
@@ -304,6 +279,11 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     } else {
       actualDistance = 0;
     }
+    if (actualDistance != 0) {
+      setState(() {
+        progressBarPercentage = actualDistance / 5;
+      });
+    }
   }
 
   Future<void> calculateDifference(savedImage) async {
@@ -335,8 +315,6 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     setState(() {
       pixelDifferencePercentage = imgData == -1 ? pixelDifferencePercentage : imgData;
       actualDistanceCalculation(pixelDifferencePercentage); // This void() changes the value of $actualDistance
-      progressBarPercentage = 1 - (pixelDifferencePercentage / 100);
-      print("$progressBarPercentage");
     });
   }
 

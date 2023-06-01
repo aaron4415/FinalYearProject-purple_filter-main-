@@ -13,6 +13,8 @@ double progressBarPercentage = 0.0;
 double actualDistance = 0.0;
 bool isDeviceMoving = false;
 
+Color greenColor = Color.fromARGB(128, 128, 255, 128);
+
 class LowerPartSecond extends StatefulWidget {
   LowerPartSecond({Key? key}) : super(key: key);
 
@@ -70,14 +72,51 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
               fontWeight: FontWeight.bold,
             )));
 
+    LinearGradient linearGradient = LinearGradient(colors: [Colors.lightBlueAccent, Colors.lightBlueAccent]);
+
+    // if (actualDistance < 1.5) {
+    //    linearGradient = LinearGradient(colors: [Colors.lightBlueAccent, Colors.lightBlueAccent]);
+    // } else if (actualDistance >= 1.5 && actualDistance < 2.6) {
+    //   double x = actualDistance - 1.4;
+    //   double percent1 = 1.4 / actualDistance;
+    //   double percent2 = x / actualDistance;
+    //   linearGradient = LinearGradient(
+    //       colors: [Colors.lightBlueAccent, greenColor],
+    //       stops: [percent1, percent1 + percent2],
+    //   );
+    // } else if (actualDistance >= 2.6 && actualDistance <= 5) {
+    //   double x = actualDistance - 2.5;
+    //   double percent1 = 1.4 / actualDistance;
+    //   double percent2 = 1.1 / actualDistance;
+    //   double percent3 = x / actualDistance;
+    //   linearGradient = LinearGradient(
+    //       colors: [Colors.lightBlueAccent, Colors.green, Colors.lightBlueAccent],
+    //       stops: [percent1, percent1 + percent2, percent1 + percent2 + percent3],
+    //   );
+    // }
+
+    if (actualDistance < 1.5) {
+      linearGradient = LinearGradient(colors: [Colors.lightBlueAccent, Colors.lightBlueAccent]);
+    } else if (actualDistance >= 1.5 && actualDistance < 2.6) {
+      linearGradient = LinearGradient(
+        colors: [greenColor, greenColor, greenColor, Colors.green.shade200, Colors.white, Colors.green.shade200, greenColor, greenColor, greenColor, greenColor],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight
+      );
+    } else if (actualDistance >= 2.6 && actualDistance <= 5) {
+      linearGradient = LinearGradient(
+        colors: [Colors.lightBlueAccent, Colors.lightBlueAccent],
+      );
+    }
+
     Widget distanceIndicator = LinearPercentIndicator(
       padding: const EdgeInsets.symmetric(horizontal: 0.0),
       barRadius: Radius.circular(10.0),
       width: width / 2.1,
       lineHeight: height / 50,
       percent: progressBarPercentage,
-      backgroundColor: Colors.lightBlueAccent,
-      progressColor: Colors.purpleAccent,
+      backgroundColor: Color.fromARGB(255, 85, 85, 85),
+      linearGradient: linearGradient
     );
 
     Widget distanceDisplay = BorderedText(
@@ -97,7 +136,7 @@ class _LowerPartSecondState extends State<LowerPartSecond> {
     return Padding(
         padding: const EdgeInsets.only(left: 5),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             pinchSharpIcon,
             distanceText, // It does nothing but to display the word "distance"

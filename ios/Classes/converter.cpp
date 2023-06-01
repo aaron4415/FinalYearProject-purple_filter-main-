@@ -421,7 +421,7 @@ extern "C" {
         int value;
         if (pixelDifference != -1) {
             value = pixelDifference * 100 / columnTotalsVector.size();
-        } else {
+        } else {    
             value = pixelDifference;
         }
         int *valueRef = (int*)malloc(sizeof(int));

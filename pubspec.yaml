@@ -106,12 +106,9 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/images/background.jpg
-    - assets/images/blue-square.jpg
-    - assets/images/blue-square2.jpg
-    - assets/images/blue-square2.png
-    - assets/images/blue-square3.jpg
-    - assets/images/purple-square.png
+    - assets/images/blue-square.png
+    - assets/images/orange-square2.png
+    - assets/images/orange-square3.png
     - images/button_icon.jpg
     - assets/
     - assets/images/

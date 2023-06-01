@@ -22,6 +22,8 @@ class LowerPartFirst extends StatefulWidget {
 }
 
 class _LowerPartFirstState extends State<LowerPartFirst> {
+
+
   IconData coronavirus = const IconData(0xe199, fontFamily: 'MaterialIcons');
 
   Sensors sensor = Sensors();
@@ -52,19 +54,6 @@ class _LowerPartFirstState extends State<LowerPartFirst> {
               timerFinished = true;
             }
           }
-          // if (gyroscopeData != 0) {
-          //   _count += 1;
-          //   if (_count > 10) {
-          //     print("Count > 10");
-          //     disinfectionPercentage = 0;
-          //     if (hasBeenPressed) {
-          //       timer.cancel();
-          //       timerFinished = true;
-          //     }
-          //   }
-          // } else {
-          //   _count = 0;
-          // }
         });
       });
     }

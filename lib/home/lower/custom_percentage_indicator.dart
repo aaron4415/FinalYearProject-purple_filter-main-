@@ -13,6 +13,19 @@ class CustomPercentageIndicator extends StatefulWidget {
 
 class _CustomPercentageIndicatorState extends State<CustomPercentageIndicator> {
 
+
+  @override
+  void initState() {
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -26,11 +39,15 @@ class _CustomPercentageIndicatorState extends State<CustomPercentageIndicator> {
         // backgroundColor: Color.fromARGB(255, 138, 43, 226),
         backgroundColor: Colors.white,
         barRadius: Radius.circular(10.0),
-        linearGradient: LinearGradient(
+        linearGradient: disinfectionPercentage >= 100 ? LinearGradient(
+          colors: [redColor, redColor, Colors.white, redColor, redColor],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight
+        ) : LinearGradient(
           colors: [blueColor, redColor],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight
-    ),
+        ),
     );
     
     return Container(

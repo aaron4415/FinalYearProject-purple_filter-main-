@@ -10,7 +10,7 @@
 		</data>
 		<key>flutter_assets/AssetManifest.json</key>
 		<data>
-		nO2W+/scdS5I/1/5xRf+plv4WrY=
+		Y9BrKl3eWtr5DXlWJyfCoDuHBy8=
 		</data>
 		<key>flutter_assets/FontManifest.json</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>flutter_assets/assets/.DS_Store</key>
 		<data>
-		vMpCuSDIgOXSSSGoGzTkJvxK23s=
+		4iZAPb1mSbJW2Ud91Bav2jmINPI=
 		</data>
 		<key>flutter_assets/assets/icons/.DS_Store</key>
 		<data>
@@ -62,31 +62,11 @@
 		</data>
 		<key>flutter_assets/assets/images/.DS_Store</key>
 		<data>
-		3y++sUAKzaCQmjLBz2v0kvESHgc=
+		egzKxfRbe/8yOKrR6sH1m38Kojs=
 		</data>
-		<key>flutter_assets/assets/images/background.jpg</key>
+		<key>flutter_assets/assets/images/blue-square.png</key>
 		<data>
-		9f57Nt7bB0s0EC4MT9dNAeE4tjE=
-		</data>
-		<key>flutter_assets/assets/images/blue-square.jpg</key>
-		<data>
-		5eA9+6e64IPFQP8yqOHjp30G1fw=
-		</data>
-		<key>flutter_assets/assets/images/blue-square2.jpg</key>
-		<data>
-		9LCg7xjEQGMWfW8x1uk8bo/xaA0=
-		</data>
-		<key>flutter_assets/assets/images/blue-square2.png</key>
-		<data>
-		YFFBdptanPpvTLfszR4dzreQNYs=
-		</data>
-		<key>flutter_assets/assets/images/blue-square2.xcf</key>
-		<data>
-		m4CsA61m0tTHBXLcVvPqsONOU7I=
-		</data>
-		<key>flutter_assets/assets/images/blue-square3.jpg</key>
-		<data>
-		fMVs1S3gvke4Q6zKnT+wbQIm3Bc=
+		sNG2kESII3h0DGWamPFliga60HI=
 		</data>
 		<key>flutter_assets/assets/images/login_bottom.png</key>
 		<data>
@@ -103,6 +83,18 @@
 		<key>flutter_assets/assets/images/main_top.png</key>
 		<data>
 		Z4VQCcnO2MTQINB9e2qjoOnZ5X0=
+		</data>
+		<key>flutter_assets/assets/images/orange-square.png</key>
+		<data>
+		H+s7QGs1XCN1WTwzv40nzmp/p5M=
+		</data>
+		<key>flutter_assets/assets/images/orange-square2.png</key>
+		<data>
+		Fcm89KpPIeJZqTizae5LjFc9xEY=
+		</data>
+		<key>flutter_assets/assets/images/orange-square3.png</key>
+		<data>
+		LikwwXy4m1khPFh5f3VRc+IRUFY=
 		</data>
 		<key>flutter_assets/assets/images/purple-square.png</key>
 		<data>
@@ -179,7 +171,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GIeq6A9ECSWHhrf3eNPBk1ZAHG3oHtfQf9MHcRH0e80=
+			7hlSeGIKmgaDaB+o5DX2cQghJuTM32DC+IUkvt6DGRs=
 			</data>
 		</dict>
 		<key>flutter_assets/FontManifest.json</key>
@@ -252,46 +244,11 @@
 			1XXNf/pL+WbZLX22fio/IhQGWlzxNMXeAYuFJX96abI=
 			</data>
 		</dict>
-		<key>flutter_assets/assets/images/background.jpg</key>
+		<key>flutter_assets/assets/images/blue-square.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Jd+PwTu3FwGiq6t+43IaElpBFqhgxAoCPX0t2T24VBk=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/images/blue-square.jpg</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			fnY0YzHCEi8Ns/YqBlVVRvC7Ru12Fv8hBtAZFzthK3E=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/images/blue-square2.jpg</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			48bN10GxUI+hFEk2eCs3AR4EsIvFikA7D7VFHcvey2E=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/images/blue-square2.png</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			jyBHzx3rSCykUjZ6KJ6pUlihV7UCcinK/HbHYdIe7R0=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/images/blue-square2.xcf</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			vw8rNgf55d0ZBi6W/wRIRFIl/X//8J+oC1zZL9dSDo8=
-			</data>
-		</dict>
-		<key>flutter_assets/assets/images/blue-square3.jpg</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			i+UgaKakeqET3XDrVRsujuMXIVycJCLX1wFvPcbU63s=
+			1ZkDCD7F9JBl07Ot3RhukkFON+n03lIh7Co1kmwDkkc=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/login_bottom.png</key>
@@ -320,6 +277,27 @@
 			<key>hash2</key>
 			<data>
 			l8QDRlA5nyDDDwPzTIF1ROxyifgl4lsyqgputY2JvGI=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/orange-square.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			o+NGSOSf8jcoXkKLgSnwqE13wIkZREtG11Maxao7804=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/orange-square2.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			wFlQlN7qyz7lwK0VORqNxvjHOkBcFup6FMeggF09M5A=
+			</data>
+		</dict>
+		<key>flutter_assets/assets/images/orange-square3.png</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			PB92CWJvA66uXwTS+KgU3o93po1cnqxtqQsP9I3R3OU=
 			</data>
 		</dict>
 		<key>flutter_assets/assets/images/purple-square.png</key>
