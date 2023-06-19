@@ -40,11 +40,11 @@ class _CustomPercentageIndicatorState extends State<CustomPercentageIndicator> {
         backgroundColor: Colors.white,
         barRadius: Radius.circular(10.0),
         linearGradient: disinfectionPercentage >= 100 ? LinearGradient(
-          colors: [redColor, redColor, Colors.white, redColor, redColor],
+          colors: [finishColor, finishColor, Colors.white, finishColor, finishColor],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight
         ) : LinearGradient(
-          colors: [blueColor, redColor],
+          colors: [defaultColor, finishColor],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight
         ),

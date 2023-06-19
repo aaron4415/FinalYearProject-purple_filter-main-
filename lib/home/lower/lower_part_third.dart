@@ -57,7 +57,7 @@ class _LowerPartThirdState extends State<LowerPartThird> {
                 ),
                 if (disinfectionPercentage >= 100)
                 BoxShadow(
-                  color: redColor,
+                  color: finishColor,
                   blurStyle: BlurStyle.outer,
                   spreadRadius: 0.0,
                   blurRadius: 13.0

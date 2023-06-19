@@ -9,7 +9,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:purple_filter/home/lower/display_table.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:torch_light/torch_light.dart';
 
 import 'package:purple_filter/main.dart';
 
@@ -22,6 +22,8 @@ import 'package:purple_filter/home/upper/upper_part.dart' as globals;
 import 'package:purple_filter/home/upper/camera_preview.dart';
 import 'package:purple_filter/home/homePage.dart';
 
+
+bool skinDetected = false;
 
 int time = 0;
 int distance = 0;
@@ -91,7 +93,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
   double determineD90Dose(String virus) {
     double exposure = 0;
     switch (virus) {
-      case'Ebola':
+      case 'Ebola':
         exposure = 8.6; break;
       case 'Bacterial':
         exposure = 70; break;
@@ -139,17 +141,18 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
                     if (virus1Percentage < 100) {virus1Percentage += virus1gap;} else {virus1Percentage = 100;}
                     if (virus2Percentage < 100) {virus2Percentage += virus2gap;} else {virus2Percentage = 100;}
                     if (virus3Percentage < 100) {virus3Percentage += virus3gap;} else {virus3Percentage = 100;}
-                    globals.borderColor = globals.blueColor;
+                    if (skinDetected) { globals.defaultColor = globals.redColor; } else { globals.defaultColor = globals.blueColor; }
+                    globals.borderColor = globals.defaultColor;
                     globals.backgroundImage = globals.blueImage;
                   }
                   else if (disinfectionPercentage == 100 && (virus1Percentage < 100 || virus2Percentage < 100 || virus3Percentage < 100)) {
                     if (virus1Percentage < 100) {virus1Percentage += virus1gap;} else {virus1Percentage = 100;}
                     if (virus2Percentage < 100) {virus2Percentage += virus2gap;} else {virus2Percentage = 100;}
                     if (virus3Percentage < 100) {virus3Percentage += virus3gap;} else {virus3Percentage = 100;}
-                    globals.borderColor = globals.redColor;
+                    globals.borderColor = globals.finishColor;
                     globals.backgroundImage = globals.redImage;
                   }
-                  else {timer.cancel(); timerFinished = true; globals.borderColor = globals.redColor; globals.backgroundImage = globals.redImage; }
+                  else {timer.cancel(); timerFinished = true; globals.borderColor = globals.finishColor; globals.backgroundImage = globals.redImage; }
                 });
           });
         }
@@ -313,6 +316,13 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
     allocator.free(p);
     allocator.free(p1);
     setState(() {
+      if (imgData < 1000) {
+        pixelDifferencePercentage = imgData == 0 ? pixelDifferencePercentage : imgData;
+        skinDetected = false;
+      } else if (imgData >= 1000) {
+        pixelDifferencePercentage = imgData == 1000 ? pixelDifferencePercentage : imgData;
+        skinDetected = true;
+      }
       pixelDifferencePercentage = imgData == -1 ? pixelDifferencePercentage : imgData;
       actualDistanceCalculation(pixelDifferencePercentage); // This void() changes the value of $actualDistance
     });
@@ -347,6 +357,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
           distance = 0;
 
           setState(() {
+            globals.defaultColor = globals.blueColor;
             globals.borderColor = globals.blueColor;
             globals.backgroundImage = globals.blueImage;
             cameraController.stopImageStream().then((_) => print("Image Stream Stoppped"));
@@ -358,6 +369,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
             actualDistance = 0;
             progressBarPercentage = 0;
             disinfectionPercentage = 0;
+            skinDetected = false;
             virus1Percentage = 0; virus2Percentage = 0; virus3Percentage = 0;
             timer.cancel();
             subscription.cancel().then((_) => print("Sensor Subscription Is Canceled"));

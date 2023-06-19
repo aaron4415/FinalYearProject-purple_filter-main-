@@ -30,6 +30,8 @@ extern "C" {
 
     __attribute__((visibility("default"))) __attribute__((used))
     int *convertImage(uint8_t *plane0, uint8_t *plane12, int size1, int size2, int bytesPerRow, int bytesPerPixel, int width, int height) {
+        int *valueRef = (int*)malloc(sizeof(int));
+
         int bytesPerColumn = size1 / bytesPerRow;
 
         int x, y, uvIndex, index;
@@ -56,7 +58,8 @@ extern "C" {
 
         uCount = 0; vCount = 0;
 
-        vector<int> data0int0; vector<int> data1int0; vector<int> data2int0;
+        vector<int> yuv2rgb0; vector<int> yuv2rgb1; vector<int> yuv2rgb2;
+        vector<int> yuv2int0; vector<int> yuv2int1; vector<int> yuv2int2;
 
         for (x = 0; x < bytesPerColumn; x++) {
                 for (y = 0; y < bytesPerRow; y++) {
@@ -74,89 +77,189 @@ extern "C" {
                     g = clamp(0,255,gt);
                     b = clamp(0,255,bt);
 
-                    data0int0.push_back(r);
-                    data1int0.push_back(g);
-                    data2int0.push_back(b);
+                    yuv2rgb0.push_back(r);
+                    yuv2rgb1.push_back(g);
+                    yuv2rgb2.push_back(b);
+                    
+                    yuv2int0.push_back(r);
+                    yuv2int1.push_back(g);
+                    yuv2int2.push_back(b);
                 }
         }
-
-        vector<uchar> data0uchar0; vector<uchar> data1uchar0; vector<uchar> data2uchar0;
-
-        for (int i = 0; i < data0int0.size(); i++) {
-            data0uchar0.push_back(static_cast<uchar>(data0int0.at(i)));
-            data1uchar0.push_back(static_cast<uchar>(data1int0.at(i)));
-            data2uchar0.push_back(static_cast<uchar>(data2int0.at(i)));
+        
+        for (int i = 0; i < yuv2rgb0.size(); i++) {
+            if (yuv2rgb0.at(i) < 200 || yuv2rgb1.at(i) > 200) {
+                yuv2rgb0.at(i) = 0;
+                yuv2rgb1.at(i) = 0;
+                yuv2rgb2.at(i) = 0;
+            }
         }
+        
+        vector<uchar> rgb2uchar0; vector<uchar> rgb2uchar1; vector<uchar> rgb2uchar2;
+        vector<uchar> int2uchar0; vector<uchar> int2uchar1; vector<uchar> int2uchar2;
 
-        cv::Mat ch0(data0uchar0); cv::Mat ch1(data1uchar0); cv::Mat ch2(data2uchar0);
+        for (int i = 0; i < yuv2rgb0.size(); i++) {
+            rgb2uchar0.push_back(static_cast<uchar>(yuv2rgb0.at(i)));
+            rgb2uchar1.push_back(static_cast<uchar>(yuv2rgb1.at(i)));
+            rgb2uchar2.push_back(static_cast<uchar>(yuv2rgb2.at(i)));
+            
+            int2uchar0.push_back(static_cast<uchar>(yuv2int0.at(i)));
+            int2uchar1.push_back(static_cast<uchar>(yuv2int1.at(i)));
+            int2uchar2.push_back(static_cast<uchar>(yuv2int2.at(i)));
+        }
+        
+        cv::Mat rgbCh0(rgb2uchar0); cv::Mat rgbCh1(rgb2uchar1); cv::Mat rgbCh2(rgb2uchar2);
+        cv::Mat ch0(int2uchar0); cv::Mat ch1(int2uchar1); cv::Mat ch2(int2uchar2);
 
+        rgbCh0 = rgbCh0.reshape(0, bytesPerColumn);
+        rgbCh1 = rgbCh1.reshape(0, bytesPerColumn);
+        rgbCh2 = rgbCh2.reshape(0, bytesPerColumn);
+        
         ch0 = ch0.reshape(0, bytesPerColumn);
         ch1 = ch1.reshape(0, bytesPerColumn);
         ch2 = ch2.reshape(0, bytesPerColumn);
 
-        cv::Mat mergesrc[3] = {ch0, ch1, ch2}; cv::Mat mergedst;
+        cv::Mat mergeRgb[3] = {rgbCh0, rgbCh1, rgbCh2}; cv::Mat rgb;
+        cv::Mat mergeSrc[3] = {ch0, ch1, ch2}; cv::Mat mergeDst;
 
-        cv::merge(mergesrc, 3, mergedst);
+        cv::merge(mergeRgb, 3, rgb);
+        cv::merge(mergeSrc, 3, mergeDst);
+        
+        cv::Mat kernel = cv::getStructuringElement(0, cv::Size(5,5));
+        
+        cv::Mat opening; cv::morphologyEx(rgb, opening, 3, kernel);
+        cv::Mat closing; cv::morphologyEx(opening, closing, 3, kernel);
+        
+        cv::Mat rgb_filter = closing;
 
-        cv::cvtColor(mergedst, mergedst, cv::COLOR_RGB2HLS);
+        cv::Mat rgb2lab;
+        
+        cv::cvtColor(rgb_filter, rgb2lab, cv::COLOR_RGB2Lab);
+        
+        vector<cv::Mat> labChannels(3);
+        
+        cv::split(rgb2lab, labChannels);
+        
+        vector<uchar> lab2uchar0; vector<uchar> lab2uchar1; vector<uchar> lab2uchar2;
+        
+        lab2uchar0.assign(labChannels[0].data, labChannels[0].data + labChannels[0].total());
+        lab2uchar1.assign(labChannels[1].data, labChannels[1].data + labChannels[1].total());
+        lab2uchar0.assign(labChannels[2].data, labChannels[2].data + labChannels[2].total());
+        
+        vector<int> lab0int; vector<int> lab1int; vector<int> lab2int;
+        
+        for (int i = 0; i < lab2uchar0.size(); i++) {
+            lab0int.push_back(static_cast<int>(lab2uchar0.at(i)));
+            lab1int.push_back(static_cast<int>(lab2uchar1.at(i)));
+            lab2int.push_back(static_cast<int>(lab2uchar0.at(i)));
+        }
+        
+        for (int i = 0; i < lab2uchar0.size(); i++) {
+            if (lab1int.at(i) - 128 < 8 || lab1int.at(i) - 128 > 22 || lab2int.at(i) - 128 < 8 || lab2int.at(i) - 128 > 22) {
+                lab0int.at(i) = 0;
+                lab1int.at(i) = 0;
+                lab2int.at(i) = 0;
+            }
+            if (abs(lab1int.at(i) - lab2int.at(i)) > 30) {
+                lab0int.at(i) = 0;
+                lab1int.at(i) = 0;
+                lab2int.at(i) = 0;
+            }
+        }
+        
+        int labPercentageCount = 0;
+        for (int i = 0; i < lab1int.size(); i++) {
+            if (lab1int.at(i) != 0) {
+                labPercentageCount++;
+            }
+        }
+
+        int value = 0;
+        
+        double labPercentage = double(labPercentageCount) / double(lab0int.size()) * 100;
+        if (labPercentage > 0.1) {
+            value += 1000;
+        }
+        
+        lab2uchar0.clear(); lab2uchar1.clear(); lab2uchar2.clear();
+
+        for (int i = 0; i < yuv2rgb0.size(); i++) {
+            lab2uchar0.push_back(static_cast<uchar>(lab0int.at(i)));
+            lab2uchar1.push_back(static_cast<uchar>(lab1int.at(i)));
+            lab2uchar2.push_back(static_cast<uchar>(lab2int.at(i)));
+        }
+        
+        cv::Mat labCh0(lab2uchar0); cv::Mat labCh1(lab2uchar1); cv::Mat labCh2(lab2uchar2);
+
+        labCh0 = labCh0.reshape(0, bytesPerColumn);
+        labCh1 = labCh1.reshape(0, bytesPerColumn);
+        labCh2 = labCh2.reshape(0, bytesPerColumn);
+
+        cv::Mat mergeLab[3] = {labCh0, labCh1, labCh2}; cv::Mat lab;
+
+        cv::merge(mergeLab, 3, lab);
+        
+        cv::Mat rgb2hls; cv::cvtColor(mergeDst, rgb2hls, cv::COLOR_RGB2HLS);
+        
+        // Here Need To Use YUV To HLS, Not The Filtered Data
 
         int Lfilter1 = 50;
 
-        vector<cv::Mat> channels(3);
+        vector<cv::Mat> hlsChannels(3);
 
-        cv::split(mergedst, channels);
+        cv::split(rgb2hls, hlsChannels);
 
-        vector<uchar> data0uchar1; vector<uchar> data1uchar1; vector<uchar>data2uchar1;
+        vector<uchar> hls2uchar0; vector<uchar> hls2uchar1; vector<uchar>hls2uchar2;
 
-        data0uchar1.assign(channels[0].data, channels[0].data + channels[0].total());
-        data1uchar1.assign(channels[1].data, channels[1].data + channels[1].total());
-        data2uchar1.assign(channels[2].data, channels[2].data + channels[2].total());
+        hls2uchar0.assign(hlsChannels[0].data, hlsChannels[0].data + hlsChannels[0].total());
+        hls2uchar1.assign(hlsChannels[1].data, hlsChannels[1].data + hlsChannels[1].total());
+        hls2uchar2.assign(hlsChannels[2].data, hlsChannels[2].data + hlsChannels[2].total());
 
-        vector<int> data0int1; vector<int> data1int1; vector<int> data2int1;
+        vector<int> hls0int; vector<int> hls1int; vector<int> hls2int;
 
-        for (int i = 0; i < data0uchar1.size(); i++) {
-            data0int1.push_back(static_cast<int>(data0uchar1.at(i)));
-            data1int1.push_back(static_cast<int>(data1uchar1.at(i)));
-            data2int1.push_back(static_cast<int>(data2uchar1.at(i)));
+        for (int i = 0; i < hls2uchar0.size(); i++) {
+            hls0int.push_back(static_cast<int>(hls2uchar0.at(i)));
+            hls1int.push_back(static_cast<int>(hls2uchar1.at(i)));
+            hls2int.push_back(static_cast<int>(hls2uchar2.at(i)));
         }
 
         int maxL = 0;
-        for (int i = 0; i < data0int1.size(); i++) {
-            maxL = maxL > data1int1.at(i) ? maxL : data1int1.at(i);
+        for (int i = 0; i < hls0int.size(); i++) {
+            maxL = maxL > hls1int.at(i) ? maxL : hls1int.at(i);
         }
-        for (int i = 0; i < data0int1.size(); i++) {
-            if (data1int1.at(i) < (maxL - Lfilter1)) {
-                data0int1.at(i) = 0;
-                data1int1.at(i) = 0;
-                data2int1.at(i) = 0;
+        for (int i = 0; i < hls0int.size(); i++) {
+            if (hls1int.at(i) < (maxL - Lfilter1)) {
+                hls0int.at(i) = 0;
+                hls1int.at(i) = 0;
+                hls2int.at(i) = 0;
             }
         }
 
-        int percentageCount = 0;
-        for (int i = 0; i < data0int1.size(); i++) {
-            if (data1int1.at(i) != 0) {
-                percentageCount++;
+        int hlsPercentageCount = 0;
+        for (int i = 0; i < hls0int.size(); i++) {
+            if (hls1int.at(i) != 0) {
+                hlsPercentageCount++;
             }
         }
 
-        double firstFilterPercentage = double(percentageCount) / double(data0int1.size()) * 100;
+        double firstFilterPercentage = double(hlsPercentageCount) / double(hls0int.size()) * 100;
         if (firstFilterPercentage > 1) {
             int maxL2 = 0; int Lfilter2 = 25;
-            for (int i = 0; i < data1int1.size(); i++) {
-                maxL2 = maxL2 > data1int1.at(i) ? maxL2 : data1int1.at(i);
+            for (int i = 0; i < hls1int.size(); i++) {
+                maxL2 = maxL2 > hls1int.at(i) ? maxL2 : hls1int.at(i);
             }
-            for (int i = 0; i < data0int1.size(); i++) {
-                if (data1int1.at(i) < (maxL2 - Lfilter2)) {
-                    data0int1.at(i) = 0;
-                    data1int1.at(i) = 0;
-                    data2int1.at(i) = 0;
+            for (int i = 0; i < hls0int.size(); i++) {
+                if (hls1int.at(i) < (maxL2 - Lfilter2)) {
+                    hls0int.at(i) = 0;
+                    hls1int.at(i) = 0;
+                    hls2int.at(i) = 0;
                 }
             }
         }
 
         /// This Transform The 2D Array Into 1D Array.
         nc::NdArray<int> columnTotals;
-        nc::NdArray<int> data1NdArray(data1int1); data1NdArray.reshape(bytesPerColumn, bytesPerRow);
+        nc::NdArray<int> data1NdArray(hls1int); data1NdArray.reshape(bytesPerColumn, bytesPerRow);
         columnTotals = nc::sum(data1NdArray, nc::Axis::ROW) / bytesPerColumn;
 
         int columnTotalsMax = columnTotals.max()[0];
@@ -418,22 +521,19 @@ extern "C" {
         }
 
         /// Calculate The Percentage Difference
-        int value;
         if (pixelDifference != -1) {
-            value = pixelDifference * 100 / columnTotalsVector.size();
-        } else {    
-            value = pixelDifference;
+            value += pixelDifference * 100 / columnTotalsVector.size();
         }
-        int *valueRef = (int*)malloc(sizeof(int));
+
         valueRef[0] = value;
 
-        data0int0.clear(); data1int0.clear(); data2int0.clear();
-        data0int1.clear(); data1int1.clear(); data2int1.clear();
+        yuv2rgb0.clear(); yuv2rgb1.clear(); yuv2rgb2.clear();
+        hls0int.clear(); hls1int.clear(); hls2int.clear();
 
-        data0uchar0.clear(); data1uchar0.clear(); data2uchar0.clear();
-        data0uchar1.clear(); data1uchar1.clear(); data2uchar1.clear();
+        rgb2uchar0.clear(); rgb2uchar1.clear(); rgb2uchar2.clear();
+        hls2uchar0.clear(); hls2uchar1.clear(); hls2uchar2.clear();
 
-        ch0.release(); ch1.release(); ch2.release(); channels.clear();
+        rgbCh0.release(); rgbCh1.release(); rgbCh2.release(); hlsChannels.clear();
 
         columnTotalsVector.clear(); dataPointVector.clear();
 
