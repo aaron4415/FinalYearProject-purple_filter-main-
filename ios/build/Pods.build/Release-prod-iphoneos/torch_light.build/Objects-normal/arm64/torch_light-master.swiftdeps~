@@ -1,0 +1,6 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "db282b1bdb21a55da6c6356a37c0b9f7b4a0b7f8be7560aa97947460713b94f4"
+build_start_time: [1687162991, 970656871]
+build_end_time: [1687162992, 7150173]
+inputs:
+  "/Users/eda/.pub-cache/hosted/pub.dev/torch_light-1.0.0/ios/Classes/SwiftTorchLightPlugin.swift": !dirty [1687160185, 323060512]

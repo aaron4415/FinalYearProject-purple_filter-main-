@@ -1,27 +1,27 @@
 version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
 options: "ba7001b9c387c5eedd9e9f2ddbee5b6e3f749dc461f5544261d8451a3a07016e"
-build_start_time: [1681720546, 117118835]
-build_end_time: [1681720554, 656877040]
+build_start_time: [1687162992, 523549079]
+build_end_time: [1687162994, 656098842]
 inputs:
   ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/Heartbeat.swift"
-  : [1681701418, 791947841]
+  : [1687162223, 9678840]
   ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatController.swift"
-  : [1681701418, 792540073]
+  : [1687162223, 11115550]
   ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatStorage.swift"
-  : [1681701418, 793009757]
+  : [1687162223, 12381315]
   ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatsBundle.swift"
-  : [1681701418, 793264865]
+  : [1687162223, 12757301]
   ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/HeartbeatsPayload.swift"
-  : [1681701418, 793690681]
+  : [1687162223, 13434886]
   ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/RingBuffer.swift"
-  : [1681701418, 792134284]
+  : [1687162223, 10115385]
   ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/Storage.swift"
-  : [1681701418, 791702270]
+  : [1687162223, 9206295]
   ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/StorageFactory.swift"
-  : [1681701418, 793944358]
+  : [1687162223, 13807773]
   ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/WeakContainer.swift"
-  : [1681701418, 793477535]
+  : [1687162223, 13099431]
   ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/_ObjC_HeartbeatController.swift"
-  : [1681701418, 792365074]
+  : [1687162223, 10559558]
   ? "/Users/eda/Documents/GitHub/purple_filter-main/ios/Pods/FirebaseCoreInternal/FirebaseCore/Internal/Sources/HeartbeatLogging/_ObjC_HeartbeatsPayload.swift"
-  : [1681701418, 792744636]
+  : [1687162223, 11824607]

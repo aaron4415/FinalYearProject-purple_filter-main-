@@ -335,6 +335,7 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
     GestureDetector disinfectionButtonListener = GestureDetector(
         onLongPressStart: (LongPressStartDetails longPressStartDetails) async {
+          await TorchLight.enableTorch();
           print("Long Press Started");
           await cameraController.startImageStream((CameraImage image) async {
             _processCameraImage(image);
@@ -350,7 +351,8 @@ class _DisinfectionButtonState extends State<DisinfectionButton> {
 
           setState(() { hasBeenPressed = true; redButtonLogic = true; });
         },
-        onLongPressEnd: (LongPressEndDetails longPressEndDetails) {
+        onLongPressEnd: (LongPressEndDetails longPressEndDetails) async {
+          await TorchLight.disableTorch();
           print("Long Presss Ended");
           redButtonLogic = false;
           count = 0;

@@ -1,7 +1,7 @@
 version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
 options: "688ed6cfaf5f421485128c55e1c92e8786fb162322580d5fff5c4f79a21b20d4"
-build_start_time: [1681720535, 352018833]
-build_end_time: [1681720546, 70659160]
+build_start_time: [1687162992, 523141860]
+build_end_time: [1687162993, 681416034]
 inputs:
   "/Users/eda/.pub-cache/hosted/pub.dev/qr_code_scanner-1.0.1/ios/Classes/QRView.swift": [1675938741, 211298704]
   "/Users/eda/.pub-cache/hosted/pub.dev/qr_code_scanner-1.0.1/ios/Classes/QRViewFactory.swift": [1675938741, 197733402]

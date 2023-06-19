@@ -141,4 +141,8 @@ dependencies: \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/sensors_plus/sensors_plus.framework/Headers/sensors_plus-umbrella.h \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/shared_preferences_foundation/shared_preferences_foundation.framework/Modules/module.modulemap \
   /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/shared_preferences_foundation/shared_preferences_foundation.framework/Headers/shared_preferences_foundation-Swift.h \
-  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/shared_preferences_foundation/shared_preferences_foundation.framework/Headers/shared_preferences_foundation-umbrella.h
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/shared_preferences_foundation/shared_preferences_foundation.framework/Headers/shared_preferences_foundation-umbrella.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/torch_light/torch_light.framework/Headers/TorchLightPlugin.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/torch_light/torch_light.framework/Modules/module.modulemap \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/torch_light/torch_light.framework/Headers/torch_light-Swift.h \
+  /Users/eda/Documents/GitHub/purple_filter-main/ios/build/Release-prod-iphoneos/torch_light/torch_light.framework/Headers/torch_light-umbrella.h
